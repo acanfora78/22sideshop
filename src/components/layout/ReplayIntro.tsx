@@ -22,7 +22,7 @@ export function ReplayIntro({ className }: { className?: string }) {
         else router.push("/");
       }}
     >
-      Replay intro ↻
+      Rivedi l’intro ↻
     </button>
   );
 }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
-/** Demo newsletter: validates locally, sends nothing. Wire to Shopify customer marketing later. */
+/** Newsletter demo: validates locally, sends nothing. Wire to Shopify customer marketing later. */
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "error" | "done">("idle");
@@ -18,7 +18,7 @@ export function NewsletterForm() {
       }}
     >
       <label htmlFor="newsletter-email" className="sr-only">
-        Email address
+        Indirizzo email
       </label>
       <div className="flex border-b border-dirty/40 focus-within:border-dirty">
         <input
@@ -29,19 +29,19 @@ export function NewsletterForm() {
             setEmail(e.target.value);
             setState("idle");
           }}
-          placeholder="your@email.com"
+          placeholder="la-tua@email.it"
           className="w-full bg-transparent py-3 font-mono text-sm text-dirty placeholder:text-concrete focus:outline-none"
           aria-invalid={state === "error"}
           aria-describedby="newsletter-msg"
         />
-        <button type="submit" className="label flex items-center gap-2 px-2 text-dirty hover:text-blood-bright" aria-label="Subscribe">
-          Join <ArrowRight className="size-4" strokeWidth={1.5} />
+        <button type="submit" className="label flex items-center gap-2 px-2 text-dirty hover:text-blood-bright" aria-label="Iscriviti">
+          Iscriviti <ArrowRight className="size-4" strokeWidth={1.5} />
         </button>
       </div>
       <p id="newsletter-msg" role="status" className="label mt-3 min-h-4 text-[0.6rem] text-concrete">
-        {state === "error" && <span className="text-blood-bright">Enter a valid email address.</span>}
-        {state === "done" && <span className="text-dirty">You&apos;re on the list — demo only, nothing was sent.</span>}
-        {state === "idle" && "Demo form — no data is stored or sent."}
+        {state === "error" && <span className="text-blood-bright">Inserisci un indirizzo email valido.</span>}
+        {state === "done" && <span className="text-dirty">Sei dentro — solo demo, non è stato inviato nulla.</span>}
+        {state === "idle" && "Modulo demo — nessun dato viene salvato o inviato."}
       </p>
     </form>
   );

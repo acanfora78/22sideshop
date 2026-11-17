@@ -24,13 +24,13 @@ export function QuantityStepper({
   );
   return (
     <div className={cn("inline-flex items-center border border-dirty/30", size === "sm" ? "h-8" : "h-12")} role="group" aria-label={label}>
-      <button type="button" className={btn} onClick={() => onChange(value - 1)} disabled={value <= min} aria-label="Decrease quantity">
+      <button type="button" className={btn} onClick={() => onChange(value - 1)} disabled={value <= min} aria-label="Diminuisci quantità">
         <Minus className="size-3.5" strokeWidth={1.5} />
       </button>
       <output className={cn("text-center font-mono text-sm tabular-nums", size === "sm" ? "w-7" : "w-10")} aria-live="polite">
         {value}
       </output>
-      <button type="button" className={btn} onClick={() => onChange(value + 1)} disabled={value >= max} aria-label="Increase quantity">
+      <button type="button" className={btn} onClick={() => onChange(value + 1)} disabled={value >= max} aria-label="Aumenta quantità">
         <Plus className="size-3.5" strokeWidth={1.5} />
       </button>
     </div>

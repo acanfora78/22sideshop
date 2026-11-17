@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getCollection } from "@/lib/commerce";
 import { CollectionPage } from "@/components/collection/CollectionPage";
 
-export const metadata: Metadata = { title: "New Arrivals" };
+export const metadata: Metadata = { title: "Novità" };
 
 export default async function NewArrivalsPage() {
   const collection = await getCollection("new-arrivals");

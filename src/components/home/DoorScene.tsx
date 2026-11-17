@@ -225,7 +225,7 @@ export function DoorScene({ onComplete, onClick }: { onComplete: () => void; onC
               22
             </text>
             <text x="1250" y="760" fontSize="56" fill={RED} transform="rotate(7 1250 760)">
-              open late
+              aperti tardi
             </text>
             <path d="M1080,600 q80,40 160,-10 t160,20" stroke={RED} strokeWidth="9" fill="none" strokeLinecap="round" />
             <path d="M200,560 q120,-30 260,10" stroke="#E8E5DF" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.7" />
@@ -273,11 +273,11 @@ export function DoorScene({ onComplete, onClick }: { onComplete: () => void; onC
               22SIDE
             </text>
             <text x="800" y={DOOR_T + 162} textAnchor="middle" fontFamily="var(--font-plex-mono), monospace" fontSize="15" letterSpacing="4" fill="#777">
-              EST. ON THE BLOCK
+              DAL BLOCCO, PER IL BLOCCO
             </text>
             <rect x={DOOR_L + 30} y={DOOR_T + 220} width={DOOR_R - DOOR_L - 60} height={FLOOR - DOOR_T - 250} fill="none" stroke="#2f2f2f" strokeWidth="3" />
             <Sticker x={720} y={720} r={-12} w={130} label="NO RULES" bg={RED} fg="#E8E5DF" />
-            <Sticker x={770} y={800} r={8} w={110} label="fresh drop" bg="#E8E5DF" fg="#0b0b0b" />
+            <Sticker x={770} y={800} r={8} w={110} label="nuovo drop" bg="#E8E5DF" fg="#0b0b0b" />
             <Sticker x={705} y={560} r={5} w={64} label="22" bg="#0b0b0b" fg="#E8E5DF" />
             {/* handle + lock */}
             <rect x={KEY.x - 9} y="470" width="18" height="100" rx="9" fill="#9a9a9a" />

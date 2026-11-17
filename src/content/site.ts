@@ -1,22 +1,25 @@
 /**
- * Site copy & navigation. In Shopify these become section settings / blocks
- * and linklists (menus) — keep copy out of components.
+ * Site copy & navigation (Italian). In Shopify these become section settings /
+ * blocks and linklists (menus) — keep copy out of components.
+ *
+ * Brand lines (slogan, "Not made to fit in.", "You don't follow the side…",
+ * "Enter the side") stay in English on purpose: they are part of the identity.
  */
 export const site = {
   name: "22SIDE",
   slogan: "No rules. Just attitude.",
-  positioning: "Independent Streetwear",
+  positioning: "Streetwear indipendente",
   instagram: "https://www.instagram.com/22sideshop/",
   instagramHandle: "@22sideshop",
   demoNotice:
-    "Demo prototype — all products, prices and stock levels are placeholders, not real 22SIDE merchandise. Checkout is disabled.",
+    "Prototipo demo — prodotti, prezzi e disponibilità sono segnaposto, non merce reale 22SIDE. Il checkout è disattivato.",
 };
 
 export const mainNav = [
   { label: "Shop", href: "/shop" },
-  { label: "New", href: "/new-arrivals" },
-  { label: "Collections", href: "/collections" },
-  { label: "About", href: "/about" },
+  { label: "Novità", href: "/new-arrivals" },
+  { label: "Collezioni", href: "/collections" },
+  { label: "Chi siamo", href: "/about" },
 ] as const;
 
 export const home = {
@@ -24,53 +27,53 @@ export const home = {
     cta: "Enter the side",
   },
   hero: {
-    issue: "Issue 22 — Night Shift",
+    issue: "Numero 22 — Turno di notte",
     lineOne: "No rules.",
     lineTwo: "Just attitude.",
-    sub: "Made for the ones who skate past the rules, stay out late and dress loud. Independent streetwear, straight off the block.",
-    primaryCta: { label: "Shop the drop", href: "/collections/drop-001" },
-    secondaryCta: { label: "The culture", href: "#culture" },
-    marquee: ["No rules", "Just attitude", "Fresh drop", "Cop it before it's gone", "Underground NYC", "Your crew, your side", "22SIDE®"],
+    sub: "Per chi le regole le scavalca con lo skate, fa tardi e si veste a volume alto. Streetwear indipendente, dritto dal blocco.",
+    primaryCta: { label: "Scopri il drop", href: "/collections/drop-001" },
+    secondaryCta: { label: "La cultura", href: "#culture" },
+    marquee: ["No rules", "Just attitude", "Nuovo drop", "Prendilo prima che finisca", "Underground NYC", "La tua crew, il tuo side", "22SIDE®"],
   },
   statement: {
     index: "03",
     label: "Manifesto",
     headline: "Not made to fit in.",
-    body: "More than clothing. A different perspective. An independent attitude shaped by street culture.",
+    body: "Più che vestiti. Una prospettiva diversa. Un'attitudine indipendente, nata dalla cultura di strada.",
     aside:
-      "Built for the ones who never asked permission. Heavy cotton, loud prints, a little rough at the edges — like your crew.",
+      "Fatto per chi non ha mai chiesto il permesso. Cotone pesante, stampe che si fanno sentire, un po' grezzo ai bordi — come la tua crew.",
   },
   drop: {
     index: "04",
-    label: "Latest Drop",
-    title: "Drop 001 — Night Shift",
-    cta: { label: "View the full drop", href: "/collections/drop-001" },
+    label: "Ultimo drop",
+    title: "Drop 001 — Turno di notte",
+    cta: { label: "Vedi tutto il drop", href: "/collections/drop-001" },
   },
   culture: {
     index: "05",
-    label: "Underground Culture",
-    title: "Field notes from the underground",
+    label: "Cultura underground",
+    title: "Appunti dall'underground",
     intro:
-      "Before the drop there's the city: the hiss of the train doors, water towers against a white sky, a fire escape that doubles as a stage. These are the frames we keep returning to.",
-    quote: "The street doesn't hand you a style. It hands you a point of view.",
+      "Prima del drop c'è la città: il sibilo delle porte del treno, le cisterne sui tetti contro un cielo bianco, una scala antincendio che diventa un palco. Sono le immagini a cui torniamo sempre.",
+    quote: "La strada non ti dà uno stile. Ti dà un punto di vista.",
     notes: [
-      { media: "subway", fig: "Fig. 01", caption: "Last train downtown. The platform is the runway." },
-      { media: "waterTowers", fig: "Fig. 02", caption: "Rooftop skyline. Wooden giants keeping watch." },
-      { media: "tiles", fig: "Fig. 03", caption: "22 Side St. A station that only exists if you know." },
-      { media: "fireEscape", fig: "Fig. 04", caption: "Iron stairs, brick walls. Summer nights outside the window." },
-      { media: "chainlink", fig: "Fig. 05", caption: "Courtside after dark. City lights behind the fence." },
+      { media: "subway", fig: "Fig. 01", caption: "Ultimo treno verso downtown. La banchina è la passerella." },
+      { media: "waterTowers", fig: "Fig. 02", caption: "Skyline dai tetti. Giganti di legno che fanno la guardia." },
+      { media: "tiles", fig: "Fig. 03", caption: "22 Side St. Una fermata che esiste solo se la conosci." },
+      { media: "fireEscape", fig: "Fig. 04", caption: "Scale di ferro, muri di mattoni. Notti d'estate fuori dalla finestra." },
+      { media: "chainlink", fig: "Fig. 05", caption: "Al campetto dopo il buio. Le luci della città dietro la rete." },
     ],
     columns: [
-      "Golden-era hip-hop taught a generation that you could build a whole world out of what the city left behind: a turntable, a wall, a borrowed mic. That spirit — resourceful, loud, proudly independent — is the blueprint.",
-      "East Coast grit, West Coast swagger, and the oversized silhouettes that came with both. We reference the era, we don't replay it. 1990s reimagined, cut for now.",
+      "L'hip-hop della golden age ha insegnato a una generazione che puoi costruire un mondo intero con quello che la città lascia indietro: un giradischi, un muro, un microfono in prestito. Quello spirito — pieno di risorse, rumoroso, orgogliosamente indipendente — è il nostro progetto.",
+      "La grinta della East Coast, lo swag della West Coast e le silhouette oversize che venivano con entrambe. Citiamo quell'epoca, non la ripetiamo. Anni '90 reinventati, tagliati per oggi.",
     ],
   },
   shop: {
     index: "06",
-    label: "Shop the Collection",
-    title: "Pick your side",
-    note: "Five chapters. One attitude. Pick one and jump in.",
-    cta: { label: "Explore all products", href: "/shop" },
+    label: "Shop la collezione",
+    title: "Scegli il tuo side",
+    note: "Cinque capitoli. Un'unica attitudine. Scegline uno e buttati.",
+    cta: { label: "Esplora tutti i prodotti", href: "/shop" },
   },
   final: {
     lineOne: "You don't follow the side.",
@@ -79,24 +82,24 @@ export const home = {
 };
 
 export const about = {
-  title: "The other side of the street",
+  title: "L'altro lato della strada",
   intro:
-    "22SIDE is an independent streetwear brand. No investors writing the rules, no trend forecasts — just a point of view shaped by American street culture, the New York underground and the golden age of hip-hop.",
+    "22SIDE è un brand di streetwear indipendente. Nessun investitore che detta le regole, nessuna previsione di tendenza — solo un punto di vista nato dalla cultura di strada americana, dall'underground di New York e dalla golden age dell'hip-hop.",
   chapters: [
     {
       n: "01",
-      title: "Independent by design",
-      body: "Independent means every decision is ours: what we make, how it looks, when it drops. It's slower. It's harder. It's the only way we know how to do it.",
+      title: "Indipendenti per scelta",
+      body: "Indipendenti vuol dire che ogni decisione è nostra: cosa facciamo, che faccia ha, quando esce. È più lento. È più difficile. È l'unico modo che conosciamo.",
     },
     {
       n: "02",
-      title: "Raised on the culture",
-      body: "Brooklyn stoops, late trains, mixtapes passed hand to hand, East and West Coast in constant conversation. We grew up looking at the 90s and we still haven't looked away.",
+      title: "Cresciuti nella cultura",
+      body: "Gradini di Brooklyn, treni a tarda notte, mixtape passati di mano in mano, East e West Coast sempre in dialogo. Siamo cresciuti guardando gli anni '90 e non abbiamo mai distolto lo sguardo.",
     },
     {
       n: "03",
       title: "No rules. Just attitude.",
-      body: "Our slogan isn't a tagline, it's a filter. If a piece could belong to anyone, it doesn't belong to us.",
+      body: "Il nostro slogan non è una tagline, è un filtro. Se un capo potrebbe essere di chiunque, non è nostro.",
     },
   ],
 };

@@ -66,13 +66,13 @@ export function UndergroundCulture() {
         <SectionLabel index={culture.index} label={culture.label} />
         <div className="mt-12 grid gap-10 md:mt-20 md:grid-cols-12">
           <h2 id="culture-title" className="md:col-span-8">
-            <SplitText text="Field notes" className="font-display text-huge block" />
-            <span className="mt-2 block font-serif text-[clamp(2.2rem,5.5vw,6rem)] leading-none italic text-dirty/85">from the underground</span>
+            <SplitText text="Appunti" className="font-display text-huge block" />
+            <span className="mt-2 block font-serif text-[clamp(2.2rem,5.5vw,6rem)] leading-none italic text-dirty/85">dall’underground</span>
           </h2>
           <div className="label flex flex-col justify-end gap-2 text-concrete md:col-span-3 md:col-start-10">
-            <span>Vol. 22 — No. 05</span>
-            <span>Photo essay / art-direction frames</span>
-            <span className="text-blood-bright">Read → scroll</span>
+            <span>Vol. 22 — N. 05</span>
+            <span>Saggio fotografico / frame di art direction</span>
+            <span className="text-blood-bright">Leggi → scorri</span>
           </div>
         </div>
         <div className="mt-14 grid gap-8 border-t border-dirty/15 pt-8 md:grid-cols-12">
@@ -91,7 +91,7 @@ export function UndergroundCulture() {
 
       {/* Horizontal strip (pinned on desktop, native swipe on mobile) */}
       <div ref={pinWrap} className="relative overflow-hidden lg:h-[100svh]">
-        <div className="label px-gutter absolute left-0 top-6 z-10 hidden text-concrete lg:block">Contact sheet — 05 frames</div>
+        <div className="label px-gutter absolute left-0 top-6 z-10 hidden text-concrete lg:block">Provino — 05 fotogrammi</div>
         <div
           ref={track}
           className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-6 lg:h-full lg:snap-none lg:items-stretch lg:gap-[4vw] lg:overflow-visible lg:py-[12vh]"
@@ -129,9 +129,9 @@ export function UndergroundCulture() {
         </Parallax>
         <div className="pointer-events-none absolute inset-0 flex items-end justify-between p-[var(--gutter)]">
           <ImageReveal direction="left" className="bg-obsidian px-4 py-3">
-            <p className="label">Next stop — 22 Side St.</p>
+            <p className="label">Prossima fermata — 22 Side St.</p>
           </ImageReveal>
-          <p className="label hidden text-dirty/70 md:block">Fig. 06 — Mosaic, art-direction frame</p>
+          <p className="label hidden text-dirty/70 md:block">Fig. 06 — Mosaico, frame di art direction</p>
         </div>
       </div>
     </section>

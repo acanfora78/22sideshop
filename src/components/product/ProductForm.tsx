@@ -39,11 +39,11 @@ export function ProductForm({ product }: { product: Product }) {
   if (!product.availableForSale) {
     return (
       <div className="space-y-4">
-        <p className="label text-blood-bright">Sold out — all sizes</p>
+        <p className="label text-blood-bright">Esaurito — tutte le taglie</p>
         <Button variant="outline" disabled className="w-full">
-          Sold out
+          Esaurito
         </Button>
-        <p className="text-sm text-dirty/60">Restock notifications will be available with the Shopify integration.</p>
+        <p className="text-sm text-dirty/60">Gli avvisi di riassortimento saranno disponibili con l’integrazione Shopify.</p>
       </div>
     );
   }
@@ -53,9 +53,9 @@ export function ProductForm({ product }: { product: Product }) {
       <fieldset>
         <div className="mb-3 flex items-baseline justify-between">
           <legend className="label text-concrete">
-            Size{variant && <span className="text-dirty"> — {variant.title}</span>}
+            Taglia{variant && <span className="text-dirty"> — {variant.title}</span>}
           </legend>
-          <span className="label text-concrete">Size guide at launch</span>
+          <span className="label text-concrete">Guida taglie al lancio</span>
         </div>
         <div className={cn("grid gap-1.5", single ? "grid-cols-1" : "grid-cols-3 sm:grid-cols-6")}>
           {product.variants.map((v) => {
@@ -76,7 +76,7 @@ export function ProductForm({ product }: { product: Product }) {
                   selected ? "border-dirty bg-dirty text-obsidian" : "border-dirty/25 text-dirty hover:border-dirty",
                   !v.availableForSale && "cursor-not-allowed border-dirty/10 text-concrete",
                 )}
-                aria-label={`Size ${v.title}${v.availableForSale ? "" : ", sold out"}`}
+                aria-label={`Taglia ${v.title}${v.availableForSale ? "" : ", esaurita"}`}
               >
                 {v.title}
                 {!v.availableForSale && (
@@ -88,21 +88,21 @@ export function ProductForm({ product }: { product: Product }) {
         </div>
         <p role="status" className="label mt-3 min-h-4 text-[0.65rem]">
           {error && !variant ? (
-            <span className="text-blood-bright">Select a size first.</span>
+            <span className="text-blood-bright">Prima scegli una taglia.</span>
           ) : stock ? (
             <span className={stock.tone === "low" ? "text-blood-bright" : stock.tone === "out" ? "text-concrete" : "text-dirty/70"}>
-              ● {stock.label} <span className="text-concrete">(demo stock)</span>
+              ● {stock.label} <span className="text-concrete">(disponibilità demo)</span>
             </span>
           ) : (
             <span className="text-concrete">
-              {firstAvailable ? "Choose your size" : ""}
+              {firstAvailable ? "Scegli la tua taglia" : ""}
             </span>
           )}
         </p>
       </fieldset>
 
       <div className="flex gap-2">
-        <QuantityStepper value={qty} max={Math.max(1, remaining)} onChange={setQty} label="Quantity" />
+        <QuantityStepper value={qty} max={Math.max(1, remaining)} onChange={setQty} label="Quantità" />
         <Button
           variant="red"
           className="flex-1"
@@ -121,19 +121,19 @@ export function ProductForm({ product }: { product: Product }) {
             >
               {added ? (
                 <>
-                  <Check className="size-4" strokeWidth={1.5} /> Added to bag
+                  <Check className="size-4" strokeWidth={1.5} /> Aggiunto alla borsa
                 </>
               ) : variant && remaining <= 0 ? (
-                "All available units in bag"
+                "Hai già tutti i pezzi disponibili"
               ) : (
-                <>Add to bag — {formatMoney((variant ?? product.variants[0]).price)}</>
+                <>Aggiungi alla borsa — {formatMoney((variant ?? product.variants[0]).price)}</>
               )}
             </motion.span>
           </AnimatePresence>
         </Button>
       </div>
       <p id="add-note" className="label text-[0.6rem] leading-relaxed text-concrete">
-        Demo product · placeholder price · checkout disabled
+        Prodotto demo · prezzo segnaposto · checkout disattivato
       </p>
     </div>
   );

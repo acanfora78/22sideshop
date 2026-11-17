@@ -34,13 +34,13 @@ export function LatestDrop({ products }: { products: Product[] }) {
             <span className="relative inline-block">
               <SplitText text="Drop 001" className="block" />
               <Scribble className="absolute -bottom-3 left-0 h-6 w-full" delay={0.6} />
-              <Sticker label="new!" tone="red" rotate={12} delay={0.8} className="absolute -right-6 -top-4 md:-right-14" />
+              <Sticker label="nuovo!" tone="red" rotate={12} delay={0.8} className="absolute -right-6 -top-4 md:-right-14" />
             </span>
-            <span className="mt-2 block font-serif text-[0.42em] normal-case italic tracking-normal text-dirty/80">— Night Shift</span>
+            <span className="mt-2 block font-serif text-[0.42em] normal-case italic tracking-normal text-dirty/80">— Turno di notte</span>
           </h2>
           <Reveal className="max-w-xs space-y-5">
             <p className="text-sm leading-relaxed text-dirty/70">
-              First drop, shot after dark. Big fits, loud prints, one red signal. Grab your size before the block does. (Demo products for layout preview.)
+              Primo drop, scattato dopo il tramonto. Fit larghi, stampe che urlano, un solo segnale rosso. Prendi la tua taglia prima che lo faccia il blocco. (Prodotti demo per l’anteprima del layout.)
             </p>
             <ButtonLink href={drop.cta.href} variant="outline">
               {drop.cta.label}
@@ -50,7 +50,7 @@ export function LatestDrop({ products }: { products: Product[] }) {
       </div>
 
       {/* Mobile rail */}
-      <ul className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-[var(--gutter)] scroll-px-[var(--gutter)] lg:hidden" aria-label="Latest drop products">
+      <ul className="no-scrollbar mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-[var(--gutter)] scroll-px-[var(--gutter)] lg:hidden" aria-label="Prodotti dell'ultimo drop">
         {items.map((p, i) => (
           <li key={p.handle} className="w-[78vw] max-w-sm shrink-0 snap-start">
             <ProductCard product={p} index={i} sizes="80vw" />
@@ -58,7 +58,7 @@ export function LatestDrop({ products }: { products: Product[] }) {
         ))}
         <li className="flex w-[60vw] max-w-xs shrink-0 snap-start items-center justify-center border border-dirty/15">
           <Link href={drop.cta.href} className="font-display p-6 text-center text-4xl">
-            View all →
+            Vedi tutto →
           </Link>
         </li>
       </ul>

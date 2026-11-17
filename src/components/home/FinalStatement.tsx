@@ -37,7 +37,7 @@ export function FinalStatement() {
   }, []);
 
   return (
-    <section ref={root} className="relative isolate overflow-hidden pt-32 md:pt-48" aria-label="Final statement">
+    <section ref={root} className="relative isolate overflow-hidden pt-32 md:pt-48" aria-label="Chiusura">
       <div className="absolute inset-0 -z-10">
         <Image src={media.chainlink.url} alt="" fill sizes="100vw" className="object-cover opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/60 to-obsidian" />
@@ -45,7 +45,7 @@ export function FinalStatement() {
 
       <div className="px-gutter">
         <p className="label text-concrete">
-          <span className="text-blood">07</span> / Last word
+          <span className="text-blood">07</span> / Ultima parola
         </p>
         <h2 className="mt-12 md:mt-20">
           <SplitText text={final.lineOne} className="font-display text-big block text-dirty/90" />
@@ -57,7 +57,7 @@ export function FinalStatement() {
         <div className="label mt-12 flex flex-wrap justify-between gap-4 text-concrete">
           <span>{site.slogan}</span>
           <a href={site.instagram} target="_blank" rel="noreferrer" className="link-underline text-dirty">
-            Follow {site.instagramHandle} ↗
+            Seguici {site.instagramHandle} ↗
           </a>
         </div>
       </div>

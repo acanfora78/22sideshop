@@ -15,9 +15,9 @@ import { INTRO_DONE_EVENT } from "./useIntroDone";
 type Phase = "scene" | "title" | "leaving" | "done";
 
 const TITLE_STICKERS = [
-  { label: "No rules", tone: "red", className: "left-[6%] top-[18%]", rotate: -14, delay: 0.25 },
-  { label: "Open late", tone: "white", className: "right-[8%] top-[22%]", rotate: 10, delay: 0.35 },
-  { label: "Fresh drop", tone: "black", className: "left-[10%] bottom-[22%]", rotate: 8, delay: 0.45 },
+  { label: "Niente regole", tone: "red", className: "left-[6%] top-[18%]", rotate: -14, delay: 0.25 },
+  { label: "Aperti fino a tardi", tone: "white", className: "right-[8%] top-[22%]", rotate: 10, delay: 0.35 },
+  { label: "Nuovo drop", tone: "black", className: "left-[10%] bottom-[22%]", rotate: 8, delay: 0.45 },
   { label: "22", tone: "red", className: "right-[12%] bottom-[18%]", rotate: -6, delay: 0.55, big: true },
 ] as const;
 
@@ -198,7 +198,7 @@ export function IntroSequence() {
                     </button>
                   </Magnetic>
                 </motion.div>
-                <p className="label pointer-events-none absolute bottom-6 text-concrete">psst — the stickers move</p>
+                <p className="label pointer-events-none absolute bottom-6 text-concrete">psst — gli sticker si spostano</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -208,7 +208,7 @@ export function IntroSequence() {
             onClick={finish}
             className="label absolute right-4 top-12 z-10 border border-dirty/30 bg-obsidian/60 px-3 py-2 text-dirty/80 backdrop-blur-sm transition-colors hover:bg-dirty hover:text-obsidian md:right-8 md:top-16"
           >
-            Skip intro →
+            Salta l’intro →
           </button>
         </motion.div>
       )}

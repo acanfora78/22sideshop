@@ -43,7 +43,7 @@ export function CartDrawer() {
         <div className="fixed inset-0 z-[70]">
           <motion.button
             type="button"
-            aria-label="Close cart"
+            aria-label="Chiudi il carrello"
             className="absolute inset-0 cursor-default bg-obsidian/70 backdrop-blur-[2px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -63,10 +63,10 @@ export function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-dirty/10 px-6 py-5">
               <h2 id="cart-title" className="font-display text-3xl">
-                Your bag
+                La tua borsa
               </h2>
               <button ref={closeBtn} type="button" onClick={close} className="label flex items-center gap-2 p-2 hover:text-blood-bright">
-                Close <X className="size-4" strokeWidth={1.5} />
+                Chiudi <X className="size-4" strokeWidth={1.5} />
               </button>
             </div>
 
@@ -77,14 +77,14 @@ export function CartDrawer() {
               </div>
             ) : lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-start justify-center gap-6 px-6">
-                <p className="label text-blood-bright">Empty bag</p>
-                <p className="font-display text-6xl leading-[0.9]">Nothing here. Yet.</p>
-                <p className="max-w-xs text-sm text-dirty/70">The block is waiting. Go pick your side.</p>
-                <ButtonLink href="/shop">Shop all products</ButtonLink>
+                <p className="label text-blood-bright">Borsa vuota</p>
+                <p className="font-display text-6xl leading-[0.9]">Ancora niente qui.</p>
+                <p className="max-w-xs text-sm text-dirty/70">Il blocco ti aspetta. Vai a scegliere il tuo side.</p>
+                <ButtonLink href="/shop">Vedi tutti i prodotti</ButtonLink>
               </div>
             ) : (
               <>
-                <ul className="flex-1 overflow-y-auto px-6" aria-label="Cart items">
+                <ul className="flex-1 overflow-y-auto px-6" aria-label="Articoli nel carrello">
                   <AnimatePresence initial={false}>
                     {lines.map((l) => (
                       <CartLineItem key={l.id} line={l} onNavigate={close} />
@@ -94,7 +94,7 @@ export function CartDrawer() {
                 <div className="border-t border-dirty/10 bg-obsidian/60 p-6">
                   <CartSummary />
                   <Link href="/cart" className="label link-underline mt-4 block text-center text-dirty/80" onClick={close}>
-                    View full cart
+                    Vai al carrello
                   </Link>
                 </div>
               </>

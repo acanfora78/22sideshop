@@ -26,10 +26,10 @@ const marker = Permanent_Marker({ weight: "400", subsets: ["latin"], variable: "
 export const metadata: Metadata = {
   metadataBase: new URL("https://22side.example"),
   title: { default: "22SIDE® — No Rules. Just Attitude.", template: "%s — 22SIDE®" },
-  description: "22SIDE — independent streetwear shaped by underground New York and 1990s street culture. Demo prototype.",
+  description: "22SIDE — streetwear indipendente nato dall'underground di New York e dalla cultura di strada degli anni '90. Prototipo demo.",
   openGraph: {
     title: "22SIDE® — No Rules. Just Attitude.",
-    description: "Independent streetwear. Underground NYC — 1990s reimagined.",
+    description: "Streetwear indipendente. Underground NYC — anni '90 reinventati.",
     images: [{ url: "/media/scene-street-figure.jpg", width: 2400, height: 1500 }],
   },
   robots: { index: false, follow: false },
@@ -46,7 +46,7 @@ const introScript = `try{var t=+localStorage.getItem(${JSON.stringify(INTRO_STOR
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="it"
       suppressHydrationWarning
       className={`${anton.variable} ${archivo.variable} ${plexMono.variable} ${instrument.variable} ${marker.variable} antialiased`}
     >
@@ -58,7 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="#main"
           className="label sr-only z-[100] bg-dirty px-4 py-3 text-obsidian focus:not-sr-only focus:fixed focus:left-3 focus:top-3"
         >
-          Skip to content
+          Vai al contenuto
         </a>
         <CartProvider>
           <SmoothScroll>

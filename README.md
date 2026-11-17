@@ -5,6 +5,8 @@ Raw, dark, cinematic; huge condensed type, film grain, B&W night imagery, Blood 
 
 > ⚠️ All products, prices and stock levels are **placeholders**, not real 22SIDE merchandise. Checkout is intentionally disabled.
 
+**Language:** the site is in Italian (`lang="it"`, prices `it-IT`). Brand lines stay in English by design: *No rules. Just attitude.*, *Not made to fit in.*, *You don't follow the side. You create it.*, *Enter the side*. All copy lives in `src/content/site.ts` and `src/data/*`.
+
 ```bash
 npm install
 npm run dev        # http://localhost:3000

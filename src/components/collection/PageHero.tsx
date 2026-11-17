@@ -11,6 +11,7 @@ export function PageHero({
   image,
   count,
   index = "22",
+  countLabel = ["pezzo", "pezzi"],
 }: {
   kicker: string;
   title: string;
@@ -18,6 +19,7 @@ export function PageHero({
   image?: Img;
   count?: number;
   index?: string;
+  countLabel?: [string, string];
 }) {
   return (
     <section className="relative isolate overflow-hidden pt-[calc(var(--header-h)+2rem)]">
@@ -34,7 +36,7 @@ export function PageHero({
           </span>
           {count !== undefined && (
             <span>
-              {count} piece{count === 1 ? "" : "s"}
+              {count} {count === 1 ? countLabel[0] : countLabel[1]}
             </span>
           )}
         </div>

@@ -8,14 +8,14 @@ import { PageHero } from "@/components/collection/PageHero";
 import { ImageReveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/format";
 
-export const metadata: Metadata = { title: "Collections" };
+export const metadata: Metadata = { title: "Collezioni" };
 
 export default async function CollectionsIndex() {
   const collections = await getCollections();
   const counts = await Promise.all(collections.map((c) => getCollectionProducts(c.handle).then((p) => p.length)));
   return (
     <>
-      <PageHero kicker="Collections" title="Choose a chapter" image={media.skyline} index="03" count={collections.length} />
+      <PageHero kicker="Collezioni" title="Scegli un capitolo" image={media.skyline} index="03" count={collections.length} countLabel={["capitolo", "capitoli"]} />
       <div className="px-gutter grid gap-3 pb-24 md:grid-cols-2">
         {collections.map((c, i) => (
           <Link
@@ -38,7 +38,7 @@ export default async function CollectionsIndex() {
                 <span>
                   <span className="text-blood">{String(i + 1).padStart(2, "0")}</span> / {c.kicker}
                 </span>
-                <span>{counts[i]} pieces</span>
+                <span>{counts[i]} pezzi</span>
               </div>
               <div className="flex items-end justify-between gap-4">
                 <h2 className="font-display text-[clamp(3rem,9vw,9rem)]">{c.title}</h2>

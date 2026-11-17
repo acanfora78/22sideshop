@@ -9,10 +9,10 @@ import { ProductGrid } from "./ProductGrid";
 import { ButtonLink } from "@/components/ui/Button";
 
 const SORTS: { key: ProductSortKey; label: string }[] = [
-  { key: "featured", label: "Featured" },
-  { key: "newest", label: "Newest" },
-  { key: "price-asc", label: "Price ↑" },
-  { key: "price-desc", label: "Price ↓" },
+  { key: "featured", label: "In evidenza" },
+  { key: "newest", label: "Più recenti" },
+  { key: "price-asc", label: "Prezzo ↑" },
+  { key: "price-desc", label: "Prezzo ↓" },
 ];
 
 /** Toolbar (collection chips, availability filter, sort) + grid. */
@@ -38,9 +38,9 @@ export function CollectionView({
     <div>
       <div className="sticky top-0 z-30 -mx-[var(--gutter)] mb-10 border-y border-dirty/10 bg-obsidian/90 px-[var(--gutter)] backdrop-blur-md">
         <div className="flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
-          <nav aria-label="Collections" className="no-scrollbar -mx-1 flex gap-1 overflow-x-auto">
+          <nav aria-label="Collezioni" className="no-scrollbar -mx-1 flex gap-1 overflow-x-auto">
             <Chip href="/shop" active={!activeHandle}>
-              All
+              Tutto
             </Chip>
             {collections.map((c) => (
               <Chip key={c.handle} href={c.handle === "new-arrivals" ? "/new-arrivals" : `/collections/${c.handle}`} active={activeHandle === c.handle}>
@@ -51,11 +51,11 @@ export function CollectionView({
           <div className="flex items-center justify-between gap-4 lg:justify-end">
             <label className="label flex cursor-pointer items-center gap-2 text-dirty/80">
               <input type="checkbox" checked={inStock} onChange={(e) => setInStock(e.target.checked)} className="size-3.5 accent-[#8b1717]" />
-              In stock only
+              Solo disponibili
             </label>
             <div className="flex items-center gap-2">
               <label htmlFor="sort" className="label text-concrete">
-                Sort
+                Ordina
               </label>
               <select
                 id="sort"
@@ -71,7 +71,7 @@ export function CollectionView({
               </select>
             </div>
             <span className="label hidden text-concrete sm:inline" aria-live="polite">
-              {list.length} item{list.length === 1 ? "" : "s"}
+              {list.length} {list.length === 1 ? "articolo" : "articoli"}
             </span>
           </div>
         </div>
@@ -79,9 +79,9 @@ export function CollectionView({
 
       {list.length === 0 ? (
         <div className="flex flex-col items-start gap-6 py-24">
-          <p className="font-display text-big">Nothing in stock here.</p>
-          <p className="text-dirty/70">Turn off the stock filter or explore the full catalogue.</p>
-          <ButtonLink href="/shop">Shop all</ButtonLink>
+          <p className="font-display text-big">Qui è tutto esaurito.</p>
+          <p className="text-dirty/70">Togli il filtro disponibilità o esplora tutto il catalogo.</p>
+          <ButtonLink href="/shop">Vedi tutto</ButtonLink>
         </div>
       ) : (
         <ProductGrid products={list} />

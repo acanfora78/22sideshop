@@ -148,11 +148,11 @@ def stamp(img: Image.Image, code: str, view: str):
     mono = font("IBMPlexMono.ttf", 26)
     mono_s = font("IBMPlexMono.ttf", 22)
     # top-left label block
-    d.rectangle([40, 40, 470, 112], fill=(232, 229, 223))
-    d.text((56, 48), "DEMO PRODUCT", font=mono, fill=(8, 8, 8))
-    d.text((56, 80), "PLACEHOLDER IMAGE", font=mono_s, fill=(139, 23, 23))
-    d.text((40, H - 72), f"22SIDE / {code} / {view.upper()}", font=mono_s, fill=(232, 229, 223))
-    d.text((W - 300, H - 72), "NOT FOR SALE", font=mono_s, fill=(119, 119, 119))
+    d.rectangle([40, 40, 500, 112], fill=(232, 229, 223))
+    d.text((56, 48), "PRODOTTO DEMO", font=mono, fill=(8, 8, 8))
+    d.text((56, 80), "IMMAGINE SEGNAPOSTO", font=mono_s, fill=(139, 23, 23))
+    d.text((40, H - 72), f"22SIDE / {code} / {dict(front='FRONTE', back='RETRO').get(view, view.upper())}", font=mono_s, fill=(232, 229, 223))
+    d.text((W - 330, H - 72), "NON IN VENDITA", font=mono_s, fill=(119, 119, 119))
     # crop marks
     for (x, y, dx, dy) in ((24, 24, 1, 1), (W - 24, 24, -1, 1), (24, H - 24, 1, -1), (W - 24, H - 24, -1, -1)):
         d.line([(x, y), (x + 40 * dx, y)], fill=(119, 119, 119), width=2)
@@ -227,7 +227,7 @@ def render(code, kind, color, print_spec, seed, view):
 def detail_crop(img: Image.Image, box):
     x0, y0, x1, y1 = [int(v) for v in (box[0] * W, box[1] * H, box[2] * W, box[3] * H)]
     crop = img.crop((x0, y0, x1, y1)).resize((W, H), Image.LANCZOS).filter(ImageFilter.UnsharpMask(2, 60))
-    stamp(crop, "DETAIL", "macro")
+    stamp(crop, "DETTAGLIO", "macro")
     return crop
 
 

@@ -24,7 +24,7 @@ export default async function Home() {
       <Hero />
       <BrandStatement />
       <Marquee
-        items={["Not made to fit in", "22SIDE®", "Independent streetwear", "Drop 001"]}
+        items={["Not made to fit in", "22SIDE®", "Streetwear indipendente", "Drop 001"]}
         className="font-display -rotate-2 scale-105 border-y border-dirty/15 bg-dirty py-3 text-4xl text-obsidian md:text-6xl"
         speed={36}
       />

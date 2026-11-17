@@ -11,21 +11,21 @@ export async function Footer() {
     {
       title: "Shop",
       links: [
-        { label: "Shop all", href: "/shop" },
-        { label: "New arrivals", href: "/new-arrivals" },
-        { label: "Collections", href: "/collections" },
-        { label: "Search", href: "/search" },
-        { label: "Cart", href: "/cart" },
+        { label: "Tutti i prodotti", href: "/shop" },
+        { label: "Novità", href: "/new-arrivals" },
+        { label: "Collezioni", href: "/collections" },
+        { label: "Cerca", href: "/search" },
+        { label: "Carrello", href: "/cart" },
       ],
     },
     {
-      title: "Collections",
+      title: "Collezioni",
       links: collections.map((c) => ({ label: c.title, href: `/collections/${c.handle}` })),
     },
     {
       title: "22SIDE",
       links: [
-        { label: "About", href: "/about" },
+        { label: "Chi siamo", href: "/about" },
         { label: "Instagram ↗", href: site.instagram, external: true },
       ],
     },
@@ -36,7 +36,7 @@ export async function Footer() {
       <div className="px-gutter grid gap-12 py-16 md:grid-cols-12 md:py-20">
         <div className="md:col-span-5">
           <p className="label text-concrete">Newsletter — The Side Letter</p>
-          <p className="font-display mt-4 text-4xl md:text-5xl">Drops land here first.</p>
+          <p className="font-display mt-4 text-4xl md:text-5xl">I drop arrivano prima qui.</p>
           <NewsletterForm />
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-6 md:col-start-7">

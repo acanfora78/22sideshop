@@ -52,11 +52,11 @@ export function Header() {
         )}
       >
         <div className="px-gutter flex h-[var(--header-h)] items-center justify-between gap-6">
-          <Link href="/" className="relative z-10 text-[1.75rem] text-dirty" aria-label="22SIDE — home">
+          <Link href="/" className="relative z-10 text-[1.75rem] text-dirty" aria-label="22SIDE — home page">
             <Logo />
           </Link>
 
-          <nav aria-label="Main" className="hidden items-center gap-9 md:flex">
+          <nav aria-label="Principale" className="hidden items-center gap-9 md:flex">
             {mainNav.map((item, i) => (
               <Link
                 key={item.href}
@@ -78,19 +78,19 @@ export function Header() {
             <Link
               href="/search"
               className="label hidden items-center gap-2 p-2 text-dirty/70 transition-colors hover:text-dirty md:flex"
-              aria-label="Search products"
+              aria-label="Cerca prodotti"
             >
               <Search className="size-4" strokeWidth={1.5} />
-              <span className="hidden xl:inline">Search</span>
+              <span className="hidden xl:inline">Cerca</span>
             </Link>
             <button
               type="button"
               onClick={open}
               className="label flex items-center gap-2 p-2 text-dirty transition-colors hover:text-blood-bright"
-              aria-label={`Open cart, ${totalQuantity} item${totalQuantity === 1 ? "" : "s"}`}
+              aria-label={`Apri il carrello, ${totalQuantity} ${totalQuantity === 1 ? "articolo" : "articoli"}`}
             >
               <ShoppingBag className="size-[1.1rem]" strokeWidth={1.5} />
-              <span className="hidden sm:inline">Cart</span>
+              <span className="hidden sm:inline">Carrello</span>
               <span className="relative inline-flex h-5 min-w-5 items-center justify-center overflow-hidden bg-dirty px-1 text-[0.65rem] text-obsidian">
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.span
@@ -112,7 +112,7 @@ export function Header() {
               aria-controls="mobile-menu"
               onClick={() => setMenuOpen((v) => !v)}
             >
-              <span>{menuOpen ? "Close" : "Menu"}</span>
+              <span>{menuOpen ? "Chiudi" : "Menu"}</span>
               <span aria-hidden className="relative block h-3 w-5">
                 <span
                   className={cn(

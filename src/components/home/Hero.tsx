@@ -134,22 +134,22 @@ export function Hero() {
         {...enter(0.5)}
         className="label pointer-events-none absolute right-[var(--gutter)] top-1/2 hidden -translate-y-1/2 text-concrete [writing-mode:vertical-rl] xl:block"
       >
-        Underground NYC — 1990s reimagined
+        Underground NYC — anni ’90 reinventati
       </motion.p>
 
       {/* Draggable sticker bomb */}
       {ready && (
         <div className="pointer-events-none absolute inset-0 z-10">
-          <Sticker label="Fresh drop" tone="red" rotate={-10} delay={0.9} draggable className="absolute right-[6%] top-[24%] md:right-[16%] md:top-[26%]" />
+          <Sticker label="Nuovo drop" tone="red" rotate={-10} delay={0.9} draggable className="absolute right-[6%] top-[24%] md:right-[16%] md:top-[26%]" />
           <Sticker label="22" tone="white" rotate={8} delay={1.05} big draggable className="absolute right-[10%] top-[34%] md:right-[30%] md:top-[40%]" />
-          <Sticker label="Open late" tone="black" rotate={6} delay={1.2} draggable className="absolute right-[8%] top-[46%] max-md:!hidden" />
+          <Sticker label="Aperti fino a tardi" tone="black" rotate={6} delay={1.2} draggable className="absolute right-[8%] top-[46%] max-md:!hidden" />
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.6 }}
             className="font-marker pointer-events-none absolute right-[18%] top-[19%] hidden -rotate-6 text-lg text-dirty/80 md:block"
           >
-            drag us ↓
+            trascinaci ↓
           </motion.p>
         </div>
       )}

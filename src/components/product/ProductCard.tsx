@@ -67,14 +67,14 @@ export function ProductCard({
             aria-hidden
             className="font-marker pointer-events-none absolute bottom-4 left-3 z-[4] -rotate-6 scale-0 bg-blood px-3 py-1 text-lg text-dirty shadow-[3px_3px_0_#080808] transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-100"
           >
-            cop it!
+            prendilo!
           </span>
         )}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-3">
           {index !== undefined && <span className="label text-dirty/80">{String(index + 1).padStart(2, "0")}</span>}
           <div className="flex flex-col items-end gap-1">
-            {soldOut && <span className="label bg-dirty px-2 py-1 text-[0.6rem] text-obsidian">Sold out</span>}
-            {lowStock && <span className="label bg-blood px-2 py-1 text-[0.6rem] text-dirty">Few sizes left</span>}
+            {soldOut && <span className="label bg-dirty px-2 py-1 text-[0.6rem] text-obsidian">Esaurito</span>}
+            {lowStock && <span className="label bg-blood px-2 py-1 text-[0.6rem] text-dirty">Poche taglie</span>}
           </div>
         </div>
 
@@ -84,7 +84,7 @@ export function ProductCard({
               type="button"
               onClick={() => (single ? addItem(product, product.variants[0]) : setQuickOpen((v) => !v))}
               className="absolute bottom-3 right-3 z-10 flex size-10 items-center justify-center bg-dirty text-obsidian transition-[transform,background-color] duration-300 hover:bg-blood hover:text-dirty md:translate-y-2 md:opacity-0 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 md:group-hover:translate-y-0 md:group-hover:opacity-100"
-              aria-label={single ? `Add ${product.title} to cart` : `Quick add ${product.title} — choose size`}
+              aria-label={single ? `Aggiungi ${product.title} al carrello` : `Aggiunta rapida ${product.title} — scegli la taglia`}
               aria-expanded={single ? undefined : quickOpen}
             >
               <Plus className={cn("size-4 transition-transform duration-300", quickOpen && "rotate-45")} strokeWidth={1.5} />
@@ -98,7 +98,7 @@ export function ProductCard({
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="absolute inset-x-0 bottom-0 z-[5] bg-obsidian/95 p-3 pr-16 backdrop-blur"
                 >
-                  <p className="label mb-2 text-concrete">Quick add — size</p>
+                  <p className="label mb-2 text-concrete">Aggiunta rapida — taglia</p>
                   <div className="flex flex-wrap gap-1.5">
                     {product.variants.map((v) => (
                       <button
@@ -110,7 +110,7 @@ export function ProductCard({
                           setQuickOpen(false);
                         }}
                         className="label min-w-9 border border-dirty/30 px-2 py-1.5 text-dirty transition-colors hover:bg-dirty hover:text-obsidian disabled:text-concrete disabled:line-through disabled:hover:bg-transparent"
-                        aria-label={`Add size ${v.title}${v.availableForSale ? "" : " (sold out)"}`}
+                        aria-label={`Aggiungi taglia ${v.title}${v.availableForSale ? "" : " (esaurita)"}`}
                       >
                         {v.title}
                       </button>

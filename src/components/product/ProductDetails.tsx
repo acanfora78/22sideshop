@@ -11,7 +11,7 @@ export function ProductDetails({ product }: { product: Product }) {
   const panels = [
     {
       id: "details",
-      title: "Details",
+      title: "Dettagli",
       body: (
         <ul className="space-y-2">
           {product.details.map((d) => (
@@ -25,16 +25,16 @@ export function ProductDetails({ product }: { product: Product }) {
     },
     {
       id: "shipping",
-      title: "Shipping & returns",
-      body: <p>Shipping rates, delivery times and return policy will be published by 22SIDE with the live store.</p>,
+      title: "Spedizioni e resi",
+      body: <p>Costi di spedizione, tempi di consegna e politica di reso saranno pubblicati da 22SIDE con il negozio online.</p>,
     },
     {
       id: "demo",
-      title: "About this demo",
+      title: "Su questa demo",
       body: (
         <p>
-          This is a placeholder product used to preview the shopping experience. Images are generated flat-lay renders, and the
-          price and stock shown are not real.
+          Questo è un prodotto segnaposto per mostrare l’esperienza di acquisto. Le immagini sono render generati, e
+          prezzo e disponibilità non sono reali.
         </p>
       ),
     },

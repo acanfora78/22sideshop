@@ -13,8 +13,8 @@ import { EASE_IN_OUT, EASE_OUT } from "@/components/motion/Reveal";
 import { useCart } from "@/components/cart/CartProvider";
 
 const extra = [
-  { label: "Search", href: "/search" },
-  { label: "Cart", href: "/cart" },
+  { label: "Cerca", href: "/search" },
+  { label: "Carrello", href: "/cart" },
 ];
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -62,18 +62,18 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
           >
             <Search className="size-4 text-concrete" strokeWidth={1.5} aria-hidden />
             <label htmlFor="mobile-search" className="sr-only">
-              Search products
+              Cerca prodotti
             </label>
             <input
               id="mobile-search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Search the side"
+              placeholder="Cerca nel side"
               className="label w-full bg-transparent py-2 text-sm text-dirty placeholder:text-concrete focus:outline-none"
             />
           </form>
 
-          <nav aria-label="Mobile" className="px-gutter mt-8 flex flex-1 flex-col">
+          <nav aria-label="Navigazione mobile" className="px-gutter mt-8 flex flex-1 flex-col">
             {mainNav.map((item, i) => (
               <motion.div
                 key={item.href}

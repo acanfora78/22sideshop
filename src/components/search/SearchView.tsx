@@ -8,7 +8,7 @@ import type { Product } from "@/lib/commerce/types";
 import { searchProducts } from "@/lib/commerce/sort";
 import { ProductCard } from "@/components/product/ProductCard";
 
-const SUGGESTIONS = ["tee", "hoodie", "black", "cargo", "headwear", "print"];
+const SUGGESTIONS = ["t-shirt", "felpa", "nero", "cargo", "cappello", "stampa"];
 
 export function SearchView({ products, initialQuery }: { products: Product[]; initialQuery: string }) {
   const router = useRouter();
@@ -34,7 +34,7 @@ export function SearchView({ products, initialQuery }: { products: Product[]; in
       <form role="search" onSubmit={(e) => e.preventDefault()} className="flex items-center gap-4 border-b-2 border-dirty/60 pb-2 focus-within:border-blood-bright">
         <Search className="size-7 shrink-0 text-concrete md:size-10" strokeWidth={1.25} aria-hidden />
         <label htmlFor="search-input" className="sr-only">
-          Search products
+          Cerca prodotti
         </label>
         <input
           ref={input}
@@ -42,19 +42,19 @@ export function SearchView({ products, initialQuery }: { products: Product[]; in
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search the side"
+          placeholder="Cerca nel side"
           autoComplete="off"
           className="font-display w-full bg-transparent text-[clamp(2.4rem,7vw,6rem)] leading-none text-dirty placeholder:text-dirty/20 focus:outline-none focus-visible:outline-none [&::-webkit-search-cancel-button]:hidden"
         />
         {q && (
-          <button type="button" onClick={() => setQ("")} className="p-2 text-concrete hover:text-dirty" aria-label="Clear search">
+          <button type="button" onClick={() => setQ("")} className="p-2 text-concrete hover:text-dirty" aria-label="Cancella ricerca">
             <X className="size-6" strokeWidth={1.25} />
           </button>
         )}
       </form>
 
       <div className="label mt-5 flex flex-wrap items-center gap-2 text-concrete">
-        <span>Try:</span>
+        <span>Prova:</span>
         {SUGGESTIONS.map((s) => (
           <button key={s} type="button" onClick={() => setQ(s)} className="border border-dirty/20 px-2.5 py-1.5 text-dirty/80 hover:border-dirty hover:text-dirty">
             {s}
@@ -63,15 +63,15 @@ export function SearchView({ products, initialQuery }: { products: Product[]; in
       </div>
 
       <p className="label mt-12 text-concrete" aria-live="polite">
-        {q.trim() ? `${results.length} result${results.length === 1 ? "" : "s"} for “${q.trim()}”` : "Start typing to search the demo catalogue"}
+        {q.trim() ? `${results.length} ${results.length === 1 ? "risultato" : "risultati"} per “${q.trim()}”` : "Inizia a scrivere per cercare nel catalogo demo"}
       </p>
 
       {q.trim() && results.length === 0 && (
         <div className="mt-10 flex flex-col items-start gap-5">
-          <p className="font-display text-big">No matches on this block.</p>
-          <p className="text-dirty/70">Check the spelling or try a broader term.</p>
+          <p className="font-display text-big">Niente su questo blocco.</p>
+          <p className="text-dirty/70">Controlla come hai scritto o prova una parola più generica.</p>
           <Link href="/shop" className="label link-underline text-dirty">
-            Browse all products →
+            Sfoglia tutti i prodotti →
           </Link>
         </div>
       )}

@@ -31,7 +31,7 @@ export function CartLineItem({ line, onNavigate, large = false }: { line: CartLi
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="label text-concrete">
-              {line.product.code} · Size {line.variantTitle}
+              {line.product.code} · Taglia {line.variantTitle}
             </p>
             <Link
               href={`/products/${line.product.handle}`}
@@ -49,18 +49,18 @@ export function CartLineItem({ line, onNavigate, large = false }: { line: CartLi
             value={line.quantity}
             max={line.maxQuantity}
             onChange={(n) => updateQuantity(line.id, n)}
-            label={`Quantity for ${line.product.title}, size ${line.variantTitle}`}
+            label={`Quantità per ${line.product.title}, taglia ${line.variantTitle}`}
           />
           <button
             type="button"
             onClick={() => removeItem(line.id)}
             className="label link-underline text-concrete hover:text-dirty"
-            aria-label={`Remove ${line.product.title}, size ${line.variantTitle}`}
+            aria-label={`Rimuovi ${line.product.title}, taglia ${line.variantTitle}`}
           >
-            Remove
+            Rimuovi
           </button>
         </div>
-        {line.quantity >= line.maxQuantity && <p className="label mt-2 text-[0.6rem] text-blood-bright">Max available quantity reached</p>}
+        {line.quantity >= line.maxQuantity && <p className="label mt-2 text-[0.6rem] text-blood-bright">Raggiunta la quantità massima disponibile</p>}
       </div>
     </motion.li>
   );

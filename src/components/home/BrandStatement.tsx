@@ -12,7 +12,7 @@ import { ImageReveal, Reveal, SplitText } from "@/components/motion/Reveal";
 gsap.registerPlugin(ScrollTrigger);
 
 function Stamp() {
-  const text = "INDEPENDENT • STREETWEAR • 22SIDE • EST. NYC STATE OF MIND • ";
+  const text = "STREETWEAR • INDIPENDENTE • 22SIDE • NYC STATE OF MIND • ";
   return (
     <svg viewBox="0 0 200 200" className="size-full animate-[spin_22s_linear_infinite] motion-reduce:animate-none" aria-hidden>
       <defs>
@@ -74,7 +74,7 @@ export function BrandStatement() {
               <Image src={media.fireEscape.url} alt={media.fireEscape.altText} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
             </ImageReveal>
             <p className="label mt-3 flex justify-between text-concrete">
-              <span>Fig. 03 — Brick &amp; iron</span>
+              <span>Fig. 03 — Mattoni e ferro</span>
               <span>02:41 AM</span>
             </p>
           </div>
@@ -88,7 +88,7 @@ export function BrandStatement() {
               ))}
             </p>
             <Reveal delay={0.1} className="mt-12 grid gap-6 border-t border-dirty/15 pt-6 sm:grid-cols-2">
-              <p className="font-serif text-2xl italic leading-snug text-dirty/90">A different perspective.</p>
+              <p className="font-serif text-2xl italic leading-snug text-dirty/90">Una prospettiva diversa.</p>
               <p className="text-sm leading-relaxed text-dirty/65">{statement.aside}</p>
             </Reveal>
           </div>

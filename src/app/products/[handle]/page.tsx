@@ -36,7 +36,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[hand
   return (
     <>
       <div className="pt-[var(--header-h)]">
-        <nav aria-label="Breadcrumb" className="px-gutter label flex flex-wrap gap-2 py-4 text-concrete">
+        <nav aria-label="Percorso" className="px-gutter label flex flex-wrap gap-2 py-4 text-concrete">
           <Link href="/shop" className="hover:text-dirty">
             Shop
           </Link>
@@ -67,7 +67,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[hand
               <h1 className="font-display mt-4 text-[clamp(2.8rem,5.4vw,5.5rem)]">{product.title}</h1>
               <p className="mt-4 font-mono text-xl tabular-nums">
                 {formatMoney(product.priceRange.minVariantPrice)}
-                <span className="label ml-3 text-concrete">Placeholder price</span>
+                <span className="label ml-3 text-concrete">Prezzo segnaposto</span>
               </p>
               <p className="mt-6 max-w-md text-dirty/75">{product.description}</p>
               <div className="mt-8">
@@ -88,10 +88,10 @@ export default async function ProductPage({ params }: PageProps<"/products/[hand
       />
 
       <section className="px-gutter py-20 md:py-28" aria-labelledby="related-title">
-        <SectionLabel index="↳" label="Complete the look" />
+        <SectionLabel index="↳" label="Completa il look" />
         <Reveal>
           <h2 id="related-title" className="font-display text-big mt-8">
-            Also on the block
+            Anche sul blocco
           </h2>
         </Reveal>
         <ul className="mt-12 grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 lg:grid-cols-4">
