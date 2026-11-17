@@ -8,6 +8,7 @@ import { media } from "@/content/media";
 import { home, site } from "@/content/site";
 import { Logo } from "@/components/ui/Logo";
 import { SplitText } from "@/components/motion/Reveal";
+import { Scribble } from "@/components/ui/Scribble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,11 +49,10 @@ export function FinalStatement() {
         </p>
         <h2 className="mt-12 md:mt-20">
           <SplitText text={final.lineOne} className="font-display text-big block text-dirty/90" />
-          <SplitText
-            text={final.lineTwo}
-            className="font-display text-huge mt-2 block text-blood-bright"
-            delay={0.25}
-          />
+          <span className="relative mt-2 inline-block">
+            <SplitText text={final.lineTwo} className="font-display text-huge block text-blood-bright" delay={0.25} />
+            <Scribble className="absolute -bottom-4 left-0 h-7 w-full" color="#e8e5df" delay={0.9} />
+          </span>
         </h2>
         <div className="label mt-12 flex flex-wrap justify-between gap-4 text-concrete">
           <span>{site.slogan}</span>

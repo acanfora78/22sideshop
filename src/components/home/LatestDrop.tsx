@@ -6,6 +6,8 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal, SplitText } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/format";
+import { Scribble } from "@/components/ui/Scribble";
+import { Sticker } from "@/components/ui/Sticker";
 
 /**
  * Asymmetric lookbook layout on desktop (12-col with offsets and an editorial
@@ -29,12 +31,16 @@ export function LatestDrop({ products }: { products: Product[] }) {
         <SectionLabel index={drop.index} label={drop.label} />
         <div className="mt-10 flex flex-col gap-8 md:mt-16 md:flex-row md:items-end md:justify-between">
           <h2 id="drop-title" className="font-display text-huge">
-            <SplitText text="Drop 001" className="block" />
+            <span className="relative inline-block">
+              <SplitText text="Drop 001" className="block" />
+              <Scribble className="absolute -bottom-3 left-0 h-6 w-full" delay={0.6} />
+              <Sticker label="new!" tone="red" rotate={12} delay={0.8} className="absolute -right-6 -top-4 md:-right-14" />
+            </span>
             <span className="mt-2 block font-serif text-[0.42em] normal-case italic tracking-normal text-dirty/80">— Night Shift</span>
           </h2>
           <Reveal className="max-w-xs space-y-5">
             <p className="text-sm leading-relaxed text-dirty/70">
-              A demo capsule shot after dark. Heavy cotton silhouettes, statement prints, a single red signal. Placeholder products for layout preview.
+              First drop, shot after dark. Big fits, loud prints, one red signal. Grab your size before the block does. (Demo products for layout preview.)
             </p>
             <ButtonLink href={drop.cta.href} variant="outline">
               {drop.cta.label}

@@ -13,6 +13,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Parallax } from "@/components/motion/Parallax";
 import { SplitText } from "@/components/motion/Reveal";
+import { Scribble } from "@/components/ui/Scribble";
 
 /**
  * Collection index as huge typographic rows; on desktop a preview image
@@ -46,10 +47,11 @@ export function ShopTheCollection({ collections, counts }: { collections: Collec
       <div className="px-gutter py-24 md:py-36">
         <SectionLabel index={shop.index} label={shop.label} />
         <div className="mt-12 flex flex-col gap-8 md:mt-20 md:flex-row md:items-end md:justify-between">
-          <h2 id="shop-title">
+          <h2 id="shop-title" className="relative">
             <SplitText text={shop.title} className="font-display text-huge block" />
+            <Scribble variant="circle" className="absolute -inset-x-6 -inset-y-4 h-[calc(100%+2rem)] w-[calc(100%+3rem)]" delay={0.5} strokeWidth={5} />
           </h2>
-          <p className="label max-w-[16rem] text-concrete">Five chapters. One attitude. Hover a chapter, then step inside.</p>
+          <p className="font-marker max-w-[18rem] -rotate-2 text-xl text-dirty/80">{shop.note}</p>
         </div>
 
         <ul ref={area} onPointerMove={onMove} onPointerLeave={() => setHover(null)} className="relative mt-14 border-t border-dirty/20 md:mt-20">

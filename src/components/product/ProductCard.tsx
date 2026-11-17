@@ -37,7 +37,7 @@ export function ProductCard({
   const href = `/products/${product.handle}`;
 
   return (
-    <article className={cn("group relative", className)} onMouseLeave={() => setQuickOpen(false)}>
+    <article className={cn("group relative transition-transform duration-500 ease-[var(--ease-out-expo)] md:hover:-rotate-1", className)} onMouseLeave={() => setQuickOpen(false)}>
       <div className={cn("relative overflow-hidden bg-asphalt", aspect)}>
         <Link href={href} className="absolute inset-0 block" aria-label={product.title} tabIndex={-1}>
           <Image
@@ -62,6 +62,14 @@ export function ProductCard({
           )}
         </Link>
 
+        {!soldOut && (
+          <span
+            aria-hidden
+            className="font-marker pointer-events-none absolute bottom-4 left-3 z-[4] -rotate-6 scale-0 bg-blood px-3 py-1 text-lg text-dirty shadow-[3px_3px_0_#080808] transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-100"
+          >
+            cop it!
+          </span>
+        )}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-3">
           {index !== undefined && <span className="label text-dirty/80">{String(index + 1).padStart(2, "0")}</span>}
           <div className="flex flex-col items-end gap-1">

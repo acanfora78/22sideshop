@@ -1,40 +1,45 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { media, type MediaKey } from "@/content/media";
 import { home, site } from "@/content/site";
 import { Logo } from "@/components/ui/Logo";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { useSmoothScroll } from "@/components/motion/SmoothScroll";
 import { EASE_IN_OUT, EASE_OUT } from "@/components/motion/Reveal";
+import { Sticker } from "@/components/ui/Sticker";
+import { DoorScene } from "./DoorScene";
 import { INTRO_STORAGE_KEY } from "./intro-config";
 import { INTRO_DONE_EVENT } from "./useIntroDone";
 
+type Phase = "scene" | "title" | "leaving" | "done";
 
-type Phase = "frames" | "title" | "leaving" | "done";
-const FRAME_MS = 420;
+const TITLE_STICKERS = [
+  { label: "No rules", tone: "red", className: "left-[6%] top-[18%]", rotate: -14, delay: 0.25 },
+  { label: "Open late", tone: "white", className: "right-[8%] top-[22%]", rotate: 10, delay: 0.35 },
+  { label: "Fresh drop", tone: "black", className: "left-[10%] bottom-[22%]", rotate: 8, delay: 0.45 },
+  { label: "22", tone: "red", className: "right-[12%] bottom-[18%]", rotate: -6, delay: 0.55, big: true },
+] as const;
 
 /**
- * Opening sequence: rapid-cut film frames (≈1.7s) → logo + slogan → CTA.
- * - Skippable at any time (button, Esc), CTA / Enter / scroll to enter.
- * - Remembered for 12h (localStorage) and hidden pre-paint on return visits.
- * - Reduced motion: no cuts, straight to the title card.
+ * Opening "short film": a kid unlocks the 22SIDE door with a key and the
+ * camera dives into the shop (DoorScene), then a glitched logo slam with
+ * draggable stickers and the ENTER THE SIDE CTA.
+ * - Skippable at any time (button, Esc). Enter / scroll on the title card enters.
+ * - Remembered for 12h (localStorage), hidden pre-paint on return visits.
+ * - Reduced motion: no film, straight to a static title card.
  */
 export function IntroSequence() {
   const reduce = useReducedMotion();
   const { lock } = useSmoothScroll();
-  const [phase, setPhase] = useState<Phase>("frames");
-  const [frame, setFrame] = useState(0);
+  const [phase, setPhase] = useState<Phase>("scene");
+  const [glitch, setGlitch] = useState(false);
   const locked = useRef(false);
-  const frames = home.intro.frames;
 
   const finish = useCallback(() => {
     setPhase((p) => (p === "leaving" || p === "done" ? p : "leaving"));
   }, []);
 
-  // Decide on mount whether to play.
   useEffect(() => {
     const seen = document.documentElement.getAttribute("data-intro") === "seen";
     if (seen) {
@@ -46,7 +51,7 @@ export function IntroSequence() {
     }
     lock(true);
     locked.current = true;
-    if (reduce) setPhase("title");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPhase("title");
     return () => {
       if (locked.current) {
         lock(false);
@@ -56,23 +61,16 @@ export function IntroSequence() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Frame cutting.
+  // Periodic glitch on the title logo.
   useEffect(() => {
-    if (phase !== "frames") return;
+    if (phase !== "title" || reduce) return;
     const id = window.setInterval(() => {
-      setFrame((f) => {
-        if (f >= frames.length - 1) {
-          window.clearInterval(id);
-          setPhase("title");
-          return f;
-        }
-        return f + 1;
-      });
-    }, FRAME_MS);
+      setGlitch(true);
+      window.setTimeout(() => setGlitch(false), 180);
+    }, 1900);
     return () => window.clearInterval(id);
-  }, [phase, frames.length]);
+  }, [phase, reduce]);
 
-  // Keyboard / wheel shortcuts.
   useEffect(() => {
     if (phase === "done" || phase === "leaving") return;
     const onKey = (e: KeyboardEvent) => {
@@ -105,8 +103,7 @@ export function IntroSequence() {
     window.dispatchEvent(new Event(INTRO_DONE_EVENT));
   };
 
-  const visible = phase === "frames" || phase === "title";
-  const current = frames[frame];
+  const visible = phase === "scene" || phase === "title";
 
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
@@ -118,104 +115,90 @@ export function IntroSequence() {
           aria-modal="true"
           aria-label="22SIDE intro"
           className="fixed inset-0 z-[85] overflow-hidden bg-obsidian text-dirty"
-          exit={{ clipPath: reduce ? "inset(0 0 0 0)" : "inset(0% 0% 100% 0%)", opacity: reduce ? 0 : 1 }}
-          transition={{ duration: reduce ? 0.3 : 1, ease: EASE_IN_OUT }}
+          exit={reduce ? { opacity: 0 } : { clipPath: "inset(0% 0% 100% 0%)" }}
+          transition={{ duration: reduce ? 0.3 : 0.9, ease: EASE_IN_OUT }}
         >
-          {/* Film frames */}
-          <div className="absolute inset-0 scanlines">
-            {frames.map((f, i) => {
-              const m = media[f.media as MediaKey];
-              return (
-                <div
-                  key={f.media}
-                  className="absolute inset-0 transition-opacity duration-150"
-                  style={{ opacity: i === frame ? (phase === "title" ? 0.32 : 1) : 0 }}
-                >
-                  <Image
-                    src={m.url}
-                    alt=""
-                    fill
-                    priority={i < 2}
-                    sizes="100vw"
-                    className="object-cover"
-                    style={{ transform: `scale(${i === frame ? 1.06 : 1.14})`, transition: `transform ${FRAME_MS * 3}ms linear` }}
-                  />
-                </div>
-              );
-            })}
-            <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-obsidian/60" />
+          {phase === "scene" && <DoorScene onComplete={() => setPhase("title")} />}
+
+          {/* HUD */}
+          <div className="label pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-4 md:p-8">
+            <span className="flex items-center gap-2">
+              <span className="size-2 animate-pulse rounded-full bg-blood-bright" /> REC — 02:22 AM
+            </span>
+            <span className="hidden sm:inline">22 Side St.</span>
           </div>
 
-          {/* Viewfinder HUD */}
-          <div className="label pointer-events-none absolute inset-0 p-4 md:p-8">
-            <div className="flex items-start justify-between">
-              <span className="flex items-center gap-2">
-                <span className="size-2 animate-pulse rounded-full bg-blood-bright" /> REC
-              </span>
-              <span className="hidden sm:inline">{site.positioning}</span>
-            </div>
-            <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between md:bottom-8 md:left-8 md:right-8">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={phase === "title" ? "title" : current.caption}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {phase === "title" ? "PRESS ENTER ↵" : current.caption}
-                </motion.span>
-              </AnimatePresence>
-              <span className="tabular-nums">
-                00:00:0{frame}:{String((frame * 7 + 12) % 24).padStart(2, "0")}
-              </span>
-            </div>
-            {/* corner brackets */}
-            {["left-3 top-12 border-l border-t", "right-3 top-12 border-r border-t", "bottom-12 left-3 border-b border-l", "bottom-12 right-3 border-b border-r"].map(
-              (c) => (
-                <span key={c} className={`absolute size-6 border-dirty/50 md:size-10 ${c}`} />
-              ),
-            )}
-          </div>
-
-          {/* Title card */}
           <AnimatePresence>
             {phase === "title" && (
-              <motion.div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+              <motion.div
+                className="absolute inset-0 flex flex-col items-center justify-center bg-dirty px-6 text-center text-obsidian"
+                initial={{ opacity: 1 }}
+                animate={{ backgroundColor: "#080808", color: "#e8e5df" }}
+                transition={{ duration: reduce ? 0 : 0.5, ease: "easeOut" }}
+              >
+                {/* sticker bomb — drag them around */}
+                {TITLE_STICKERS.map((s) => (
+                  <Sticker
+                    key={s.label}
+                    label={s.label}
+                    tone={s.tone}
+                    rotate={s.rotate}
+                    delay={reduce ? 0 : s.delay}
+                    big={"big" in s && s.big}
+                    className={`absolute ${s.className}`}
+                    draggable
+                  />
+                ))}
+
                 <motion.div
-                  initial={reduce ? { opacity: 0 } : { scale: 1.6, opacity: 0, filter: "blur(12px)" }}
-                  animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-                  transition={{ duration: reduce ? 0.3 : 0.9, ease: EASE_OUT }}
+                  className="relative"
+                  initial={reduce ? { opacity: 0 } : { scale: 3, opacity: 0, rotate: -8 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  transition={reduce ? { duration: 0.3 } : { type: "spring", stiffness: 260, damping: 14 }}
                 >
-                  <Logo className="text-[clamp(5rem,24vw,22rem)]" />
+                  <div className={glitch ? "translate-x-[3px]" : ""}>
+                    <Logo className="text-[clamp(5rem,24vw,22rem)]" />
+                  </div>
+                  {glitch && (
+                    <>
+                      <div aria-hidden className="absolute inset-0 -translate-x-[6px] translate-y-[2px] text-blood-bright opacity-80 mix-blend-screen [clip-path:inset(10%_0_55%_0)]">
+                        <Logo className="text-[clamp(5rem,24vw,22rem)]" />
+                      </div>
+                      <div aria-hidden className="absolute inset-0 translate-x-[8px] opacity-70 [clip-path:inset(60%_0_12%_0)]">
+                        <Logo className="text-[clamp(5rem,24vw,22rem)]" />
+                      </div>
+                    </>
+                  )}
                 </motion.div>
+
                 <motion.p
-                  className="label mt-4 text-sm tracking-[0.4em] md:mt-6 md:text-base"
-                  initial={{ opacity: 0, letterSpacing: "1em" }}
-                  animate={{ opacity: 1, letterSpacing: "0.4em" }}
-                  transition={{ delay: reduce ? 0 : 0.35, duration: 1, ease: EASE_OUT }}
+                  className="font-marker mt-2 -rotate-3 text-2xl text-blood-bright md:text-4xl"
+                  initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: reduce ? 0 : 0.3, type: "spring", stiffness: 300, damping: 15 }}
                 >
                   {site.slogan}
                 </motion.p>
+
                 <motion.div
                   className="mt-10 md:mt-14"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: reduce ? 0 : 0.6, duration: 0.8, ease: EASE_OUT }}
+                  transition={{ delay: reduce ? 0 : 0.6, duration: 0.7, ease: EASE_OUT }}
                 >
                   <Magnetic strength={0.4}>
                     <button
                       type="button"
                       onClick={finish}
-                      className="group relative flex items-center gap-4 overflow-hidden border border-dirty px-8 py-5 font-mono text-xs uppercase tracking-[0.3em] text-dirty transition-colors duration-300 hover:text-obsidian md:px-12 md:py-6 md:text-sm"
                       autoFocus
+                      className="group relative flex items-center gap-4 overflow-hidden bg-blood px-9 py-5 font-mono text-xs uppercase tracking-[0.3em] text-dirty shadow-[6px_6px_0_#e8e5df] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_#e8e5df] active:translate-y-1 active:shadow-[2px_2px_0_#e8e5df] md:px-12 md:py-6 md:text-sm"
                     >
-                      <span className="absolute inset-0 origin-left scale-x-0 bg-dirty transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-x-100" />
                       <span className="relative">{home.intro.cta}</span>
-                      <span className="relative text-blood-bright transition-transform duration-500 group-hover:translate-x-1">→</span>
+                      <span className="relative transition-transform duration-300 group-hover:translate-x-1.5">→</span>
                     </button>
                   </Magnetic>
                 </motion.div>
+                <p className="label pointer-events-none absolute bottom-6 text-concrete">psst — the stickers move</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -223,7 +206,7 @@ export function IntroSequence() {
           <button
             type="button"
             onClick={finish}
-            className="label absolute right-4 top-12 z-10 p-2 text-dirty/70 transition-colors hover:text-dirty md:right-8 md:top-16"
+            className="label absolute right-4 top-12 z-10 border border-dirty/30 bg-obsidian/60 px-3 py-2 text-dirty/80 backdrop-blur-sm transition-colors hover:bg-dirty hover:text-obsidian md:right-8 md:top-16"
           >
             Skip intro →
           </button>

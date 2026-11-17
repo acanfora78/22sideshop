@@ -3,6 +3,7 @@ import { Logo } from "@/components/ui/Logo";
 import { site } from "@/content/site";
 import { getCollections } from "@/lib/commerce";
 import { NewsletterForm } from "./NewsletterForm";
+import { ReplayIntro } from "./ReplayIntro";
 
 export async function Footer() {
   const collections = await getCollections();
@@ -65,6 +66,7 @@ export async function Footer() {
         <div className="flex items-center gap-4">
           <Logo className="text-xl text-dirty" />
           <span>© {new Date().getFullYear()} 22SIDE — {site.positioning}</span>
+          <ReplayIntro className="link-underline text-dirty hover:text-blood-bright" />
         </div>
         <span className="max-w-xl text-[0.6rem] leading-relaxed md:text-right">{site.demoNotice}</span>
       </div>

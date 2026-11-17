@@ -21,22 +21,16 @@ export const mainNav = [
 
 export const home = {
   intro: {
-    frames: [
-      { media: "streetNight", caption: "SCENE 01 — AVENUE, 02:14 AM" },
-      { media: "subway", caption: "SCENE 02 — LAST TRAIN DOWNTOWN" },
-      { media: "fireEscape", caption: "SCENE 03 — BRICK & IRON" },
-      { media: "tiles", caption: "SCENE 04 — 22 SIDE ST" },
-    ],
     cta: "Enter the side",
   },
   hero: {
     issue: "Issue 22 — Night Shift",
     lineOne: "No rules.",
     lineTwo: "Just attitude.",
-    sub: "Independent streetwear raised on concrete, late trains and the golden-era sound that never left the block.",
+    sub: "Made for the ones who skate past the rules, stay out late and dress loud. Independent streetwear, straight off the block.",
     primaryCta: { label: "Shop the drop", href: "/collections/drop-001" },
     secondaryCta: { label: "The culture", href: "#culture" },
-    marquee: ["No rules", "Just attitude", "Independent streetwear", "Underground NYC", "1990s reimagined", "22SIDE®"],
+    marquee: ["No rules", "Just attitude", "Fresh drop", "Cop it before it's gone", "Underground NYC", "Your crew, your side", "22SIDE®"],
   },
   statement: {
     index: "03",
@@ -44,7 +38,7 @@ export const home = {
     headline: "Not made to fit in.",
     body: "More than clothing. A different perspective. An independent attitude shaped by street culture.",
     aside:
-      "We build pieces the way the block builds people: heavy, honest, a little rough at the edges. No trend reports. No permission asked.",
+      "Built for the ones who never asked permission. Heavy cotton, loud prints, a little rough at the edges — like your crew.",
   },
   drop: {
     index: "04",
@@ -57,7 +51,7 @@ export const home = {
     label: "Underground Culture",
     title: "Field notes from the underground",
     intro:
-      "Before the drop there is the city: the hiss of the train doors, water towers against a white sky, a fire escape that doubles as a stage. These are the frames we keep returning to.",
+      "Before the drop there's the city: the hiss of the train doors, water towers against a white sky, a fire escape that doubles as a stage. These are the frames we keep returning to.",
     quote: "The street doesn't hand you a style. It hands you a point of view.",
     notes: [
       { media: "subway", fig: "Fig. 01", caption: "Last train downtown. The platform is the runway." },
@@ -75,6 +69,7 @@ export const home = {
     index: "06",
     label: "Shop the Collection",
     title: "Pick your side",
+    note: "Five chapters. One attitude. Pick one and jump in.",
     cta: { label: "Explore all products", href: "/shop" },
   },
   final: {

@@ -13,7 +13,7 @@ npm run build && npm start
 
 ## Stack
 Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion · GSAP + ScrollTrigger · Lenis · Lucide.
-Fonts (all SIL OFL via `next/font`): **Anton** (display), **Archivo** (text), **IBM Plex Mono** (labels/microtext), **Instrument Serif** (editorial italics).
+Fonts (all SIL OFL via `next/font`): **Anton** (display), **Archivo** (text), **IBM Plex Mono** (labels/microtext), **Instrument Serif** (editorial italics), **Permanent Marker** (tags & stickers).
 
 ## Design system
 | Token | Hex | Use |
@@ -48,7 +48,8 @@ scripts/assets/           Python generators for every image in public/media
 ```
 
 ## Motion
-- **Intro**: rapid-cut film frames → logo → *ENTER THE SIDE*. Skippable immediately (button / Esc), Enter or scroll to enter. Remembered for 12h; an inline pre-paint script hides it on return visits (no flash).
+- **Intro (`DoorScene.tsx`)**: an animated SVG short directed by one GSAP timeline. The neon flickers on, a kid in a 22 hoodie walks up, smash zoom on the lock, the key goes in and turns (CLICK!), the door bursts open (SWOOSH!), light floods out, they step in and the camera dives through the door. Then a glitched logo slam with draggable stickers and *ENTER THE SIDE*. Skippable immediately (button / Esc). Remembered for 12h; footer has **Replay intro ↻**.
+- Youth layer: Permanent Marker font (`font-marker`), draggable `Sticker`s, self-drawing `Scribble`s, "cop it!" hover tags on product cards.
 - Lenis smooth scroll driven by the GSAP ticker (off on touch devices and for reduced motion).
 - Scroll-scrubbed hero split, word-by-word "light up" manifesto, pinned horizontal contact-sheet on desktop, parallax images, clip-path image reveals, masked text reveals, marquees, magnetic CTAs, cursor-following collection preview, curtain page transitions.
 - `prefers-reduced-motion`: intro cuts, parallax, scrub effects, grain and marquees are disabled.

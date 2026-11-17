@@ -13,6 +13,7 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { Marquee } from "@/components/motion/Marquee";
 import { EASE_OUT } from "@/components/motion/Reveal";
 import { useIntroDone } from "./useIntroDone";
+import { Sticker } from "@/components/ui/Sticker";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -135,6 +136,23 @@ export function Hero() {
       >
         Underground NYC — 1990s reimagined
       </motion.p>
+
+      {/* Draggable sticker bomb */}
+      {ready && (
+        <div className="pointer-events-none absolute inset-0 z-10">
+          <Sticker label="Fresh drop" tone="red" rotate={-10} delay={0.9} draggable className="absolute right-[6%] top-[24%] md:right-[16%] md:top-[26%]" />
+          <Sticker label="22" tone="white" rotate={8} delay={1.05} big draggable className="absolute right-[10%] top-[34%] md:right-[30%] md:top-[40%]" />
+          <Sticker label="Open late" tone="black" rotate={6} delay={1.2} draggable className="absolute right-[8%] top-[46%] max-md:!hidden" />
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6 }}
+            className="font-marker pointer-events-none absolute right-[18%] top-[19%] hidden -rotate-6 text-lg text-dirty/80 md:block"
+          >
+            drag us ↓
+          </motion.p>
+        </div>
+      )}
 
       {/* Headline */}
       <div className="absolute inset-x-0 bottom-[7.5rem] md:bottom-28">

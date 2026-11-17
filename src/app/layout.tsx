@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Anton, Archivo, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
+import { Anton, Archivo, IBM_Plex_Mono, Instrument_Serif, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
@@ -9,7 +9,7 @@ import { DemoBanner } from "@/components/layout/DemoBanner";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { INTRO_STORAGE_KEY, INTRO_TTL_MS } from "@/components/home/intro-config";
 
-// All four families are SIL Open Font License — free for commercial use.
+// All families are SIL Open Font License — free for commercial use.
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: "swap" });
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap", axes: ["wdth"] });
 const plexMono = IBM_Plex_Mono({ weight: ["400", "500"], subsets: ["latin"], variable: "--font-plex-mono", display: "swap" });
@@ -20,6 +20,8 @@ const instrument = Instrument_Serif({
   variable: "--font-instrument",
   display: "swap",
 });
+
+const marker = Permanent_Marker({ weight: "400", subsets: ["latin"], variable: "--font-permanent-marker", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://22side.example"),
@@ -46,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${anton.variable} ${archivo.variable} ${plexMono.variable} ${instrument.variable} antialiased`}
+      className={`${anton.variable} ${archivo.variable} ${plexMono.variable} ${instrument.variable} ${marker.variable} antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
