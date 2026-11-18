@@ -1,20 +1,28 @@
 /**
- * Site copy & navigation (Italian). In Shopify these become section settings /
- * blocks and linklists (menus) — keep copy out of components.
+ * Site copy & navigation.
  *
- * Brand lines (slogan, "Not made to fit in.", "You don't follow the side…",
- * "Enter the side") stay in English on purpose: they are part of the identity.
+ * LANGUAGE STRATEGY — "English for identity, Italian for experience":
+ *   EN → headlines, section titles, slogans, editorial/campaign titles,
+ *        product names, short decorative phrases (stickers, marquees, signage).
+ *   IT → every description, detail, functional label, button that buys,
+ *        cart / shipping / returns / support, empty states, errors, microcopy.
+ * Never translate the brand slogans.
+ *
+ * In Shopify these become section settings / blocks and linklists.
  */
 export const site = {
   name: "22SIDE",
   slogan: "No rules. Just attitude.",
-  positioning: "Streetwear indipendente",
+  positioning: "Independent Streetwear",
+  station: "22 Side Street",
+  line: "22",
   instagram: "https://www.instagram.com/22sideshop/",
   instagramHandle: "@22sideshop",
   demoNotice:
-    "Prototipo demo — prodotti, prezzi e disponibilità sono segnaposto, non merce reale 22SIDE. Il checkout è disattivato.",
+    "Prototipo dimostrativo: prodotti, prezzi e disponibilità sono segnaposto, non articoli reali 22SIDE. Il pagamento non è attivo.",
 };
 
+/** Functional navigation stays Italian for clarity. */
 export const mainNav = [
   { label: "Shop", href: "/shop" },
   { label: "Novità", href: "/new-arrivals" },
@@ -22,84 +30,169 @@ export const mainNav = [
   { label: "Chi siamo", href: "/about" },
 ] as const;
 
+/** Station names shown by the "Next stop" page transition. */
+export const stops: { match: (p: string) => boolean; name: string }[] = [
+  { match: (p) => p === "/", name: "22 Side Street" },
+  { match: (p) => p.startsWith("/shop"), name: "The Whole Block" },
+  { match: (p) => p.startsWith("/new-arrivals"), name: "New Arrivals" },
+  { match: (p) => p.startsWith("/collections"), name: "Collections" },
+  { match: (p) => p.startsWith("/products"), name: "The Fitting Room" },
+  { match: (p) => p.startsWith("/about"), name: "The Other Side" },
+  { match: (p) => p.startsWith("/cart"), name: "The Counter" },
+  { match: (p) => p.startsWith("/search"), name: "Lost & Found" },
+];
+
 export const home = {
-  intro: {
+  arrival: {
+    caption: "Line 22 — last train — 02:22 AM",
+    direction: "Downtown & the underground",
     cta: "Enter the side",
+    skip: "Salta l’intro",
+    soundOn: "Audio on",
+    soundOff: "Audio off",
   },
+  route: [
+    { id: "arrival", label: "The Street" },
+    { id: "manifesto", label: "Manifesto" },
+    { id: "drop", label: "The Drop" },
+    { id: "underground", label: "The Underground" },
+    { id: "collection", label: "The Collection" },
+    { id: "last-stop", label: "Last Stop" },
+  ],
   hero: {
-    issue: "Numero 22 — Turno di notte",
-    lineOne: "No rules.",
-    lineTwo: "Just attitude.",
-    sub: "Per chi le regole le scavalca con lo skate, fa tardi e si veste a volume alto. Streetwear indipendente, dritto dal blocco.",
-    primaryCta: { label: "Scopri il drop", href: "/collections/drop-001" },
-    secondaryCta: { label: "La cultura", href: "#culture" },
-    marquee: ["No rules", "Just attitude", "Nuovo drop", "Prendilo prima che finisca", "Underground NYC", "La tua crew, il tuo side", "22SIDE®"],
+    issue: "Issue 22 — Night Shift",
+    platform: "Platform 2",
+    title: "The street is ours.",
+    sub: "Streetwear indipendente cresciuto tra cemento, treni notturni e il suono della golden age. Per chi le regole non le segue: le riscrive.",
+    primaryCta: { label: "Shop the drop", href: "/collections/drop-001" },
+    secondaryCta: { label: "The culture", href: "#underground" },
+    marquee: ["No rules", "Just attitude", "Fresh drop", "Built different", "Underground NYC", "Line 22", "22SIDE®"],
   },
   statement: {
-    index: "03",
+    index: "02",
     label: "Manifesto",
     headline: "Not made to fit in.",
-    body: "Più che vestiti. Una prospettiva diversa. Un'attitudine indipendente, nata dalla cultura di strada.",
+    body: "Più che vestiti. Una prospettiva diversa. Un’attitudine indipendente, nata dalla cultura di strada.",
     aside:
-      "Fatto per chi non ha mai chiesto il permesso. Cotone pesante, stampe che si fanno sentire, un po' grezzo ai bordi — come la tua crew.",
+      "Ogni capo nasce per chi non ha mai chiesto il permesso: cotone pesante, stampe decise, nessun compromesso. Lo indossi una volta e capisci da che parte stai.",
+    quoteLabel: "A different perspective.",
   },
   drop: {
-    index: "04",
-    label: "Ultimo drop",
-    title: "Drop 001 — Turno di notte",
-    cta: { label: "Vedi tutto il drop", href: "/collections/drop-001" },
+    index: "03",
+    label: "Latest Drop",
+    title: "Drop 001",
+    subtitle: "Night Shift",
+    description:
+      "Il primo capitolo, fotografato dopo il tramonto. Volumi ampi, stampe che si fanno notare, un solo segnale rosso. Prodotti dimostrativi per l’anteprima del layout.",
+    cta: { label: "Scopri tutto il drop", href: "/collections/drop-001" },
   },
-  culture: {
-    index: "05",
-    label: "Cultura underground",
-    title: "Appunti dall'underground",
+  underground: {
+    index: "04",
+    label: "The Underground",
+    title: "The Underground",
     intro:
-      "Prima del drop c'è la città: il sibilo delle porte del treno, le cisterne sui tetti contro un cielo bianco, una scala antincendio che diventa un palco. Sono le immagini a cui torniamo sempre.",
-    quote: "La strada non ti dà uno stile. Ti dà un punto di vista.",
-    notes: [
-      { media: "subway", fig: "Fig. 01", caption: "Ultimo treno verso downtown. La banchina è la passerella." },
-      { media: "waterTowers", fig: "Fig. 02", caption: "Skyline dai tetti. Giganti di legno che fanno la guardia." },
-      { media: "tiles", fig: "Fig. 03", caption: "22 Side St. Una fermata che esiste solo se la conosci." },
-      { media: "fireEscape", fig: "Fig. 04", caption: "Scale di ferro, muri di mattoni. Notti d'estate fuori dalla finestra." },
-      { media: "chainlink", fig: "Fig. 05", caption: "Al campetto dopo il buio. Le luci della città dietro la rete." },
+      "Prima del drop c’è la città. Cinque fermate lungo la Line 22: le immagini, i suoni e le persone che hanno dato forma al nostro modo di vestire.",
+    chapters: [
+      {
+        n: "01",
+        title: "The Block",
+        media: "streetNight",
+        caption: "Avenue, 02:14 AM",
+        text: "Il blocco è il primo atelier. Marciapiedi bagnati, finestre accese, gli amici sotto casa: qui si decide cosa conta davvero.",
+      },
+      {
+        n: "02",
+        title: "The Train",
+        media: "subway",
+        caption: "Last train downtown",
+        text: "Le notti passate in metropolitana. La banchina diventa passerella, il rumore dei binari una colonna sonora.",
+      },
+      {
+        n: "03",
+        title: "The Rooftops",
+        media: "waterTowers",
+        caption: "Water towers, sunrise",
+        text: "Dai tetti la città sembra più piccola e i sogni più grandi. Cisterne di legno, antenne, un cielo bianco che non dorme mai.",
+      },
+      {
+        n: "04",
+        title: "The Sound",
+        media: "turntable",
+        caption: "Side A — Line 22 Sessions",
+        text: "Un giradischi, un muro, un microfono in prestito. L’hip-hop della golden age ha insegnato a costruire un mondo con quello che c’era.",
+      },
+      {
+        n: "05",
+        title: "The Culture",
+        media: "tiles",
+        caption: "22 Side St. — mosaic",
+        text: "East Coast e West Coast, silhouette oversize e attitudine. Citiamo quell’epoca senza ripeterla: anni ’90 reinventati, tagliati per oggi.",
+      },
     ],
-    columns: [
-      "L'hip-hop della golden age ha insegnato a una generazione che puoi costruire un mondo intero con quello che la città lascia indietro: un giradischi, un muro, un microfono in prestito. Quello spirito — pieno di risorse, rumoroso, orgogliosamente indipendente — è il nostro progetto.",
-      "La grinta della East Coast, lo swag della West Coast e le silhouette oversize che venivano con entrambe. Citiamo quell'epoca, non la ripetiamo. Anni '90 reinventati, tagliati per oggi.",
-    ],
+    quote: "The street doesn’t hand you a style. It hands you a point of view.",
   },
   shop: {
-    index: "06",
-    label: "Shop la collezione",
-    title: "Scegli il tuo side",
-    note: "Cinque capitoli. Un'unica attitudine. Scegline uno e buttati.",
-    cta: { label: "Esplora tutti i prodotti", href: "/shop" },
+    index: "05",
+    label: "Shop the Collection",
+    title: "Pick your line.",
+    note: "Cinque linee, un’unica attitudine. Scegli da dove partire.",
+    cta: { label: "Scopri tutti i prodotti", href: "/shop" },
   },
   final: {
+    label: "Last Stop",
     lineOne: "You don't follow the side.",
     lineTwo: "You create it.",
+    follow: "Seguici su Instagram",
+  },
+};
+
+export const pages = {
+  shop: {
+    kicker: "Shop",
+    title: "The Whole Block",
+    description: "Tutti i capi in un unico posto. Catalogo dimostrativo: i prodotti sono segnaposto per l’anteprima del layout.",
+    marquee: ["The whole block", "Independent streetwear", "No rules", "Just attitude"],
+  },
+  collections: { kicker: "Collezioni", title: "Choose your line" },
+  cart: { kicker: "Carrello", title: "Il tuo carrello" },
+  search: { kicker: "Cerca", title: "Lost & Found" },
+  notFound: {
+    kicker: "Errore 404",
+    title: "Wrong stop.",
+    text: "Questo treno qui non ferma. La pagina che cerchi è stata spostata o non esiste più.",
+    home: "Torna alla home",
+    shop: "Scopri tutti i prodotti",
   },
 };
 
 export const about = {
-  title: "L'altro lato della strada",
+  title: "The other side of the street",
   intro:
-    "22SIDE è un brand di streetwear indipendente. Nessun investitore che detta le regole, nessuna previsione di tendenza — solo un punto di vista nato dalla cultura di strada americana, dall'underground di New York e dalla golden age dell'hip-hop.",
+    "22SIDE è un brand di streetwear indipendente. Nessun investitore che detta le regole, nessuna previsione di tendenza: solo un punto di vista nato dalla cultura di strada americana, dall’underground di New York e dalla golden age dell’hip-hop.",
   chapters: [
     {
       n: "01",
-      title: "Indipendenti per scelta",
-      body: "Indipendenti vuol dire che ogni decisione è nostra: cosa facciamo, che faccia ha, quando esce. È più lento. È più difficile. È l'unico modo che conosciamo.",
+      title: "Independent by design",
+      body: "Indipendenti significa che ogni decisione è nostra: cosa creiamo, che aspetto ha, quando esce. È una strada più lenta e più difficile. Ed è l’unica che conosciamo.",
     },
     {
       n: "02",
-      title: "Cresciuti nella cultura",
-      body: "Gradini di Brooklyn, treni a tarda notte, mixtape passati di mano in mano, East e West Coast sempre in dialogo. Siamo cresciuti guardando gli anni '90 e non abbiamo mai distolto lo sguardo.",
+      title: "Raised on the culture",
+      body: "I gradini di Brooklyn, i treni a tarda notte, i mixtape passati di mano in mano, East e West Coast sempre in dialogo. Siamo cresciuti guardando gli anni ’90 e non abbiamo mai distolto lo sguardo.",
     },
     {
       n: "03",
       title: "No rules. Just attitude.",
-      body: "Il nostro slogan non è una tagline, è un filtro. Se un capo potrebbe essere di chiunque, non è nostro.",
+      body: "Il nostro slogan non è una frase a effetto, è un filtro. Se un capo potrebbe appartenere a chiunque, non appartiene a noi.",
     },
   ],
+};
+
+/** Customer-facing service copy (Italian). Placeholder until the live store. */
+export const service = {
+  shipping: "Spedizione disponibile in tutta Italia. Tempi e costi verranno comunicati con l’apertura del negozio online.",
+  returns: "Le condizioni di reso e rimborso saranno pubblicate con il negozio online.",
+  support: "Hai bisogno di aiuto? Scrivici su Instagram @22sideshop.",
+  demoProduct:
+    "Questo è un prodotto dimostrativo per l’anteprima dell’esperienza di acquisto. Immagini, prezzo e disponibilità non sono reali.",
 };

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getCollectionProducts, getCollections } from "@/lib/commerce";
 import { media } from "@/content/media";
+import { pages } from "@/content/site";
+import { LineBullet } from "@/components/transit/Transit";
 import { PageHero } from "@/components/collection/PageHero";
 import { ImageReveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/format";
@@ -15,7 +17,7 @@ export default async function CollectionsIndex() {
   const counts = await Promise.all(collections.map((c) => getCollectionProducts(c.handle).then((p) => p.length)));
   return (
     <>
-      <PageHero kicker="Collezioni" title="Scegli un capitolo" image={media.skyline} index="03" count={collections.length} countLabel={["capitolo", "capitoli"]} />
+      <PageHero kicker={pages.collections.kicker} title={pages.collections.title} image={media.skyline} index="03" count={collections.length} countLabel={["linea", "linee"]} />
       <div className="px-gutter grid gap-3 pb-24 md:grid-cols-2">
         {collections.map((c, i) => (
           <Link
@@ -35,8 +37,8 @@ export default async function CollectionsIndex() {
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-8">
               <div className="label flex justify-between text-dirty/80">
-                <span>
-                  <span className="text-blood">{String(i + 1).padStart(2, "0")}</span> / {c.kicker}
+                <span className="flex items-center gap-2">
+                  <LineBullet size="xs" label={String(i + 1).padStart(2, "0")} /> {c.kicker}
                 </span>
                 <span>{counts[i]} pezzi</span>
               </div>

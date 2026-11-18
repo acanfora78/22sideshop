@@ -88,10 +88,10 @@ export default async function ProductPage({ params }: PageProps<"/products/[hand
       />
 
       <section className="px-gutter py-20 md:py-28" aria-labelledby="related-title">
-        <SectionLabel index="↳" label="Completa il look" />
+        <SectionLabel index="↳" label="Complete the look" />
         <Reveal>
           <h2 id="related-title" className="font-display text-big mt-8">
-            Anche sul blocco
+            Also on the block
           </h2>
         </Reveal>
         <ul className="mt-12 grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 lg:grid-cols-4">

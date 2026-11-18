@@ -67,6 +67,8 @@ export interface Product {
   createdAt: string;
   /** Always true in this prototype — flags demo merchandise in the UI. */
   isDemo: boolean;
+  /** Which size guide applies (maps to a Shopify metafield). */
+  sizeGuide: "top" | "bottom" | "one-size";
 }
 
 export interface Collection {

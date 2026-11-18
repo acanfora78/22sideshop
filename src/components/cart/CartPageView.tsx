@@ -24,11 +24,11 @@ export function CartPageView() {
   if (lines.length === 0) {
     return (
       <div className="flex flex-col items-start gap-6 border-t border-dirty/10 py-20">
-        <p className="label text-blood-bright">La tua borsa è vuota</p>
-        <p className="font-display text-huge">Strade vuote.</p>
-        <p className="max-w-md text-dirty/70">Ancora niente nella borsa. Torna in strada e scegli il tuo side.</p>
+        <p className="label text-blood-bright">Il carrello è ancora vuoto.</p>
+        <p className="font-display text-huge">Empty streets.</p>
+        <p className="max-w-md text-dirty/70">Non hai ancora aggiunto nessun prodotto. Parti dall’ultimo drop o esplora tutto il catalogo.</p>
         <div className="flex flex-wrap gap-3">
-          <ButtonLink href="/shop">Vedi tutti i prodotti</ButtonLink>
+          <ButtonLink href="/shop">Scopri tutti i prodotti</ButtonLink>
           <ButtonLink href="/new-arrivals" variant="outline">
             Novità
           </ButtonLink>
@@ -43,7 +43,7 @@ export function CartPageView() {
         <div className="label flex justify-between border-b border-dirty/10 pb-3 text-concrete">
           <span>Articolo</span>
           <button type="button" onClick={clear} className="link-underline hover:text-dirty">
-            Svuota la borsa
+            Svuota il carrello
           </button>
         </div>
         <ul aria-label="Articoli nel carrello">

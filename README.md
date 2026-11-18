@@ -1,4 +1,8 @@
-# 22SIDE — The Underground Experience
+# 22SIDE — 22 Side Street
+
+**Concept:** *22 SIDE STREET — the place you were never supposed to find.* A fictional New York underground station on an imaginary **Line 22**: its signage, route maps, tickets and platforms are the brand's interface language. Plan & audit: `docs/REBUILD-PLAN.md`.
+
+**Language:** English for identity (headlines, section titles, slogans, product names, signage, stickers). Italian for the experience (descriptions, details, cart, size guide, shipping, returns, support, buttons that buy, errors, microcopy). Brand slogans are never translated. Copy lives in `src/content/site.ts` and `src/data/*`.
 
 **Demo prototype** of the 22SIDE digital flagship. Creative concept: *Underground NYC — 1990s reimagined.*
 Raw, dark, cinematic; huge condensed type, film grain, B&W night imagery, Blood Red used only as a signal.
@@ -51,6 +55,17 @@ scripts/assets/           Python generators for every image in public/media
 
 ## Archivio
 `archive/intro-porta-chiave/` — copia salvata dell'intro "porta e chiave" (storyboard, file e istruzioni di ripristino). Versione esatta: commit `4912e21`.
+
+## 22 Side Street system
+- `components/transit/Transit.tsx`: `LineBullet`, `StationSign`, `PlatformTag`, `Ticket`, `RouteStrip`.
+- `components/transit/RouteMap.tsx`: Line 22 route map pinned to the homepage (desktop), one stop per section.
+- Page transition: "Next stop — {station}" board (`app/template.tsx`, station names in `site.ts → stops`).
+
+## Opening — THE ARRIVAL
+Empty platform, fluorescent tubes stutter on, slow dolly, a headlight grows in the tunnel, the train tears past, cut to the 22 SIDE ST mosaic, the station sign drops, 22SIDE / *NO RULES. JUST ATTITUDE.* / *ENTER THE SIDE*, then the subway doors slide open onto the site (`components/home/ArrivalIntro.tsx`).
+- Skip at any time (button / Esc), remembered 12h, reduced-motion static card.
+- **Sound**: original, synthesized live with Web Audio (`stationAudio.ts`: hum, horn, rails, rumble, whoosh, door chime). Off by default, clear on/off toggle, nothing to download or license.
+- The previous "door & key" intro is kept: set `INTRO_VARIANT = "door"` in `components/home/intro-config.ts` (also archived in `archive/intro-porta-chiave`).
 
 ## Motion
 - **Intro (`DoorScene.tsx`)**: an animated SVG short directed by one GSAP timeline. The neon flickers on, a kid in a 22 hoodie walks up, smash zoom on the lock, the key goes in and turns (CLICK!), the door bursts open (SWOOSH!), light floods out, they step in and the camera dives through the door. Then a glitched logo slam with draggable stickers and *ENTER THE SIDE*. Skippable immediately (button / Esc). Remembered for 12h; footer has **Replay intro ↻**.

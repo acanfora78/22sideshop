@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { Product } from "@/lib/commerce/types";
 import { cn } from "@/lib/format";
+import { service } from "@/content/site";
 
 /** Accordion: details / shipping / demo notice. */
 export function ProductDetails({ product }: { product: Product }) {
@@ -25,18 +26,23 @@ export function ProductDetails({ product }: { product: Product }) {
     },
     {
       id: "shipping",
-      title: "Spedizioni e resi",
-      body: <p>Costi di spedizione, tempi di consegna e politica di reso saranno pubblicati da 22SIDE con il negozio online.</p>,
+      title: "Spedizione e resi",
+      body: (
+        <div className="space-y-2">
+          <p>{service.shipping}</p>
+          <p>{service.returns}</p>
+        </div>
+      ),
+    },
+    {
+      id: "support",
+      title: "Assistenza",
+      body: <p>{service.support}</p>,
     },
     {
       id: "demo",
-      title: "Su questa demo",
-      body: (
-        <p>
-          Questo è un prodotto segnaposto per mostrare l’esperienza di acquisto. Le immagini sono render generati, e
-          prezzo e disponibilità non sono reali.
-        </p>
-      ),
+      title: "Prodotto dimostrativo",
+      body: <p>{service.demoProduct}</p>,
     },
   ];
   const [open, setOpen] = useState<string | null>("details");

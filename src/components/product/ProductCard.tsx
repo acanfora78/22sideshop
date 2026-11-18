@@ -67,14 +67,14 @@ export function ProductCard({
             aria-hidden
             className="font-marker pointer-events-none absolute bottom-4 left-3 z-[4] -rotate-6 scale-0 bg-blood px-3 py-1 text-lg text-dirty shadow-[3px_3px_0_#080808] transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-100"
           >
-            prendilo!
+            cop it!
           </span>
         )}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-3">
           {index !== undefined && <span className="label text-dirty/80">{String(index + 1).padStart(2, "0")}</span>}
           <div className="flex flex-col items-end gap-1">
             {soldOut && <span className="label bg-dirty px-2 py-1 text-[0.6rem] text-obsidian">Esaurito</span>}
-            {lowStock && <span className="label bg-blood px-2 py-1 text-[0.6rem] text-dirty">Poche taglie</span>}
+            {lowStock && <span className="label bg-blood px-2 py-1 text-[0.6rem] text-dirty">Disponibilità limitata</span>}
           </div>
         </div>
 

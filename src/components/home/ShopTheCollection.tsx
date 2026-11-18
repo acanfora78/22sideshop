@@ -36,7 +36,7 @@ export function ShopTheCollection({ collections, counts }: { collections: Collec
   };
 
   return (
-    <section className="relative isolate overflow-hidden" aria-labelledby="shop-title">
+    <section id="collection" className="relative isolate overflow-hidden" aria-labelledby="shop-title">
       <div className="absolute inset-0 -z-10">
         <Parallax className="h-full" speed={16}>
           <Image src={media.subway.url} alt="" fill sizes="100vw" className="object-cover opacity-30" />

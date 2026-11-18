@@ -24,11 +24,11 @@ export default function AboutPage() {
           <ImageReveal className="relative aspect-[3/4] overflow-hidden">
             <Image src={media.fireEscape.url} alt={media.fireEscape.altText} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
           </ImageReveal>
-          <p className="label mt-3 text-concrete">Fig. A — Mattoni e ferro. Frame di art direction.</p>
+          <p className="label mt-3 text-concrete">Fig. A — Brick & iron.</p>
         </div>
       </section>
 
-      <Marquee items={[site.slogan, site.positioning, "Underground NYC", "Anni '90 reinventati"]} className="font-display border-y border-dirty/10 py-4 text-5xl md:text-7xl" />
+      <Marquee items={[site.slogan, site.positioning, "Underground NYC", "1990s reimagined", "Line 22"]} className="font-display border-y border-dirty/10 py-4 text-5xl md:text-7xl" />
 
       <section className="px-gutter py-20 md:py-28">
         {about.chapters.map((c, i) => (
@@ -48,7 +48,7 @@ export default function AboutPage() {
         </Parallax>
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-8 bg-obsidian/30 px-6 text-center">
           <Logo className="text-mega" registered={false} />
-          <ButtonLink href="/shop">Entra nello shop</ButtonLink>
+          <ButtonLink href="/shop">Scopri tutti i prodotti</ButtonLink>
         </div>
       </section>
     </>

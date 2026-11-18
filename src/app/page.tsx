@@ -7,6 +7,8 @@ import { UndergroundCulture } from "@/components/home/UndergroundCulture";
 import { ShopTheCollection } from "@/components/home/ShopTheCollection";
 import { FinalStatement } from "@/components/home/FinalStatement";
 import { Marquee } from "@/components/motion/Marquee";
+import { RouteMap } from "@/components/transit/RouteMap";
+import { home } from "@/content/site";
 
 /**
  * Homepage = ordered list of sections (maps to Shopify templates/index.json
@@ -21,10 +23,11 @@ export default async function Home() {
   return (
     <>
       <IntroSequence />
+      <RouteMap stops={home.route} />
       <Hero />
       <BrandStatement />
       <Marquee
-        items={["Not made to fit in", "22SIDE®", "Streetwear indipendente", "Drop 001"]}
+        items={["Not made to fit in", "22SIDE®", "Built different", "Drop 001", "Line 22"]}
         className="font-display -rotate-2 scale-105 border-y border-dirty/15 bg-dirty py-3 text-4xl text-obsidian md:text-6xl"
         speed={36}
       />

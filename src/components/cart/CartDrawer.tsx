@@ -63,7 +63,7 @@ export function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-dirty/10 px-6 py-5">
               <h2 id="cart-title" className="font-display text-3xl">
-                La tua borsa
+                Il tuo carrello
               </h2>
               <button ref={closeBtn} type="button" onClick={close} className="label flex items-center gap-2 p-2 hover:text-blood-bright">
                 Chiudi <X className="size-4" strokeWidth={1.5} />
@@ -77,10 +77,10 @@ export function CartDrawer() {
               </div>
             ) : lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-start justify-center gap-6 px-6">
-                <p className="label text-blood-bright">Borsa vuota</p>
-                <p className="font-display text-6xl leading-[0.9]">Ancora niente qui.</p>
-                <p className="max-w-xs text-sm text-dirty/70">Il blocco ti aspetta. Vai a scegliere il tuo side.</p>
-                <ButtonLink href="/shop">Vedi tutti i prodotti</ButtonLink>
+                <p className="label text-blood-bright">Il carrello è ancora vuoto.</p>
+                <p className="font-display text-6xl leading-[0.9]">Nothing here. Yet.</p>
+                <p className="max-w-xs text-sm text-dirty/70">Il drop ti aspetta: scegli il tuo primo pezzo.</p>
+                <ButtonLink href="/shop">Scopri tutti i prodotti</ButtonLink>
               </div>
             ) : (
               <>

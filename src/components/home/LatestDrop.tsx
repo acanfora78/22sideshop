@@ -26,7 +26,7 @@ export function LatestDrop({ products }: { products: Product[] }) {
   const { drop } = home;
   const items = products.slice(0, LAYOUT.length);
   return (
-    <section className="relative py-24 md:py-36" aria-labelledby="drop-title">
+    <section id="drop" className="relative py-24 md:py-36" aria-labelledby="drop-title">
       <div className="px-gutter">
         <SectionLabel index={drop.index} label={drop.label} />
         <div className="mt-10 flex flex-col gap-8 md:mt-16 md:flex-row md:items-end md:justify-between">
@@ -34,13 +34,13 @@ export function LatestDrop({ products }: { products: Product[] }) {
             <span className="relative inline-block">
               <SplitText text="Drop 001" className="block" />
               <Scribble className="absolute -bottom-3 left-0 h-6 w-full" delay={0.6} />
-              <Sticker label="nuovo!" tone="red" rotate={12} delay={0.8} className="absolute -right-6 -top-4 md:-right-14" />
+              <Sticker label="New!" tone="red" rotate={12} delay={0.8} className="absolute -top-9 right-0 md:-right-14 md:-top-4" />
             </span>
-            <span className="mt-2 block font-serif text-[0.42em] normal-case italic tracking-normal text-dirty/80">— Turno di notte</span>
+            <span className="mt-2 block font-serif text-[0.42em] normal-case italic tracking-normal text-dirty/80">— {drop.subtitle}</span>
           </h2>
           <Reveal className="max-w-xs space-y-5">
             <p className="text-sm leading-relaxed text-dirty/70">
-              Primo drop, scattato dopo il tramonto. Fit larghi, stampe che urlano, un solo segnale rosso. Prendi la tua taglia prima che lo faccia il blocco. (Prodotti demo per l’anteprima del layout.)
+              {drop.description}
             </p>
             <ButtonLink href={drop.cta.href} variant="outline">
               {drop.cta.label}
@@ -58,7 +58,7 @@ export function LatestDrop({ products }: { products: Product[] }) {
         ))}
         <li className="flex w-[60vw] max-w-xs shrink-0 snap-start items-center justify-center border border-dirty/15">
           <Link href={drop.cta.href} className="font-display p-6 text-center text-4xl">
-            Vedi tutto →
+            Vedi tutto il drop →
           </Link>
         </li>
       </ul>

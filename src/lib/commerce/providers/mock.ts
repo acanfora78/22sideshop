@@ -8,7 +8,7 @@ const money = (n: number): Money => ({ amount: n.toFixed(2), currencyCode: "EUR"
 function toProduct(raw: RawProduct): Product {
   const images = [
     productImage(raw.slug, "front", raw.alt),
-    productImage(raw.slug, "back", raw.alt.replace("stesa", "vista retro").replace("stesi", "vista retro")),
+    productImage(raw.slug, "back", raw.alt.replace(/stes[ai]/, "vista retro")),
     productImage(raw.slug, "detail", `${raw.title} — dettaglio (segnaposto demo)`),
   ];
   const variants = raw.sizes.map((size, i) => ({
@@ -39,6 +39,7 @@ function toProduct(raw: RawProduct): Product {
     availableForSale: variants.some((v) => v.availableForSale),
     createdAt: raw.createdAt,
     isDemo: true,
+    sizeGuide: raw.sizeGuide,
   };
 }
 

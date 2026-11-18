@@ -25,8 +25,16 @@ export const media = {
   waterTowers: img("scene-water-towers.jpg", 2000, 1400, "Cisterne sui tetti in controluce contro un cielo chiaro."),
   tiles: img("scene-tiles-22side.jpg", 2200, 1300, "Mosaico di piastrelle della metro con la scritta 22 SIDE ST."),
   chainlink: img("scene-chainlink.jpg", 2000, 1300, "Rete metallica davanti alle luci sfocate della città."),
+  platform: img("scene-platform-arrival.jpg", 2400, 1500, "Banchina deserta della metropolitana, luci al neon che si perdono nel tunnel."),
+  turntable: img("scene-turntable.jpg", 2000, 1400, "Giradischi visto dall'alto su un piano di cemento."),
   concrete: img("texture-concrete.jpg", 2000, 1300, "Texture di muro in cemento grezzo."),
   asphalt: img("texture-asphalt.jpg", 1600, 1600, "Texture di asfalto scuro."),
+} as const;
+
+/** Transparent overlays used by the opening and THE SOUND chapter. */
+export const overlays = {
+  train: { url: "/media/train-pass.webp", width: 3200, height: 760 },
+  vinyl: { url: "/media/vinyl-22.webp", width: 1400, height: 1400 },
 } as const;
 
 export type MediaKey = keyof typeof media;

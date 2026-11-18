@@ -68,7 +68,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
               id="mobile-search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Cerca nel side"
+              placeholder="Cerca un prodotto"
               className="label w-full bg-transparent py-2 text-sm text-dirty placeholder:text-concrete focus:outline-none"
             />
           </form>

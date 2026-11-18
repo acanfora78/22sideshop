@@ -8,6 +8,7 @@ import { cn, formatMoney, stockLabel } from "@/lib/format";
 import { useCart } from "@/components/cart/CartProvider";
 import { QuantityStepper } from "@/components/cart/QuantityStepper";
 import { Button } from "@/components/ui/Button";
+import { SizeGuide } from "./SizeGuide";
 
 /** Variant picker + quantity + add to cart. Mirrors Shopify's product form. */
 export function ProductForm({ product }: { product: Product }) {
@@ -55,7 +56,7 @@ export function ProductForm({ product }: { product: Product }) {
           <legend className="label text-concrete">
             Taglia{variant && <span className="text-dirty"> — {variant.title}</span>}
           </legend>
-          <span className="label text-concrete">Guida taglie al lancio</span>
+          <SizeGuide guide={product.sizeGuide} productTitle={product.title} />
         </div>
         <div className={cn("grid gap-1.5", single ? "grid-cols-1" : "grid-cols-3 sm:grid-cols-6")}>
           {product.variants.map((v) => {
@@ -88,14 +89,14 @@ export function ProductForm({ product }: { product: Product }) {
         </div>
         <p role="status" className="label mt-3 min-h-4 text-[0.65rem]">
           {error && !variant ? (
-            <span className="text-blood-bright">Prima scegli una taglia.</span>
+            <span className="text-blood-bright">Seleziona la taglia per continuare.</span>
           ) : stock ? (
             <span className={stock.tone === "low" ? "text-blood-bright" : stock.tone === "out" ? "text-concrete" : "text-dirty/70"}>
-              ● {stock.label} <span className="text-concrete">(disponibilità demo)</span>
+              ● {stock.label} <span className="text-concrete">(dato dimostrativo)</span>
             </span>
           ) : (
             <span className="text-concrete">
-              {firstAvailable ? "Scegli la tua taglia" : ""}
+              {firstAvailable ? "Seleziona la taglia" : ""}
             </span>
           )}
         </p>
@@ -121,19 +122,19 @@ export function ProductForm({ product }: { product: Product }) {
             >
               {added ? (
                 <>
-                  <Check className="size-4" strokeWidth={1.5} /> Aggiunto alla borsa
+                  <Check className="size-4" strokeWidth={1.5} /> Aggiunto al carrello
                 </>
               ) : variant && remaining <= 0 ? (
-                "Hai già tutti i pezzi disponibili"
+                "Hai già tutti i pezzi disponibili nel carrello"
               ) : (
-                <>Aggiungi alla borsa — {formatMoney((variant ?? product.variants[0]).price)}</>
+                <>Aggiungi al carrello — {formatMoney((variant ?? product.variants[0]).price)}</>
               )}
             </motion.span>
           </AnimatePresence>
         </Button>
       </div>
       <p id="add-note" className="label text-[0.6rem] leading-relaxed text-concrete">
-        Prodotto demo · prezzo segnaposto · checkout disattivato
+        Prodotto dimostrativo · prezzo segnaposto · pagamento non attivo
       </p>
     </div>
   );

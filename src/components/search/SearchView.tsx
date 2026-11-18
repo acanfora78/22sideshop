@@ -42,7 +42,7 @@ export function SearchView({ products, initialQuery }: { products: Product[]; in
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Cerca nel side"
+          placeholder="Cerca un prodotto"
           autoComplete="off"
           className="font-display w-full bg-transparent text-[clamp(2.4rem,7vw,6rem)] leading-none text-dirty placeholder:text-dirty/20 focus:outline-none focus-visible:outline-none [&::-webkit-search-cancel-button]:hidden"
         />
@@ -68,7 +68,7 @@ export function SearchView({ products, initialQuery }: { products: Product[]; in
 
       {q.trim() && results.length === 0 && (
         <div className="mt-10 flex flex-col items-start gap-5">
-          <p className="font-display text-big">Niente su questo blocco.</p>
+          <p className="font-display text-big">Nessun risultato.</p>
           <p className="text-dirty/70">Controlla come hai scritto o prova una parola più generica.</p>
           <Link href="/shop" className="label link-underline text-dirty">
             Sfoglia tutti i prodotti →

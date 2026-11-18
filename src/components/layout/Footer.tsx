@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
-import { site } from "@/content/site";
+import { service, site } from "@/content/site";
+import { RouteStrip, Ticket } from "@/components/transit/Transit";
 import { getCollections } from "@/lib/commerce";
 import { NewsletterForm } from "./NewsletterForm";
 import { ReplayIntro } from "./ReplayIntro";
@@ -35,8 +36,11 @@ export async function Footer() {
     <footer className="relative border-t border-dirty/10 bg-obsidian text-dirty">
       <div className="px-gutter grid gap-12 py-16 md:grid-cols-12 md:py-20">
         <div className="md:col-span-5">
-          <p className="label text-concrete">Newsletter — The Side Letter</p>
-          <p className="font-display mt-4 text-4xl md:text-5xl">I drop arrivano prima qui.</p>
+          <Ticket title="Get on the list" className="max-w-md -rotate-1">
+            <p className="text-sm leading-relaxed text-obsidian/75">
+              La Side Letter: nuovi drop, restock e storie dalla Line 22, prima di tutti.
+            </p>
+          </Ticket>
           <NewsletterForm />
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-6 md:col-start-7">
@@ -61,6 +65,13 @@ export async function Footer() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="px-gutter border-t border-dirty/10 py-10">
+        <p className="label mb-6 text-concrete">Line 22 — mappa del sito</p>
+        <div className="no-scrollbar overflow-x-auto">
+          <RouteStrip stops={["22 Side Street", "The Whole Block", "New Arrivals", "Collections", "The Other Side", "The Counter"]} className="min-w-[640px]" />
+        </div>
+        <p className="mt-8 text-sm text-dirty/70">{service.support}</p>
       </div>
       <div className="px-gutter label flex flex-col gap-3 border-t border-dirty/10 pb-16 pt-6 text-concrete md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-4">

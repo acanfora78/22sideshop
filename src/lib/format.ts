@@ -13,7 +13,7 @@ export function formatMoney(money: Money): string {
 
 export function stockLabel(qty: number): { label: string; tone: "ok" | "low" | "out" } {
   if (qty <= 0) return { label: "Esaurito", tone: "out" };
-  if (qty <= 3) return { label: `Ultimi pezzi — ne restano ${qty}`, tone: "low" };
+  if (qty <= 3) return { label: `Disponibilità limitata — ultimi ${qty} pezzi`, tone: "low" };
   return { label: "Disponibile", tone: "ok" };
 }
 

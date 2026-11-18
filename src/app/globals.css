@@ -161,6 +161,22 @@ html.scroll-locked body {
   to { transform: translate3d(-50%, 0, 0); }
 }
 
+/* ───────────────────────────── THE SOUND ───────────────────────────── */
+.spin-33 {
+  animation: spin33 1.8s linear infinite;
+}
+@keyframes spin33 {
+  to { transform: rotate(360deg); }
+}
+.eq-bar {
+  height: 20%;
+  animation: eq ease-in-out infinite alternate;
+}
+@keyframes eq {
+  from { height: 12%; }
+  to { height: 100%; }
+}
+
 /* ───────────────────────────── INTRO (pre-hydration skip) ───────────────────────────── */
 html[data-intro="seen"] [data-intro-overlay] {
   display: none !important;
@@ -209,7 +225,9 @@ html[data-intro="seen"] [data-intro-overlay] {
   .grain {
     animation: none;
   }
-  .marquee-track {
+  .marquee-track,
+  .spin-33,
+  .eq-bar {
     animation: none;
   }
 }

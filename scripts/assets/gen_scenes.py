@@ -135,9 +135,9 @@ def street_night(name: str, w: int, h: int, seed: int, figure: bool = False, vpx
 
 
 # ---------------------------------------------------------------- subway
-def subway(name: str, w: int, h: int, seed: int):
+def subway(name: str, w: int, h: int, seed: int, train: bool = True, cxr: float = 0.58):
     g = rng(seed)
-    cx, cy = w * 0.58, h * 0.47
+    cx, cy = w * cxr, h * 0.47
     f = w * 0.36
     cam_h = 1.6
 
@@ -192,14 +192,17 @@ def subway(name: str, w: int, h: int, seed: int):
     img = img + vblur(blur(lights[::-1] * 0, 1), 4)
     # passing train motion blur on the right foreground
     tc = Canvas(w, h)
-    tc.rect(w * 0.83, 0, w, h, 30)
-    for i in range(18):
-        y = g.uniform(0.15, 0.6) * h
-        tc.rect(w * 0.83, y, w, y + g.uniform(20, 70), g.uniform(120, 240))
-    train = hblur(tc.arr(), 60)
-    tmask = np.zeros((h, w), np.float32)
-    tmask[:, int(w * 0.8):] = np.linspace(0, 1, w - int(w * 0.8))[None, :] ** 0.6
-    img = img * (1 - tmask) + train * tmask
+    if not train:
+        tc = None
+    if tc is not None:
+        tc.rect(w * 0.83, 0, w, h, 30)
+        for i in range(18):
+            y = g.uniform(0.15, 0.6) * h
+            tc.rect(w * 0.83, y, w, y + g.uniform(20, 70), g.uniform(120, 240))
+        streak = hblur(tc.arr(), 60)
+        tmask = np.zeros((h, w), np.float32)
+        tmask[:, int(w * 0.8):] = np.linspace(0, 1, w - int(w * 0.8))[None, :] ** 0.6
+        img = img * (1 - tmask) + streak * tmask
     img = img + radial(w, h, cx, cy, w * 0.4) * 0.22
     img = glow(img, 0.6, 9, 0.6)
     accent = glow(accent, 0.3, 10, 1.6)
