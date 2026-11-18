@@ -161,6 +161,27 @@ html.scroll-locked body {
   to { transform: translate3d(-50%, 0, 0); }
 }
 
+/* ───────────────────────────── THE STORE ───────────────────────────── */
+.garment-sway {
+  transform-origin: 50% 2%;
+  animation: sway 5s ease-in-out infinite alternate;
+}
+@keyframes sway {
+  from { transform: rotate(-1.4deg); }
+  to { transform: rotate(1.4deg); }
+}
+
+/* ───────────────────────────── 22 SYSTEM ───────────────────────────── */
+.pattern-22 {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><text x='10' y='54' font-family='Impact,Anton,sans-serif' font-size='44' fill='%23e8e5df' fill-opacity='0.06'>22</text><text x='70' y='114' font-family='Impact,Anton,sans-serif' font-size='44' fill='%23e8e5df' fill-opacity='0.06'>22</text></svg>");
+  background-size: 120px 120px;
+  animation: drift22 40s linear infinite;
+}
+@keyframes drift22 {
+  from { background-position: 0 0; }
+  to { background-position: 240px 120px; }
+}
+
 /* ───────────────────────────── THE SOUND ───────────────────────────── */
 .spin-33 {
   animation: spin33 1.8s linear infinite;
@@ -227,7 +248,9 @@ html[data-intro="seen"] [data-intro-overlay] {
   }
   .marquee-track,
   .spin-33,
-  .eq-bar {
+  .eq-bar,
+  .garment-sway,
+  .pattern-22 {
     animation: none;
   }
 }

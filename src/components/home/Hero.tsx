@@ -6,12 +6,12 @@ import { motion, useReducedMotion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown } from "lucide-react";
-import { media } from "@/content/media";
+import { movement } from "@/content/movement";
+import { Marquee } from "@/components/motion/Marquee";
 import { home, site } from "@/content/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { EASE_OUT } from "@/components/motion/Reveal";
-import { Logo } from "@/components/ui/Logo";
 import { Sticker } from "@/components/ui/Sticker";
 import { LineBullet, PlatformTag, StationSign } from "@/components/transit/Transit";
 import { useIntroDone } from "./useIntroDone";
@@ -35,7 +35,7 @@ function Timecode() {
 /**
  * HERO — THE STREET IS OURS.
  * Campaign composition: night avenue, editorial captions, station signage,
- * and a monumental 22SIDE wordmark cut by the bottom of the frame.
+ * and a moving band of giant 22s across the bottom of the frame.
  */
 export function Hero() {
   const ready = useIntroDone();
@@ -44,7 +44,7 @@ export function Hero() {
   const img = useRef<HTMLDivElement>(null);
   const mark = useRef<HTMLDivElement>(null);
   const title = useRef<HTMLDivElement>(null);
-  const { hero } = home;
+  const hero = { ...home.hero, ...movement.hero };
 
   useEffect(() => {
     if (reduce || !root.current) return;
@@ -66,7 +66,7 @@ export function Hero() {
   const words = hero.title.split(" ");
 
   return (
-    <section id="arrival" ref={root} className="relative isolate h-[100svh] min-h-[600px] overflow-hidden [--mark-h:21vw] md:[--mark-h:min(22vw,28svh)]" aria-label={hero.title}>
+    <section id="arrival" ref={root} className="relative isolate h-[100svh] min-h-[600px] overflow-hidden [--mark-h:4.5rem] md:[--mark-h:min(9vw,15svh)]" aria-label={hero.title}>
       <div ref={img} className="absolute inset-0 -z-10 will-change-transform">
         <motion.div
           className="absolute inset-0"
@@ -74,8 +74,7 @@ export function Hero() {
           animate={ready ? { scale: 1, opacity: 1 } : undefined}
           transition={{ duration: 2.2, ease: EASE_OUT }}
         >
-          <Image src={media.streetFigure.url} alt={media.streetFigure.altText} fill priority sizes="100vw" className="hidden object-cover md:block" />
-          <Image src={media.streetPortrait.url} alt={media.streetPortrait.altText} fill priority sizes="100vw" className="object-cover object-[50%_35%] md:hidden" />
+          <Image src={hero.image} alt={hero.imageAlt} fill priority sizes="100vw" className="object-cover object-[50%_30%]" />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-b from-obsidian/80 via-obsidian/10 to-obsidian/70" />
       </div>
@@ -101,8 +100,8 @@ export function Hero() {
 
       {/* Headline */}
       <div ref={title} className="px-gutter absolute inset-x-0 bottom-[calc(var(--mark-h)+1rem)] top-[calc(var(--header-h)+6.5rem)] flex flex-col justify-center">
-        <h1 className="font-display text-[clamp(3.1rem,min(9.5vw,13svh),10.5rem)] leading-[0.86]">
-          {[words.slice(0, 2).join(" "), words.slice(2).join(" ")].map((line, i) => (
+        <h1 className="font-display text-[clamp(3.4rem,min(9vw,14svh),10rem)] leading-[0.86]">
+          {words.map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.04em]">
               <motion.span
                 className={`block ${i === 1 ? "text-blood-bright" : ""}`}
@@ -135,24 +134,28 @@ export function Hero() {
       {ready && (
         <div className="pointer-events-none absolute inset-0 z-10">
           <Sticker label="Fresh drop" tone="red" rotate={-10} delay={1.1} draggable className="absolute right-[6%] top-[22%] md:right-[12%] md:top-[30%]" />
-          <Sticker label="22" tone="white" rotate={8} delay={1.25} big draggable className="absolute right-[12%] top-[31%] max-md:!hidden md:right-[24%] md:top-[44%]" />
         </div>
       )}
 
       {/* Figure caption */}
       <motion.p {...enter(1.1, 10)} className="label pointer-events-none absolute bottom-[calc(var(--mark-h)+0.75rem)] right-[var(--gutter)] hidden text-dirty/60 md:block">
-        Fig. 01 — The Street, 02:14 AM
+        Fig. 07 — The Movement, 22 Side St.
       </motion.p>
 
-      {/* Monumental wordmark, cropped by the frame */}
+      {/* Moving 22 band */}
       <div ref={mark} className="pointer-events-none absolute inset-x-0 bottom-0 flex h-[var(--mark-h)] items-start justify-center overflow-hidden" aria-hidden>
         <motion.div
-          initial={reduce ? { opacity: 0 } : { y: "60%" }}
-          animate={ready ? { y: "-6%", opacity: 1 } : undefined}
-          transition={{ duration: 1.4, ease: EASE_OUT, delay: 0.2 }}
-          className="mix-blend-difference"
+          initial={reduce ? { opacity: 0 } : { y: "100%" }}
+          animate={ready ? { y: "0%", opacity: 1 } : undefined}
+          transition={{ duration: 1.2, ease: EASE_OUT, delay: 0.4 }}
+          className="w-full border-t border-dirty/20 bg-obsidian/70 backdrop-blur-sm"
         >
-          <Logo className="text-[calc(var(--mark-h)*1.6)] leading-[0.9] text-dirty" registered={false} />
+          <Marquee
+            items={["22", "The movement", "22", "No rules. Just attitude.", "22", "Line 22"]}
+            separator="●"
+            speed={30}
+            className="font-display flex h-[var(--mark-h)] items-center text-[calc(var(--mark-h)*0.72)] leading-none"
+          />
         </motion.div>
       </div>
     </section>

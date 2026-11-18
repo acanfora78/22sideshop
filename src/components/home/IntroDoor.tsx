@@ -26,7 +26,7 @@ const TITLE_STICKERS = [
  * camera dives into the shop (DoorScene), then a glitched logo slam with
  * draggable stickers and the ENTER THE SIDE CTA.
  * - Skippable at any time (button, Esc). Enter / scroll on the title card enters.
- * - Remembered for 12h (localStorage), hidden pre-paint on return visits.
+ * - Remembered for the browsing session (sessionStorage), hidden pre-paint on return visits.
  * - Reduced motion: no film, straight to a static title card.
  */
 export function IntroDoor() {
@@ -90,7 +90,7 @@ export function IntroDoor() {
 
   const onExitComplete = () => {
     try {
-      window.localStorage.setItem(INTRO_STORAGE_KEY, String(Date.now()));
+      window.sessionStorage.setItem(INTRO_STORAGE_KEY, String(Date.now()));
     } catch {
       /* ignore */
     }

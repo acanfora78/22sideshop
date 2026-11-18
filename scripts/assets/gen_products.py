@@ -159,7 +159,7 @@ def stamp(img: Image.Image, code: str, view: str):
         d.line([(x, y), (x, y + 40 * dy)], fill=(119, 119, 119), width=2)
 
 
-def render(code, kind, color, print_spec, seed, view):
+def render(code, kind, color, print_spec, seed, view, hanging=False):
     g = rng(seed + (0 if view == "front" else 7))
     # background: concrete-ish
     bg_l = 0.13 + (fbm(W, H, g, 300, 6) - 0.5) * 0.12 + g.normal(0, 0.03, (H, W)).astype(np.float32)
@@ -213,6 +213,8 @@ def render(code, kind, color, print_spec, seed, view):
             pm = pm * (0.75 + crack * 0.25)
             pc = np.array(pcol, np.float32) / 255.0
             garment = garment * (1 - pm[..., None]) + (pc[None, None, :] * (0.92 + (fabric[..., None] - 0.86))) * pm[..., None]
+    if hanging:
+        return garment, mask
     out = bg * (1 - mask[..., None]) + garment * mask[..., None]
     # global grain + slight vignette
     out = out + g.normal(0, 0.018, (H, W, 1)).astype(np.float32)
@@ -263,7 +265,63 @@ PRODUCTS = [
 ]
 
 
+def hanger_layer(kind):
+    """Metal hanger (behind the garment) + hook (above it). Returns (rgb, alpha)."""
+    c = Canvas(W, H)
+    hook = Canvas(W, H)
+    if kind in ("cargo", "shorts"):
+        # clip hanger: bar + two clips on the waistband
+        c.line([(0.25 * W, 0.075 * H), (0.75 * W, 0.075 * H)], 255, 9)
+        for x in (0.33, 0.67):
+            c.rect(x * W - 16, 0.07 * H, x * W + 16, 0.13 * H, 255)
+        hook.line([(0.5 * W, 0.075 * H), (0.5 * W, 0.04 * H)], 255, 8)
+        curve = catmull([(0.5, 0.04), (0.49, 0.015), (0.52, 0.0), (0.545, 0.018), (0.53, 0.035)], 10, closed=False)
+        hook.line([(x * W, y * H) for x, y in curve], 255, 8)
+    else:
+        c.line([(0.27 * W, 0.205 * H), (0.5 * W, 0.12 * H), (0.73 * W, 0.205 * H)], 255, 12)
+        hook.line([(0.5 * W, 0.12 * H), (0.5 * W, 0.08 * H)], 255, 9)
+        hook.line([(x * W, y * H) for x, y in catmull([(0.5, 0.08), (0.488, 0.045), (0.515, 0.02), (0.545, 0.04), (0.532, 0.062)], 10, closed=False)], 255, 9)
+    return c.arr(), hook.arr()
+
+
+def hanging(code, kind, color, prints, seed, out_path):
+    """Transparent garment on a hanger with a DEMO swing tag, for the virtual store."""
+    garment, mask = render(code, kind, color, prints, seed, "front", hanging=True)
+    rgb = np.zeros((H, W, 3), np.float32)
+    alpha = np.zeros((H, W), np.float32)
+    metal = np.array([0.16, 0.16, 0.17])
+    if kind not in ("cap", "beanie"):
+        bar, hook = hanger_layer(kind)
+        rgb = rgb * (1 - bar[..., None]) + metal * bar[..., None]
+        alpha = np.maximum(alpha, bar)
+    rgb = rgb * (1 - mask[..., None]) + garment * mask[..., None]
+    alpha = np.maximum(alpha, mask)
+    if kind not in ("cap", "beanie"):
+        rgb = rgb * (1 - hook[..., None]) + metal * hook[..., None]
+        # highlight on the hook
+        rgb = rgb + (hook - blur(hook, 2)).clip(0, 1)[..., None] * 0.5
+        alpha = np.maximum(alpha, hook)
+    img = Image.fromarray((np.dstack([np.clip(rgb, 0, 1), alpha]) * 255).astype(np.uint8), "RGBA")
+    # DEMO swing tag on a string
+    d = ImageDraw.Draw(img)
+    tx, ty = (int(0.6 * W), int(0.24 * H)) if kind not in ("cargo", "shorts", "cap", "beanie") else (int(0.62 * W), int(0.16 * H if kind in ("cargo", "shorts") else 0.36 * H))
+    d.line([(tx - 40, ty - 40), (tx, ty)], fill=(200, 196, 188, 255), width=3)
+    d.rectangle([tx - 4, ty, tx + 96, ty + 52], fill=(232, 229, 223, 255))
+    d.ellipse([tx + 4, ty + 6, tx + 14, ty + 16], fill=(20, 20, 20, 255))
+    d.text((tx + 20, ty + 6), "DEMO", font=font("IBMPlexMono.ttf", 22), fill=(139, 23, 23, 255))
+    d.text((tx + 20, ty + 28), code, font=font("IBMPlexMono.ttf", 18), fill=(20, 20, 20, 255))
+    bbox = img.getbbox()
+    img = img.crop(bbox)
+    img.thumbnail((700, 900), Image.LANCZOS)
+    img.save(out_path, "WEBP", quality=84, method=6)
+
+
 if __name__ == "__main__":
+    if os.environ.get("ONLY_HANGING"):
+        for i, (code, slug, kind, color, prints, dbox) in enumerate(PRODUCTS):
+            hanging(code, kind, color, prints, 100 + i, os.path.join(POUT, f"{slug}-hanging.webp"))
+            print("hanging", slug)
+        raise SystemExit
     os.makedirs(POUT, exist_ok=True)
     for i, (code, slug, kind, color, prints, dbox) in enumerate(PRODUCTS):
         front = render(code, kind, color, prints, 100 + i, "front")

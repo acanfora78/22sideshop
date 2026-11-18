@@ -32,7 +32,7 @@ export const mainNav = [
 
 /** Station names shown by the "Next stop" page transition. */
 export const stops: { match: (p: string) => boolean; name: string }[] = [
-  { match: (p) => p === "/", name: "22 Side Street" },
+  { match: (p) => p === "/", name: "The Movement" },
   { match: (p) => p.startsWith("/shop"), name: "The Whole Block" },
   { match: (p) => p.startsWith("/new-arrivals"), name: "New Arrivals" },
   { match: (p) => p.startsWith("/collections"), name: "Collections" },
@@ -52,10 +52,11 @@ export const home = {
     soundOff: "Audio off",
   },
   route: [
-    { id: "arrival", label: "The Street" },
+    { id: "arrival", label: "The Movement" },
     { id: "manifesto", label: "Manifesto" },
-    { id: "drop", label: "The Drop" },
-    { id: "underground", label: "The Underground" },
+    { id: "why-22", label: "Why 22" },
+    { id: "store", label: "The Store" },
+    { id: "underground", label: "Underground Culture" },
     { id: "collection", label: "The Collection" },
     { id: "last-stop", label: "Last Stop" },
   ],
@@ -88,8 +89,8 @@ export const home = {
   },
   underground: {
     index: "04",
-    label: "The Underground",
-    title: "The Underground",
+    label: "Underground Culture",
+    title: "Underground Culture",
     intro:
       "Prima del drop c’è la città. Cinque fermate lungo la Line 22: le immagini, i suoni e le persone che hanno dato forma al nostro modo di vestire.",
     chapters: [
@@ -135,7 +136,7 @@ export const home = {
     index: "05",
     label: "Shop the Collection",
     title: "Pick your line.",
-    note: "Cinque linee, un’unica attitudine. Scegli da dove partire.",
+    note: "Sei linee, un’unica attitudine. Scegli da dove partire.",
     cta: { label: "Scopri tutti i prodotti", href: "/shop" },
   },
   final: {

@@ -1,4 +1,23 @@
-# 22SIDE — 22 Side Street
+# 22SIDE — The Movement
+
+**V3 direction:** *22SIDE is not just a streetwear brand — it's a movement.* The number **22** is the core identity (two equal strokes = the two tracks of Line 22 = the two sides). The site opens with a short film, then lets you walk through a physical store.
+
+## The opening — THE MOVEMENT (`components/home/MovementIntro.tsx`)
+SHOT 01 the city · 02 the arrival · 03 the key · 04 the lock (click) · 05 the door opens · 06 the store, lights on one by one · 07 the movement → *THIS IS NOT JUST STREETWEAR. THIS IS A MOVEMENT.* → **ENTER THE MOVEMENT**, exit through a giant growing 22.
+- Built from **original AI-generated stills** of a **fictional** character (ElevenLabs · gemini-3-pro-image), graded to the palette (`scripts/assets/grade.py`), directed with GSAP: cuts, dolly moves, focus pulls, light changes, letterbox. No video was generated (cost decision); stills can be swapped for clips later.
+- Skip any time · remembered for the **browsing session** (sessionStorage) · reduced-motion static card · original synthesized sound (`movementAudio.ts`), **off by default**, clear toggle.
+- Variants kept: `INTRO_VARIANT` in `components/home/intro-config.ts` → `"movement"` (current), `"arrival"` (subway), `"door"` (kid with key, also in `archive/intro-porta-chiave`).
+- Provenance of all generated images: `public/media/movement/README.md`.
+
+## The 22 system (`components/twentytwo/TwentyTwo.tsx`)
+`TwentyTwoMark` (self-drawing 22), `TwentyTwoReveal` (giant 22 mask that opens into the store on scroll), `TrackLines` (two tracks + travelling train dot between sections), `Pattern22` (drifting 22 pattern), `Count22` (counter landing on 22), plus the 22 marquee band in the hero and editorial numbering (22.01 …).
+
+## The Store (`components/store/*`, `content/store.ts`)
+Each collection hangs on its own AI-generated store wall (neon concrete, subway tiles, black brick, corrugated steel, raw concrete). Garments are the **clearly marked demo placeholders** rendered on metal hangers with a DEMO swing tag (`scripts/assets/gen_products.py`, `ONLY_HANGING=1`). Hover/focus/tap lights a garment, dims the rest and shows a product card (Italian); click opens the product. Touch: first tap selects, card button opens. Walls appear on the homepage, `/collections` and each collection page.
+
+---
+
+# Previous direction — 22 Side Street
 
 **Concept:** *22 SIDE STREET — the place you were never supposed to find.* A fictional New York underground station on an imaginary **Line 22**: its signage, route maps, tickets and platforms are the brand's interface language. Plan & audit: `docs/REBUILD-PLAN.md`.
 

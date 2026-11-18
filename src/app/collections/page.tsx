@@ -3,21 +3,33 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getCollectionProducts, getCollections } from "@/lib/commerce";
-import { media } from "@/content/media";
 import { pages } from "@/content/site";
 import { LineBullet } from "@/components/transit/Transit";
 import { PageHero } from "@/components/collection/PageHero";
 import { ImageReveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/format";
+import { storeWalls } from "@/content/store";
+import { StoreWall } from "@/components/store/StoreWall";
+import { TrackLines } from "@/components/twentytwo/TwentyTwo";
 
 export const metadata: Metadata = { title: "Collezioni" };
 
 export default async function CollectionsIndex() {
   const collections = await getCollections();
   const counts = await Promise.all(collections.map((c) => getCollectionProducts(c.handle).then((p) => p.length)));
+  const walls = await Promise.all(storeWalls.map(async (w) => ({ wall: w, products: await getCollectionProducts(w.collection) })));
   return (
     <>
-      <PageHero kicker={pages.collections.kicker} title={pages.collections.title} image={media.skyline} index="03" count={collections.length} countLabel={["linea", "linee"]} />
+      <PageHero kicker={pages.collections.kicker} title={pages.collections.title} image={{ url: "/media/movement/store-overview.webp", width: 1376, height: 768, altText: "" }} index="03" count={collections.length} countLabel={["linea", "linee"]} />
+      <div className="space-y-6 pb-16 md:space-y-10">
+        {walls.map(({ wall, products }, i) => (
+          <div key={wall.id}>
+            {i > 0 && <TrackLines />}
+            <StoreWall wall={wall} products={products} headingLevel="h2" />
+          </div>
+        ))}
+      </div>
+      <p className="px-gutter label mb-6 text-concrete">Tutte le linee</p>
       <div className="px-gutter grid gap-3 pb-24 md:grid-cols-2">
         {collections.map((c, i) => (
           <Link

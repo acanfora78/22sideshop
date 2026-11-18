@@ -122,7 +122,7 @@ export function ArrivalIntro() {
 
   const complete = () => {
     try {
-      window.localStorage.setItem(INTRO_STORAGE_KEY, String(Date.now()));
+      window.sessionStorage.setItem(INTRO_STORAGE_KEY, String(Date.now()));
     } catch {
       /* ignore */
     }

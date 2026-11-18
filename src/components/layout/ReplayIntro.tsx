@@ -13,7 +13,7 @@ export function ReplayIntro({ className }: { className?: string }) {
       className={className}
       onClick={() => {
         try {
-          window.localStorage.removeItem(INTRO_STORAGE_KEY);
+          window.sessionStorage.removeItem(INTRO_STORAGE_KEY);
         } catch {
           /* ignore */
         }

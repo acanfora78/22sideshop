@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 };
 
 // Runs before first paint: hides the intro overlay for visitors who've seen it recently.
-const introScript = `try{var t=+localStorage.getItem(${JSON.stringify(INTRO_STORAGE_KEY)});if(t&&Date.now()-t<${INTRO_TTL_MS})document.documentElement.setAttribute('data-intro','seen')}catch(e){}`;
+const introScript = `try{var t=+sessionStorage.getItem(${JSON.stringify(INTRO_STORAGE_KEY)});if(t&&Date.now()-t<${INTRO_TTL_MS})document.documentElement.setAttribute('data-intro','seen')}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
