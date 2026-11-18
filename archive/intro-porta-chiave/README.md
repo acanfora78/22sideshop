@@ -1,7 +1,7 @@
 # Intro "La porta e la chiave" — versione salvata
 
 Salvata il 18/11/2026 su richiesta del brand: **da tenere**.
-Git tag di riferimento: `intro-porta-chiave-v1` (commit con il sito in italiano + questa intro).
+Commit di riferimento: `4912e21` (sito in italiano + questa intro), branch `claude/vigilant-noether-au314s`.
 
 ![storyboard](storyboard.jpg)
 
@@ -38,7 +38,7 @@ cp -r archive/intro-porta-chiave/src/* src/
 oppure, direttamente da git (versione esatta):
 
 ```bash
-git checkout intro-porta-chiave-v1 -- src/components/home/DoorScene.tsx src/components/home/IntroSequence.tsx src/components/home/useIntroDone.ts src/components/home/intro-config.ts src/components/ui/Sticker.tsx src/components/layout/ReplayIntro.tsx
+git checkout 4912e21 -- src/components/home/DoorScene.tsx src/components/home/IntroSequence.tsx src/components/home/useIntroDone.ts src/components/home/intro-config.ts src/components/ui/Sticker.tsx src/components/layout/ReplayIntro.tsx
 ```
 
 Questa cartella è esclusa da build, TypeScript e lint: è solo un archivio.
