@@ -49,6 +49,9 @@ src/
 scripts/assets/           Python generators for every image in public/media
 ```
 
+## Archivio
+`archive/intro-porta-chiave/` — copia salvata dell'intro "porta e chiave" (storyboard, file e istruzioni di ripristino). Git tag `intro-porta-chiave-v1`.
+
 ## Motion
 - **Intro (`DoorScene.tsx`)**: an animated SVG short directed by one GSAP timeline. The neon flickers on, a kid in a 22 hoodie walks up, smash zoom on the lock, the key goes in and turns (CLICK!), the door bursts open (SWOOSH!), light floods out, they step in and the camera dives through the door. Then a glitched logo slam with draggable stickers and *ENTER THE SIDE*. Skippable immediately (button / Esc). Remembered for 12h; footer has **Replay intro ↻**.
 - Youth layer: Permanent Marker font (`font-marker`), draggable `Sticker`s, self-drawing `Scribble`s, "cop it!" hover tags on product cards.
