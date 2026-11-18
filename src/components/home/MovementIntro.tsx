@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { gsap } from "gsap";
 import { Volume2, VolumeX } from "lucide-react";
@@ -16,29 +16,31 @@ import { INTRO_DONE_EVENT, markIntroDone } from "./useIntroDone";
 import { MovementAudio } from "./movementAudio";
 
 type Phase = "film" | "title" | "exit" | "done";
+const noopSubscribe = () => () => {};
 
 /** Timeline (seconds). Kept in one place so picture and sound stay in sync. */
 const T = {
   city: 0,
-  arrival: 1.5,
-  key: 2.9,
-  lock: 4.0,
-  click: 4.85,
-  door: 5.3,
-  store: 6.7,
-  lights: [6.85, 7.3, 7.75],
-  movement: 8.5,
-  title: 8.7,
-  steps: [1.65, 2.0, 2.35, 2.7],
+  arrival: 1.9,
+  key: 3.6,
+  lock: 4.9,
+  click: 5.6,
+  door: 6.5,
+  store: 8.2,
+  lights: [8.35, 8.85, 9.35],
+  movement: 10.1,
+  title: 10.5,
+  steps: [2.05, 2.45, 2.85, 3.25],
 };
 
 /**
  * THE MOVEMENT — opening short film.
  * SHOT 01 the city · 02 the arrival · 03 the key · 04 the lock (click) ·
  * 05 the door opens · 06 the store, lights on one by one · 07 the movement.
- * Built from original AI-generated stills (fictional character) directed with
- * GSAP: cuts, dolly moves, focus pulls, light changes, letterbox, and a giant
- * 22 that opens the way into the site.
+ * Built from original AI-generated footage (Kling 3 Pro clips animated from
+ * our stills of a fictional character), cut and directed with GSAP: cuts,
+ * gentle camera moves, letterbox, and a giant 22 that opens the way into the
+ * site. The stills stay as poster frames / fallback.
  *
  * Skip at any time · remembered for the browsing session · reduced-motion
  * static card · sound off by default with a clear toggle.
@@ -56,6 +58,12 @@ export function MovementIntro() {
   const locked = useRef(false);
   const audio = useRef<MovementAudio | null>(null);
   const t0 = useRef(0);
+  // Real AI-generated clips: desktop 1280w / mobile 720w, chosen after mount.
+  const videoSrc = useSyncExternalStore(
+    noopSubscribe,
+    () => (window.matchMedia("(max-width: 767px)").matches ? "-m.mp4" : ".mp4"),
+    () => null,
+  );
 
   useEffect(() => {
     if (document.documentElement.getAttribute("data-intro") === "seen") {
@@ -79,8 +87,20 @@ export function MovementIntro() {
         gsap.set(shotEls, { autoAlpha: 0 });
         gsap.set(q("[data-bar]"), { scaleY: 0 });
         const tl = gsap.timeline({ onComplete: () => setPhase((p) => (p === "film" ? "title" : p)) });
+        const videos = q("[data-video]") as HTMLVideoElement[];
         const cut = (i: number, at: number, fade = 0) => {
-          tl.call(() => setShot(i), [], at);
+          tl.call(
+            () => {
+              setShot(i);
+              const v = videos.find((el) => el.dataset.video === String(i));
+              if (v) {
+                v.currentTime = 0;
+                v.play().catch(() => {});
+              }
+            },
+            [],
+            at,
+          );
           tl.to(shotEls[i], { autoAlpha: 1, duration: fade }, at);
           if (i > 0) tl.set(shotEls[i - 1], { autoAlpha: 0 }, at + fade);
         };
@@ -90,35 +110,28 @@ export function MovementIntro() {
         tl.to(q("[data-bar]"), { scaleY: 1, duration: 0.8, ease: "power3.inOut" }, 0);
         // 01 — the city: slow crane down + drift
         cut(0, T.city, 0.6);
-        tl.fromTo(cam(0), { scale: 1.18, yPercent: -3 }, { scale: 1.04, yPercent: 0, duration: 1.7, ease: "sine.out" }, T.city);
+        tl.fromTo(cam(0), { scale: 1.1 }, { scale: 1.02, duration: 2.1, ease: "sine.out" }, T.city);
         // 02 — the arrival: push toward the door
         cut(1, T.arrival);
-        tl.fromTo(cam(1), { scale: 1.02, xPercent: 0 }, { scale: 1.22, xPercent: -4, duration: 1.5, ease: "none" }, T.arrival);
+        tl.fromTo(cam(1), { scale: 1.02 }, { scale: 1.1, duration: 1.8, ease: "none" }, T.arrival);
         // 03 — the key: focus pull
         cut(2, T.key);
-        tl.fromTo(cam(2), { scale: 1.25, filter: "blur(10px)" }, { scale: 1.08, filter: "blur(0px)", duration: 0.7, ease: "power2.out" }, T.key);
-        tl.to(cam(2), { yPercent: -3, duration: 0.5, ease: "power2.in" }, T.key + 0.6);
+        tl.fromTo(cam(2), { scale: 1.15, filter: "blur(8px)" }, { scale: 1.04, filter: "blur(0px)", duration: 0.6, ease: "power2.out" }, T.key);
         // 04 — the lock: push in, turn, CLICK
         cut(3, T.lock);
-        tl.fromTo(cam(3), { scale: 1.05, rotation: 0 }, { scale: 1.32, duration: 1.3, ease: "power1.in" }, T.lock);
-        tl.to(cam(3), { rotation: 1.5, duration: 0.12, ease: "power4.out" }, T.click);
+        tl.fromTo(cam(3), { scale: 1.02 }, { scale: 1.14, duration: 1.6, ease: "power1.in" }, T.lock);
         tl.fromTo(q("[data-flash]"), { opacity: 0 }, { opacity: 0.35, duration: 0.05, yoyo: true, repeat: 1 }, T.click);
         tl.to(q("[data-shake]"), { x: "random(-8,8)", y: "random(-5,5)", duration: 0.04, repeat: 5, yoyo: true, ease: "none" }, T.click);
         tl.set(q("[data-shake]"), { x: 0, y: 0 }, T.click + 0.3);
         // 05 — the door: light floods in
         cut(4, T.door);
-        tl.fromTo(cam(4), { scale: 1.0, filter: "brightness(0.18)" }, { scale: 1.12, filter: "brightness(1)", duration: 1.3, ease: "power2.out" }, T.door);
+        tl.fromTo(cam(4), { filter: "brightness(0.35)" }, { filter: "brightness(1)", duration: 0.9, ease: "power2.out" }, T.door);
         // 06 — the store: lights switch on one by one, camera follows him in
         cut(5, T.store);
-        tl.fromTo(cam(5), { scale: 1.0, filter: "brightness(0.05)" }, { scale: 1.22, duration: 1.9, ease: "none" }, T.store);
-        tl.set(cam(5), { filter: "brightness(0.4)" }, T.lights[0]);
-        tl.set(cam(5), { filter: "brightness(0.12)" }, T.lights[0] + 0.08);
-        tl.set(cam(5), { filter: "brightness(0.45)" }, T.lights[0] + 0.16);
-        tl.set(cam(5), { filter: "brightness(0.72)" }, T.lights[1]);
-        tl.set(cam(5), { filter: "brightness(1)" }, T.lights[2]);
+        tl.fromTo(cam(5), { scale: 1.0 }, { scale: 1.08, duration: 1.9, ease: "none" }, T.store);
         // 07 — the movement
         cut(6, T.movement, 0.15);
-        tl.fromTo(cam(6), { scale: 1.2 }, { scale: 1.04, duration: 1.4, ease: "power3.out" }, T.movement);
+        tl.fromTo(cam(6), { scale: 1.1 }, { scale: 1.0, duration: 1.6, ease: "power3.out" }, T.movement);
         tl.to(q("[data-bar]"), { scaleY: 0.45, duration: 0.8, ease: "power3.inOut" }, T.title);
       }, root);
     }
@@ -219,6 +232,19 @@ export function MovementIntro() {
                   className="object-cover"
                   style={{ objectPosition: s.focus }}
                 />
+                {!reduce && s.video && (
+                  <video
+                    data-video={i}
+                    src={videoSrc ? `${s.video}${videoSrc}` : undefined}
+                    poster={s.src}
+                    muted
+                    playsInline
+                    preload="auto"
+                    aria-hidden
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{ objectPosition: s.focus }}
+                  />
+                )}
               </div>
             </div>
           ))}
