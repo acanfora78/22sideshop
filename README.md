@@ -4,7 +4,7 @@
 
 ## The opening — THE MOVEMENT (`components/home/MovementIntro.tsx`)
 SHOT 01 the city · 02 the arrival · 03 the key · 04 the lock (click) · 05 the door opens · 06 the store, lights on one by one · 07 the movement → *THIS IS NOT JUST STREETWEAR. THIS IS A MOVEMENT.* → **ENTER THE MOVEMENT**, exit through a giant growing 22.
-- Built from **original AI-generated stills** of a **fictional** character (ElevenLabs · gemini-3-pro-image), graded to the palette (`scripts/assets/grade.py`), directed with GSAP: cuts, dolly moves, focus pulls, light changes, letterbox. No video was generated (cost decision); stills can be swapped for clips later.
+- **Real AI video**: 7 clips (ElevenLabs · Kling 3 Pro, image-to-video) animated from original stills of a **fictional** character (gemini-3-pro-image). Each clip is trimmed to its best 1.3–2 s, graded and compressed (`scripts/assets/cut_clip.sh`): ~3.4 MB desktop / ~0.9 MB mobile in total, muted, `playsInline`. The stills are poster frames and the fallback; GSAP handles cuts, letterbox and the 22 exit. Preview: `docs/intro-the-movement-anteprima.mp4`.
 - Skip any time · remembered for the **browsing session** (sessionStorage) · reduced-motion static card · original synthesized sound (`movementAudio.ts`), **off by default**, clear toggle.
 - Variants kept: `INTRO_VARIANT` in `components/home/intro-config.ts` → `"movement"` (current), `"arrival"` (subway), `"door"` (kid with key, also in `archive/intro-porta-chiave`).
 - Provenance of all generated images: `public/media/movement/README.md`.
