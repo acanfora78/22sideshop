@@ -65,8 +65,10 @@ export interface Product {
   priceRange: { minVariantPrice: Money; maxVariantPrice: Money };
   availableForSale: boolean;
   createdAt: string;
-  /** Always true in this prototype — flags demo merchandise in the UI. */
+  /** Flags demo merchandise in the UI. */
   isDemo: boolean;
+  /** False while price / sizes have not been communicated by the brand: shown as "Prezzo da confermare", not purchasable. */
+  priceConfirmed: boolean;
   /** Which size guide applies (maps to a Shopify metafield). */
   sizeGuide: "top" | "bottom" | "one-size";
 }

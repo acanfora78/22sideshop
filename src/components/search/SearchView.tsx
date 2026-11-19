@@ -8,7 +8,7 @@ import type { Product } from "@/lib/commerce/types";
 import { searchProducts } from "@/lib/commerce/sort";
 import { ProductCard } from "@/components/product/ProductCard";
 
-const SUGGESTIONS = ["t-shirt", "felpa", "nero", "cargo", "cappello", "stampa"];
+const SUGGESTIONS = ["t-shirt", "jeans", "felpa", "cargo", "manica lunga", "angelo"];
 
 export function SearchView({ products, initialQuery }: { products: Product[]; initialQuery: string }) {
   const router = useRouter();

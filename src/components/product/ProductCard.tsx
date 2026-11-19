@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { Product } from "@/lib/commerce/types";
-import { cn, formatMoney } from "@/lib/format";
+import { cn, productPrice } from "@/lib/format";
 import { useCart } from "@/components/cart/CartProvider";
 import { DemoTag } from "@/components/ui/SectionLabel";
 
@@ -31,7 +31,8 @@ export function ProductCard({
 }) {
   const { addItem } = useCart();
   const [quickOpen, setQuickOpen] = useState(false);
-  const soldOut = !product.availableForSale;
+  const comingSoon = !product.priceConfirmed;
+  const soldOut = !comingSoon && !product.availableForSale;
   const lowStock = !soldOut && product.variants.length > 2 && product.variants.filter((v) => v.availableForSale).length <= 2;
   const single = product.variants.length === 1;
   const href = `/products/${product.handle}`;
@@ -62,7 +63,7 @@ export function ProductCard({
           )}
         </Link>
 
-        {!soldOut && (
+        {product.availableForSale && (
           <span
             aria-hidden
             className="font-marker pointer-events-none absolute bottom-4 left-3 z-[4] -rotate-6 scale-0 bg-blood px-3 py-1 text-lg text-dirty shadow-[3px_3px_0_#080808] transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-100"
@@ -74,11 +75,12 @@ export function ProductCard({
           {index !== undefined && <span className="label text-dirty/80">{String(index + 1).padStart(2, "0")}</span>}
           <div className="flex flex-col items-end gap-1">
             {soldOut && <span className="label bg-dirty px-2 py-1 text-[0.6rem] text-obsidian">Esaurito</span>}
+            {comingSoon && <span className="label bg-obsidian/80 px-2 py-1 text-[0.6rem] text-dirty">In arrivo</span>}
             {lowStock && <span className="label bg-blood px-2 py-1 text-[0.6rem] text-dirty">Disponibilità limitata</span>}
           </div>
         </div>
 
-        {!soldOut && (
+        {product.availableForSale && (
           <>
             <button
               type="button"
@@ -134,7 +136,7 @@ export function ProductCard({
             </Link>
           </h3>
         </div>
-        <p className="shrink-0 font-mono text-sm tabular-nums">{formatMoney(product.priceRange.minVariantPrice)}</p>
+        <p className={cn("shrink-0 font-mono tabular-nums", comingSoon ? "label pt-0.5 text-right text-[0.6rem] text-concrete" : "text-sm")}>{productPrice(product)}</p>
       </div>
     </article>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCollection, getProduct, getProducts, getRelatedProducts } from "@/lib/commerce";
-import { formatMoney } from "@/lib/format";
+import { productPrice } from "@/lib/format";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductForm } from "@/components/product/ProductForm";
 import { ProductDetails } from "@/components/product/ProductDetails";
@@ -66,8 +66,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[hand
               </div>
               <h1 className="font-display mt-4 text-[clamp(2.8rem,5.4vw,5.5rem)]">{product.title}</h1>
               <p className="mt-4 font-mono text-xl tabular-nums">
-                {formatMoney(product.priceRange.minVariantPrice)}
-                <span className="label ml-3 text-concrete">Prezzo segnaposto</span>
+                {productPrice(product)}
               </p>
               <p className="mt-6 max-w-md text-dirty/75">{product.description}</p>
               <div className="mt-8">

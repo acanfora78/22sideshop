@@ -43,7 +43,7 @@ export const movement = {
       "Un negozio vero, anche online. Cemento, binari in acciaio, luci industriali: i capi sono appesi alle barre come in boutique. Passa sopra un capo per illuminarlo, aprilo per acquistarlo.",
     overview: m("store-overview.webp"),
     overviewAlt: "Interno vuoto del negozio con due barre appendiabiti e un grande 22 dipinto sulla parete.",
-    note: "Capi dimostrativi: immagini segnaposto, non articoli reali 22SIDE.",
+    note: "Prezzi e taglie in arrivo: apri un capo per vederlo da vicino.",
   },
   why22: {
     label: "Why 22",

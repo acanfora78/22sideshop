@@ -37,6 +37,21 @@ export function ProductForm({ product }: { product: Product }) {
     window.setTimeout(() => setAdded(false), 1800);
   };
 
+  if (!product.priceConfirmed) {
+    return (
+      <div className="space-y-4 border border-dirty/15 bg-asphalt/60 p-5">
+        <p className="label text-blood-bright">● In arrivo</p>
+        <p className="text-dirty/85">Prezzo, taglie e disponibilità saranno pubblicati a breve.</p>
+        <Button variant="outline" disabled className="w-full">
+          Acquisto non ancora disponibile
+        </Button>
+        <p className="text-sm text-dirty/60">
+          Vuoi questo capo? Scrivici su Instagram @22sideshop per informazioni su taglie e prezzo.
+        </p>
+      </div>
+    );
+  }
+
   if (!product.availableForSale) {
     return (
       <div className="space-y-4">
@@ -92,7 +107,7 @@ export function ProductForm({ product }: { product: Product }) {
             <span className="text-blood-bright">Seleziona la taglia per continuare.</span>
           ) : stock ? (
             <span className={stock.tone === "low" ? "text-blood-bright" : stock.tone === "out" ? "text-concrete" : "text-dirty/70"}>
-              ● {stock.label} <span className="text-concrete">(dato dimostrativo)</span>
+              ● {stock.label}
             </span>
           ) : (
             <span className="text-concrete">
@@ -134,7 +149,7 @@ export function ProductForm({ product }: { product: Product }) {
         </Button>
       </div>
       <p id="add-note" className="label text-[0.6rem] leading-relaxed text-concrete">
-        Prodotto dimostrativo · prezzo segnaposto · pagamento non attivo
+        Pagamento non ancora attivo
       </p>
     </div>
   );

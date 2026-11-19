@@ -1,5 +1,7 @@
 # 22SIDE — The Movement
 
+**Catalogo ufficiale (19/11/2026):** 14 prodotti reali con le foto del brand (`src/data/products.ts`, foto in `public/media/products/real`, import con `scripts/assets/import_photos.py`). Prezzo e taglie non ancora comunicati → `price: null` / `sizes: null` mostrano "Prezzo da confermare" e l'acquisto è disattivato; per attivare un capo basta compilare `price`, `sizes` (ed eventualmente `stock`). I capi appesi nel negozio virtuale sono ritagliati dalle foto originali con `scripts/assets/cutout_garments.py` (rembg `u2net_cloth_seg`, in locale, pixel originali).
+
 **V3 direction:** *22SIDE is not just a streetwear brand — it's a movement.* The number **22** is the core identity (two equal strokes = the two tracks of Line 22 = the two sides). The site opens with a short film, then lets you walk through a physical store.
 
 ## The opening — THE MOVEMENT (`components/home/MovementIntro.tsx`)

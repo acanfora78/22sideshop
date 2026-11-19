@@ -15,7 +15,7 @@ export function CartSummary() {
         </span>
         <span className="font-display text-3xl tabular-nums">{formatMoney(subtotal)}</span>
       </div>
-      <p className="label text-[0.6rem] leading-relaxed text-concrete">Prezzi dimostrativi. Spedizione e tasse calcolate al momento dell’acquisto.</p>
+      <p className="label text-[0.6rem] leading-relaxed text-concrete">Spedizione e tasse calcolate al momento dell’acquisto.</p>
       <button
         type="button"
         disabled
@@ -25,7 +25,7 @@ export function CartSummary() {
         <Lock className="size-3.5" strokeWidth={1.5} /> Procedi all’acquisto
       </button>
       <p id="checkout-note" className="label text-center text-[0.6rem] leading-relaxed text-blood-bright">
-        Pagamento non attivo in questa demo: sarà gestito da Shopify Checkout.
+        Il pagamento non è ancora attivo: sarà gestito da Shopify Checkout.
       </p>
     </div>
   );

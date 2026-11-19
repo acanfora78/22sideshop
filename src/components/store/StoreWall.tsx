@@ -9,7 +9,7 @@ import type { Product } from "@/lib/commerce/types";
 import type { StoreWall as Wall } from "@/content/store";
 import { hangingImage } from "@/content/store";
 import { hangingDims } from "@/content/hanging-dims";
-import { cn, formatMoney } from "@/lib/format";
+import { cn, productAvailability, productPrice } from "@/lib/format";
 import { DemoTag } from "@/components/ui/SectionLabel";
 import { Reveal, SplitText } from "@/components/motion/Reveal";
 import { LineBullet } from "@/components/transit/Transit";
@@ -24,13 +24,6 @@ function kindOf(p: Product): Kind {
 
 /** Garment height as a fraction of the wall height. */
 const HEIGHT: Record<Kind, number> = { top: 0.5, pant: 0.6, short: 0.4, head: 0.17 };
-
-function availability(p: Product): { label: string; tone: "ok" | "low" | "out" } {
-  if (!p.availableForSale) return { label: "Esaurito", tone: "out" };
-  const free = p.variants.filter((v) => v.availableForSale).length;
-  if (p.variants.length > 2 && free <= 2) return { label: "Disponibilità limitata", tone: "low" };
-  return { label: "Disponibile", tone: "ok" };
-}
 
 /**
  * A physical display: an empty store wall with a real rail, and the
@@ -54,7 +47,7 @@ export function StoreWall({ wall, products, headingLevel = "h3" }: { wall: Wall;
   const selY = sel ? (selKind === "head" ? 0.78 : rail.y + HEIGHT[selKind] * 0.45) : 0.5;
 
   const card = (p: Product, mobile = false) => {
-    const a = availability(p);
+    const a = productAvailability(p);
     return (
       <div className={cn("w-64 border border-dirty/15 bg-obsidian/92 p-4 text-left backdrop-blur-md", mobile && "w-full")}>
         <p className="label flex items-center gap-2 text-concrete">
@@ -62,8 +55,8 @@ export function StoreWall({ wall, products, headingLevel = "h3" }: { wall: Wall;
         </p>
         <p className="font-display mt-2 text-2xl leading-none text-dirty">{p.title}</p>
         <div className="mt-3 flex items-center justify-between">
-          <span className="font-mono text-sm tabular-nums text-dirty">{formatMoney(p.priceRange.minVariantPrice)}</span>
-          <span className={cn("label", a.tone === "out" ? "text-concrete" : a.tone === "low" ? "text-blood-bright" : "text-dirty/70")}>● {a.label}</span>
+          <span className="font-mono text-sm tabular-nums text-dirty">{productPrice(p)}</span>
+          <span className={cn("label", a.tone === "out" || a.tone === "soon" ? "text-concrete" : a.tone === "low" ? "text-blood-bright" : "text-dirty/70")}>● {a.label}</span>
         </div>
         <Link href={`/products/${p.handle}`} className="label mt-4 flex items-center justify-between bg-dirty px-3 py-2.5 text-obsidian transition-colors hover:bg-blood hover:text-dirty">
           Apri il prodotto <ArrowUpRight className="size-4" strokeWidth={1.5} />
@@ -122,7 +115,7 @@ export function StoreWall({ wall, products, headingLevel = "h3" }: { wall: Wall;
                   {k === "head" && <span aria-hidden className="absolute -bottom-[6%] left-[-20%] right-[-20%] h-[7%] bg-obsidian shadow-[0_10px_18px_rgba(0,0,0,0.6)]" />}
                   <Link
                     href={`/products/${p.handle}`}
-                    aria-label={`${p.title}, ${formatMoney(p.priceRange.minVariantPrice)}, ${availability(p).label}`}
+                    aria-label={`${p.title}, ${productPrice(p)}, ${productAvailability(p).label}`}
                     onPointerDown={(e) => {
                       pointer.current = e.pointerType;
                       wasActive.current = active === i;
@@ -152,10 +145,10 @@ export function StoreWall({ wall, products, headingLevel = "h3" }: { wall: Wall;
                         "h-full w-full object-contain drop-shadow-[0_18px_22px_rgba(0,0,0,0.55)] transition-[transform,filter] duration-500 ease-[var(--ease-out-expo)]",
                         on && "-translate-y-[2%] scale-[1.05] drop-shadow-[0_26px_30px_rgba(0,0,0,0.7)]",
                         dim && "brightness-[0.55] saturate-50",
-                        !p.availableForSale && "opacity-60",
+                        p.priceConfirmed && !p.availableForSale && "opacity-60",
                       )}
                     />
-                    {!p.availableForSale && <span className="label absolute bottom-[8%] left-1/2 -translate-x-1/2 bg-dirty px-2 py-1 text-[0.55rem] text-obsidian">Esaurito</span>}
+                    {p.priceConfirmed && !p.availableForSale && <span className="label absolute bottom-[8%] left-1/2 -translate-x-1/2 bg-dirty px-2 py-1 text-[0.55rem] text-obsidian">Esaurito</span>}
                   </Link>
                 </li>
               );

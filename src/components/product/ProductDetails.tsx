@@ -39,11 +39,6 @@ export function ProductDetails({ product }: { product: Product }) {
       title: "Assistenza",
       body: <p>{service.support}</p>,
     },
-    {
-      id: "demo",
-      title: "Prodotto dimostrativo",
-      body: <p>{service.demoProduct}</p>,
-    },
   ];
   const [open, setOpen] = useState<string | null>("details");
   return (

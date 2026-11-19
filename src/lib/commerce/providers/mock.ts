@@ -1,4 +1,3 @@
-import { productImage } from "@/content/media";
 import { collections } from "@/data/collections";
 import { rawProducts, type RawProduct } from "@/data/products";
 import type { Collection, Money, Product } from "../types";
@@ -6,22 +5,29 @@ import type { Collection, Money, Product } from "../types";
 const money = (n: number): Money => ({ amount: n.toFixed(2), currencyCode: "EUR" });
 
 function toProduct(raw: RawProduct): Product {
-  const images = [
-    productImage(raw.slug, "front", raw.alt),
-    productImage(raw.slug, "back", raw.alt.replace(/stes[ai]/, "vista retro")),
-    productImage(raw.slug, "detail", `${raw.title} — dettaglio (segnaposto demo)`),
-  ];
-  const variants = raw.sizes.map((size, i) => ({
-    id: `gid://demo/ProductVariant/${raw.slug}-${size.toLowerCase().replace(/\s+/g, "-")}`,
-    title: size,
-    sku: `${raw.code}-${size.replace(/\s+/g, "")}`,
-    availableForSale: (raw.stock[i] ?? 0) > 0,
-    quantityAvailable: raw.stock[i] ?? 0,
-    selectedOptions: [{ name: "Taglia", value: size }],
-    price: money(raw.price),
+  const images = raw.images.map((im) => ({
+    url: `/media/products/real/${im.file}.webp`,
+    altText: im.alt,
+    width: 1200,
+    height: 1600,
   }));
+  const priceConfirmed = raw.price !== null && raw.sizes !== null;
+  const price = money(raw.price ?? 0);
+  const sizes = raw.sizes ?? ["Da confermare"];
+  const variants = sizes.map((size, i) => {
+    const qty = priceConfirmed ? (raw.stock ? (raw.stock[i] ?? 0) : 99) : 0;
+    return {
+      id: `gid://22side/ProductVariant/${raw.slug}-${size.toLowerCase().replace(/\s+/g, "-")}`,
+      title: size,
+      sku: `${raw.code}-${size.replace(/\s+/g, "")}`,
+      availableForSale: qty > 0,
+      quantityAvailable: qty,
+      selectedOptions: [{ name: "Taglia", value: size }],
+      price,
+    };
+  });
   return {
-    id: `gid://demo/Product/${raw.slug}`,
+    id: `gid://22side/Product/${raw.slug}`,
     handle: raw.slug,
     title: raw.title,
     code: raw.code,
@@ -31,14 +37,15 @@ function toProduct(raw: RawProduct): Product {
     details: raw.details,
     tags: raw.tags,
     collections: raw.collections,
-    options: [{ id: "size", name: "Taglia", values: raw.sizes }],
+    options: [{ id: "size", name: "Taglia", values: sizes }],
     variants,
     featuredImage: images[0],
     images,
-    priceRange: { minVariantPrice: money(raw.price), maxVariantPrice: money(raw.price) },
+    priceRange: { minVariantPrice: price, maxVariantPrice: price },
     availableForSale: variants.some((v) => v.availableForSale),
+    priceConfirmed,
     createdAt: raw.createdAt,
-    isDemo: true,
+    isDemo: false,
     sizeGuide: raw.sizeGuide,
   };
 }

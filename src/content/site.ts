@@ -19,7 +19,7 @@ export const site = {
   instagram: "https://www.instagram.com/22sideshop/",
   instagramHandle: "@22sideshop",
   demoNotice:
-    "Prototipo dimostrativo: prodotti, prezzi e disponibilità sono segnaposto, non articoli reali 22SIDE. Il pagamento non è attivo.",
+    "Anteprima del negozio 22SIDE: prezzi e taglie sono in arrivo e il pagamento non è ancora attivo.",
 };
 
 /** Functional navigation stays Italian for clarity. */
@@ -84,7 +84,7 @@ export const home = {
     title: "Drop 001",
     subtitle: "Night Shift",
     description:
-      "Il primo capitolo, fotografato dopo il tramonto. Volumi ampi, stampe che si fanno notare, un solo segnale rosso. Prodotti dimostrativi per l’anteprima del layout.",
+      "Il primo capitolo, fotografato dopo il tramonto. Volumi ampi, stampe che si fanno notare, un solo segnale rosso.",
     cta: { label: "Scopri tutto il drop", href: "/collections/drop-001" },
   },
   underground: {
@@ -151,7 +151,7 @@ export const pages = {
   shop: {
     kicker: "Shop",
     title: "The Whole Block",
-    description: "Tutti i capi in un unico posto. Catalogo dimostrativo: i prodotti sono segnaposto per l’anteprima del layout.",
+    description: "Tutti i capi 22SIDE in un unico posto. Prezzi e taglie in arrivo.",
     marquee: ["The whole block", "Independent streetwear", "No rules", "Just attitude"],
   },
   collections: { kicker: "Collezioni", title: "Choose your line" },
@@ -194,6 +194,4 @@ export const service = {
   shipping: "Spedizione disponibile in tutta Italia. Tempi e costi verranno comunicati con l’apertura del negozio online.",
   returns: "Le condizioni di reso e rimborso saranno pubblicate con il negozio online.",
   support: "Hai bisogno di aiuto? Scrivici su Instagram @22sideshop.",
-  demoProduct:
-    "Questo è un prodotto dimostrativo per l’anteprima dell’esperienza di acquisto. Immagini, prezzo e disponibilità non sono reali.",
 };

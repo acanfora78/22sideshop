@@ -40,8 +40,8 @@ export function NewsletterForm() {
       </div>
       <p id="newsletter-msg" role="status" className="label mt-3 min-h-4 text-[0.6rem] text-concrete">
         {state === "error" && <span className="text-blood-bright">Inserisci un indirizzo email valido.</span>}
-        {state === "done" && <span className="text-dirty">Sei dentro — solo demo, non è stato inviato nulla.</span>}
-        {state === "idle" && "Modulo demo — nessun dato viene salvato o inviato."}
+        {state === "done" && <span className="text-dirty">Grazie! L’iscrizione sarà attiva con l’apertura del negozio: per ora non è stato inviato nulla.</span>}
+        {state === "idle" && "Iscrizioni in arrivo: al momento nessun dato viene salvato o inviato."}
       </p>
     </form>
   );
