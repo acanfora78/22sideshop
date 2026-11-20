@@ -26,7 +26,7 @@ const marker = Permanent_Marker({ weight: "400", subsets: ["latin"], variable: "
 export const metadata: Metadata = {
   metadataBase: new URL("https://22side.example"),
   title: { default: "22SIDE® — No Rules. Just Attitude.", template: "%s — 22SIDE®" },
-  description: "22SIDE — streetwear indipendente nato dall'underground di New York e dalla cultura di strada degli anni '90.",
+  description: "22SIDE — streetwear indipendente nato a Scafati, ispirato all'underground di New York e alla cultura di strada degli anni '90.",
   openGraph: {
     title: "22SIDE® — No Rules. Just Attitude.",
     description: "Streetwear indipendente. Underground NYC — anni '90 reinventati.",
