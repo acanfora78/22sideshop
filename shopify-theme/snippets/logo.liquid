@@ -1,7 +1,7 @@
 {%- comment -%}
   22SIDE wordmark. Params: class (string), registered (bool, default true)
 {%- endcomment -%}
-<span class="font-display inline-flex items-start leading-none tracking-[-0.02em] {{ class }}" aria-label="22SIDE">
+<span class="font-display inline-flex items-start leading-none tracking-[-0.02em] {{ class }}" role="img" aria-label="22SIDE">
   <span aria-hidden="true" class="relative">22<span class="absolute left-0 right-[4%] top-[54%] h-[0.05em] bg-blood"></span></span><span aria-hidden="true">SIDE</span>
   {%- unless registered == false -%}<span aria-hidden="true" class="ml-[0.06em] font-sans text-[0.2em] font-bold leading-none">®</span>{%- endunless -%}
 </span>

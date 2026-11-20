@@ -1,14 +1,15 @@
 {%- liquid
   assign current = product.selected_or_first_available_variant
+  assign captions = product.metafields.custom.immagini_didascalie.value
   assign pending = false
   if product.tags contains 'prezzo-da-confermare'
     assign pending = true
   endif
 -%}
 <section class="px-gutter pb-24 pt-28 md:pt-36" data-product data-product-id="{{ product.id }}" data-pending="{{ pending }}">
-  <nav class="label text-concrete" aria-label="Breadcrumb">
-    <a href="{{ routes.root_url }}" class="hover:text-dirty">Home</a> /
-    <a href="{{ routes.all_products_collection_url }}" class="hover:text-dirty">Shop</a> /
+  <nav class="label text-concrete" aria-label="{{ 'general.breadcrumb.label' | t }}">
+    <a href="{{ routes.root_url }}" class="hover:text-dirty">{{ 'general.breadcrumb.home' | t }}</a> /
+    <a href="{{ routes.all_products_collection_url }}" class="hover:text-dirty">{{ 'general.breadcrumb.shop' | t }}</a> /
     <span class="text-dirty">{{ product.title }}</span>
   </nav>
 
@@ -25,10 +26,13 @@
                   assign load = 'eager'
                 endif
               -%}
-              {{ media | image_url: width: 1600 | image_tag: widths: '540, 720, 1000, 1300, 1600', sizes: '(min-width: 1024px) 58vw, 85vw', class: 'absolute inset-0 h-full w-full object-cover', loading: load, alt: media.alt }}
+              {{ media | image_url: width: 1600 | image_tag: widths: '540, 720, 1000, 1300, 1600', sizes: '(min-width: 1024px) 58vw, 85vw', class: 'absolute inset-0 h-full w-full object-cover', loading: load, alt: media.alt | default: product.title }}
             {%- else -%}
               {{ media | media_tag: image_size: '1600x', class: 'absolute inset-0 h-full w-full object-cover' }}
             {%- endif -%}
+            {%- comment -%} Fig. caption: from custom.immagini_didascalie (one entry per media, same order), never inferred from the position. {%- endcomment -%}
+            {%- assign caption = captions[forloop.index0] -%}
+            <p class="label absolute bottom-3 left-3 z-[1] bg-obsidian/60 px-2 py-1 text-dirty">Fig. {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}{% if caption != blank %} — {{ caption }}{% endif %}</p>
           </li>
         {%- else -%}
           <li class="relative aspect-[4/5] w-full bg-asphalt lg:col-span-2">{{ 'product-1' | placeholder_svg_tag: 'absolute inset-0 h-full w-full fill-concrete/30' }}</li>
@@ -38,7 +42,7 @@
 
     <div class="lg:col-span-5">
       <div class="lg:sticky lg:top-28">
-        <p class="label text-blood-bright">{{ product.type | default: product.vendor }}</p>
+        <p class="label text-signal">{% if product.metafields.custom.codice != blank %}{{ product.metafields.custom.codice }} · {% endif %}{{ product.type | default: product.vendor }}</p>
         <h1 class="font-display mt-3 text-[clamp(2.8rem,6vw,5.5rem)] leading-[0.9]">{{ product.title }}</h1>
         <div class="mt-5 text-xl">{% render 'price', product: product %}</div>
 
@@ -64,9 +68,9 @@
 
           <div class="flex gap-3">
             <div class="flex items-center border border-dirty/30">
-              <button type="button" class="p-3 hover:text-blood-bright" data-qty-step="-1" aria-label="{{ 'products.product.quantity_decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+              <button type="button" class="p-3 hover:text-signal" data-qty-step="-1" aria-label="{{ 'products.product.quantity_decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
               <input type="number" name="quantity" value="1" min="1" class="w-12 bg-transparent text-center font-mono [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none" aria-label="{{ 'products.product.quantity' | t }}" data-qty-input>
-              <button type="button" class="p-3 hover:text-blood-bright" data-qty-step="1" aria-label="{{ 'products.product.quantity_increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+              <button type="button" class="p-3 hover:text-signal" data-qty-step="1" aria-label="{{ 'products.product.quantity_increase' | t }}">{% render 'icon', name: 'plus' %}</button>
             </div>
             <button type="submit" name="add" class="label flex flex-1 items-center justify-center gap-3 bg-blood px-6 py-4 text-dirty transition-colors hover:bg-dirty hover:text-obsidian disabled:cursor-not-allowed disabled:bg-concrete/40 disabled:text-dirty/60" data-add-button {% if pending or current.available == false %}disabled{% endif %}>
               {%- if pending -%}{{ 'products.product.coming_soon' | t }}{%- elsif current.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
