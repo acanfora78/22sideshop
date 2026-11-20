@@ -1,6 +1,6 @@
 {%- paginate collection.products by section.settings.per_page -%}
 <section class="px-gutter pb-24 pt-32 md:pt-44">
-  <p class="label text-concrete"><span class="text-blood">Shop</span> / {{ 'sections.collection.items' | t: count: collection.products_count }}</p>
+  <p class="label text-concrete"><span class="text-signal">Shop</span> / {{ 'sections.collection.items' | t: count: collection.products_count }}</p>
   <div class="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
     <h1 class="font-display text-huge" data-split>{{ collection.title }}</h1>
     {%- if collection.description != blank -%}<div class="max-w-md text-base leading-relaxed text-dirty/80">{{ collection.description }}</div>{%- endif -%}
@@ -17,15 +17,44 @@
     </nav>
   {%- endif -%}
 
-  <div class="mt-8 flex items-center justify-between border-y border-dirty/15 py-4">
+  {%- liquid
+    comment
+      Sorting and the availability filter only make sense when something can actually be bought:
+      products tagged prezzo-da-confermare (price not set yet) don't count.
+    endcomment
+    assign buyable_count = 0
+    for p in collection.products
+      unless p.tags contains 'prezzo-da-confermare'
+        if p.available
+          assign buyable_count = buyable_count | plus: 1
+        endif
+      endunless
+    endfor
+  -%}
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-y border-dirty/15 py-4">
     <span class="label text-concrete">{{ 'sections.collection.items' | t: count: collection.products_count }}</span>
-    <label class="label flex items-center gap-3 text-concrete">{{ 'sections.collection.sort' | t }}
-      <select class="label border border-dirty/30 bg-obsidian px-3 py-2 text-dirty" data-sort>
-        {%- for option in collection.sort_options -%}
-          <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+    {%- if buyable_count > 0 -%}
+      <div class="flex flex-wrap items-center gap-3">
+        {%- for filter in collection.filters -%}
+          {%- if filter.param_name == 'filter.v.availability' -%}
+            {%- for value in filter.values -%}
+              {%- if value.value == '1' -%}
+                <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" class="label inline-flex min-h-11 items-center border px-4 {% if value.active %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}" {% if value.active %}aria-current="true"{% endif %}>{{ 'sections.collection.in_stock_only' | t }} ({{ value.count }})</a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
         {%- endfor -%}
-      </select>
-    </label>
+        {%- if collection.products_count > 1 -%}
+          <label class="label flex items-center gap-3 text-concrete">{{ 'sections.collection.sort' | t }}
+            <select class="label min-h-11 border border-dirty/30 bg-obsidian px-3 text-dirty" data-sort>
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+              {%- endfor -%}
+            </select>
+          </label>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
   </div>
 
   <ul class="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 md:gap-y-16 lg:grid-cols-4">
@@ -33,8 +62,10 @@
       <li data-reveal>{%- render 'product-card', product: product, index: forloop.index0 -%}</li>
     {%- else -%}
       <li class="col-span-2 py-20 lg:col-span-4">
-        <p class="font-display text-big">Nothing here. Yet.</p>
-        <p class="mt-4 text-dirty/70">{{ 'sections.collection.empty' | t }}</p>
+        <p class="label text-signal">Line 22 — {{ 'sections.collection.empty_label' | t }}</p>
+        <p class="font-display text-big mt-4">{{ 'sections.collection.empty_title' | t }}</p>
+        <p class="mt-4 max-w-md text-dirty/80">{{ 'sections.collection.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="label mt-8 inline-flex min-h-11 items-center bg-dirty px-6 text-obsidian hover:bg-blood hover:text-dirty">{{ 'sections.cart.shop_all' | t }} ↗</a>
       </li>
     {%- endfor -%}
   </ul>
