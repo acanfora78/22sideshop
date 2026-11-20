@@ -8,7 +8,7 @@
   assign second_image = product.media[1]
   assign available_variants = product.variants | where: 'available'
   assign pending = false
-  if product.tags contains 'prezzo-da-confermare'
+  if product.tags contains 'prezzo-da-confermare' or product.tags contains 'taglie-da-confermare'
     assign pending = true
   endif
   assign buyable = false

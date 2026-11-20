@@ -1,7 +1,9 @@
 /**
  * Export the catalogue as a Shopify product-import CSV.
  * Run: node --experimental-strip-types scripts/export-products-csv.mts [base-url]
- * Products without price/sizes are exported as "draft" with empty price.
+ * Products with a price are exported as active; missing sizes add the tag
+ * "taglie-da-confermare" (the theme shows the price but blocks the purchase),
+ * a missing price adds "prezzo-da-confermare" and keeps the product as a draft.
  */
 import { writeFileSync } from "node:fs";
 import { rawProducts } from "../src/data/products.ts";
@@ -24,7 +26,8 @@ const html = (p: (typeof rawProducts)[number]) =>
 const rows: string[][] = [];
 for (const p of rawProducts) {
   const sizes = p.sizes ?? ["Da confermare"];
-  const confirmed = p.price !== null && p.sizes !== null;
+  const confirmed = p.price !== null;
+  const blockTags = [...(p.price === null ? ["prezzo-da-confermare"] : []), ...(p.sizes === null ? ["taglie-da-confermare"] : [])];
   const colls = p.collections.map((h) => collections.find((c) => c.handle === h)?.title ?? h).join("; ");
   const n = Math.max(sizes.length, p.images.length);
   for (let i = 0; i < n; i++) {
@@ -37,13 +40,13 @@ for (const p of rawProducts) {
       first ? html(p) : "",
       first ? "22SIDE" : "",
       first ? p.productType : "",
-      first ? [...p.tags, ...(confirmed ? [] : ["prezzo-da-confermare"])].join(", ") : "",
+      first ? [...p.tags, ...blockTags].join(", ") : "",
       first ? (confirmed ? "TRUE" : "FALSE") : "",
       first ? "Taglia" : "",
       size ?? "",
       size ? `${p.code}-${size.replace(/\s+/g, "")}` : "",
       size && p.price !== null ? p.price.toFixed(2) : "",
-      size ? String(p.stock?.[sizes.indexOf(size)] ?? (confirmed ? "" : "0")) : "",
+      size ? String(p.stock?.[sizes.indexOf(size)] ?? (p.sizes ? "" : "0")) : "",
       size ? "deny" : "",
       size ? "manual" : "",
       size ? "TRUE" : "",
@@ -54,7 +57,7 @@ for (const p of rawProducts) {
       first ? (confirmed ? "active" : "draft") : "",
       first ? colls : "",
       first ? p.code : "",
-      first && !confirmed ? "Prezzo e taglie da confermare" : "",
+      first ? [p.price === null ? "Prezzo da confermare" : "", p.sizes === null ? "Taglie da confermare: togli il tag taglie-da-confermare quando inserisci le taglie" : ""].filter(Boolean).join(". ") : "",
     ]);
   }
 }

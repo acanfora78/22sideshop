@@ -71,6 +71,8 @@ export interface Product {
   isDemo: boolean;
   /** False while price / sizes have not been communicated by the brand: shown as "Prezzo da confermare", not purchasable. */
   priceConfirmed: boolean;
+  /** True once the brand has communicated the price (sizes may still be pending). */
+  priceKnown: boolean;
   /** Which size guide applies (maps to a Shopify metafield). */
   sizeGuide: "top" | "bottom" | "one-size";
 }

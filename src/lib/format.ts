@@ -23,7 +23,7 @@ export function cn(...classes: Array<string | false | null | undefined>): string
 
 /** Product price for display, or the "to be confirmed" label. */
 export function productPrice(p: Product): string {
-  return p.priceConfirmed ? formatMoney(p.priceRange.minVariantPrice) : "Prezzo da confermare";
+  return p.priceKnown ? formatMoney(p.priceRange.minVariantPrice) : "Prezzo da confermare";
 }
 
 /** Availability label shared by cards, store walls and product pages. */

@@ -2,7 +2,7 @@
   assign current = product.selected_or_first_available_variant
   assign captions = product.metafields.custom.immagini_didascalie.value
   assign pending = false
-  if product.tags contains 'prezzo-da-confermare'
+  if product.tags contains 'prezzo-da-confermare' or product.tags contains 'taglie-da-confermare'
     assign pending = true
   endif
 -%}
@@ -77,7 +77,7 @@
             </button>
           </div>
           <p class="label text-[0.65rem] text-concrete" data-availability aria-live="polite">
-            {%- if pending -%}{{ 'products.product.price_pending_note' | t }}{%- elsif current.available -%}{{ 'products.product.in_stock' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+            {%- if product.tags contains 'prezzo-da-confermare' -%}{{ 'products.product.price_pending_note' | t }}{%- elsif pending -%}{{ 'products.product.sizes_pending_note' | t }}{%- elsif current.available -%}{{ 'products.product.in_stock' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
           </p>
           <script type="application/json" data-variants>{{ product.variants | json }}</script>
         {%- endform -%}

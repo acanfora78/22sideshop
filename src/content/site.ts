@@ -151,7 +151,7 @@ export const pages = {
   shop: {
     kicker: "Shop",
     title: "The Whole Block",
-    description: "Tutti i capi 22SIDE in un unico posto. Prezzi e taglie in arrivo.",
+    description: "Tutti i capi 22SIDE in un unico posto. Taglie in arrivo.",
     marquee: ["The whole block", "Independent streetwear", "No rules", "Just attitude"],
   },
   collections: { kicker: "Collezioni", title: "Choose your line" },

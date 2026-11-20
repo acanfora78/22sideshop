@@ -56,7 +56,8 @@
       "quick_add": "Aggiunta rapida",
       "select_size": "Scegli la taglia",
       "sold_out": "Esaurito",
-      "unavailable": "Non disponibile"
+      "unavailable": "Non disponibile",
+      "sizes_pending_note": "Taglie in arrivo. Il capo sarà acquistabile appena le confermiamo."
     }
   },
   "sections": {

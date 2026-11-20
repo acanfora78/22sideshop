@@ -41,12 +41,14 @@ export function ProductForm({ product }: { product: Product }) {
     return (
       <div className="space-y-4 border border-dirty/15 bg-asphalt/60 p-5">
         <p className="label text-blood-bright">● In arrivo</p>
-        <p className="text-dirty/85">Prezzo, taglie e disponibilità saranno pubblicati a breve.</p>
+        <p className="text-dirty/85">
+          {product.priceKnown ? "Taglie e disponibilità saranno pubblicate a breve." : "Prezzo, taglie e disponibilità saranno pubblicati a breve."}
+        </p>
         <Button variant="outline" disabled className="w-full">
           Acquisto non ancora disponibile
         </Button>
         <p className="text-sm text-dirty/60">
-          Vuoi questo capo? Scrivici su Instagram @22sideshop per informazioni su taglie e prezzo.
+          Vuoi questo capo? Scrivici su Instagram @22sideshop per informazioni sulle taglie.
         </p>
       </div>
     );

@@ -43,7 +43,7 @@ export const movement = {
       "Tutti i capi 22SIDE, fotografati per strada. Passa sopra un capo per vederlo da un'altra angolazione, aprilo per tutti i dettagli.",
     overview: m("store-overview.webp"),
     overviewAlt: "Interno vuoto del negozio con due barre appendiabiti e un grande 22 dipinto sulla parete.",
-    note: "Prezzi e taglie in arrivo.",
+    note: "Taglie in arrivo.",
   },
   why22: {
     label: "Why 22",

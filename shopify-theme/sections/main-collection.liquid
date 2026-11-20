@@ -24,7 +24,7 @@
     endcomment
     assign buyable_count = 0
     for p in collection.products
-      unless p.tags contains 'prezzo-da-confermare'
+      unless p.tags contains 'prezzo-da-confermare' or p.tags contains 'taglie-da-confermare'
         if p.available
           assign buyable_count = buyable_count | plus: 1
         endif

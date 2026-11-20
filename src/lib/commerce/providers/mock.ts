@@ -45,6 +45,7 @@ function toProduct(raw: RawProduct): Product {
     priceRange: { minVariantPrice: price, maxVariantPrice: price },
     availableForSale: variants.some((v) => v.availableForSale),
     priceConfirmed,
+    priceKnown: raw.price !== null,
     createdAt: raw.createdAt,
     isDemo: false,
     sizeGuide: raw.sizeGuide,
