@@ -1,0 +1,138 @@
+<section id="underground" class="relative bg-asphalt" aria-labelledby="underground-title-{{ section.id }}">
+  <div class="px-gutter pb-16 pt-24 md:pb-24 md:pt-36">
+    {%- render 'section-label', index: section.settings.index, label: section.settings.title -%}
+    <div class="mt-12 grid gap-10 md:mt-20 md:grid-cols-12">
+      <h2 id="underground-title-{{ section.id }}" class="font-display text-huge md:col-span-8" data-split>{{ section.settings.title }}</h2>
+      <p class="text-base leading-relaxed text-dirty/80 md:col-span-4 md:self-end md:text-lg" data-reveal>{{ section.settings.intro }}</p>
+    </div>
+    <div class="no-scrollbar -mx-[var(--gutter)] mt-14 overflow-x-auto px-[var(--gutter)] md:mt-20">
+      <ol class="relative flex min-w-[560px] items-start justify-between" aria-label="Line 22">
+        <span aria-hidden="true" class="absolute left-2 right-2 top-[7px] h-[3px] bg-blood"></span>
+        {%- for block in section.blocks -%}
+          <li class="relative flex flex-col items-center gap-2 text-center"><span class="block size-[17px] rounded-full border-[3px] border-blood {% if forloop.first or forloop.last %}bg-blood{% else %}bg-obsidian{% endif %}"></span><span class="label max-w-[6rem] text-[0.6rem] text-dirty/70">{{ block.settings.title }}</span></li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign n = forloop.index | prepend: '0'
+      capture img
+        if block.settings.image != blank
+          echo block.settings.image | image_url: width: 2000 | image_tag: sizes: '100vw', loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover'
+        else
+          assign src = block.settings.theme_image | asset_url
+          echo '<img src="' | append: src | append: '" alt="' | append: block.settings.caption | append: '" loading="lazy" class="absolute inset-0 h-full w-full object-cover">'
+        endif
+      endcapture
+      capture head
+        echo '<p class="label flex items-center gap-2 '
+        if block.settings.layout == 'collage'
+          echo 'text-obsidian/70'
+        else
+          echo 'text-dirty/70'
+        endif
+        echo '"><span aria-hidden="true" class="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-blood font-sans text-[0.6rem] font-extrabold leading-none text-dirty">' | append: n | append: '</span> Stop ' | append: n | append: ' — Line 22</p>'
+        echo '<h3 class="font-display mt-4 block text-[clamp(3.2rem,9vw,9.5rem)]" data-split>' | append: block.settings.title | append: '</h3>'
+      endcapture
+    -%}
+    <article class="relative" {{ block.shopify_attributes }}>
+      {%- case block.settings.layout -%}
+        {%- when 'fullbleed' -%}
+          <div class="relative h-[92svh] min-h-[560px] overflow-hidden"><div class="absolute inset-[-8%_0]" data-parallax>{{ img }}</div></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-obsidian/50"></div>
+          <div class="px-gutter absolute inset-x-0 bottom-0 grid gap-6 pb-12 md:grid-cols-12 md:items-end md:pb-16">
+            <div class="md:col-span-8">{{ head }}</div>
+            <div class="md:col-span-4" data-reveal><p class="text-base leading-relaxed text-dirty/85 md:text-lg">{{ block.settings.text }}</p><p class="label mt-4 text-dirty/60">Fig. {{ n }} — {{ block.settings.caption }}</p></div>
+          </div>
+        {%- when 'split' -%}
+          <div class="px-gutter grid gap-10 py-20 md:grid-cols-12 md:py-32">
+            <div class="md:col-span-5">{{ head }}<p class="mt-6 max-w-md text-base leading-relaxed text-dirty/80 md:text-lg" data-reveal>{{ block.settings.text }}</p></div>
+            <div class="md:col-span-7"><div class="relative aspect-[16/10] overflow-hidden" data-img-reveal>{{ img }}</div><p class="label mt-3 text-dirty/60">Fig. {{ n }} — {{ block.settings.caption }}</p></div>
+          </div>
+        {%- when 'collage' -%}
+          <div class="bg-dirty py-20 text-obsidian md:py-32">
+            <div class="px-gutter grid gap-10 md:grid-cols-12">
+              <div class="relative md:col-span-7"><div class="relative aspect-[4/3] overflow-hidden" data-img-reveal>{{ img }}</div></div>
+              <div class="flex flex-col justify-end md:col-span-4 md:col-start-9">{{ head }}<p class="mt-6 text-base leading-relaxed text-obsidian/80 md:text-lg" data-reveal>{{ block.settings.text }}</p><p class="label mt-4 text-obsidian/60">Fig. {{ n }} — {{ block.settings.caption }}</p></div>
+            </div>
+          </div>
+        {%- when 'vinyl' -%}
+          <div class="relative isolate overflow-hidden py-20 md:py-32">
+            <div class="absolute inset-0 -z-10 opacity-25">{{ img }}</div>
+            <div class="px-gutter grid items-center gap-10 md:grid-cols-12">
+              <div class="md:col-span-5">
+                {{ head }}
+                <p class="mt-6 max-w-md text-base leading-relaxed text-dirty/80 md:text-lg" data-reveal>{{ block.settings.text }}</p>
+                <div aria-hidden="true" class="mt-8 flex h-16 items-end gap-1.5">{% for i in (1..18) %}{% assign d = i | times: 137 | modulo: 900 %}{% assign du = i | times: 89 | modulo: 600 | plus: 700 %}<span class="eq-bar w-2 bg-blood-bright" style="animation-delay: {{ d }}ms; animation-duration: {{ du }}ms"></span>{% endfor %}</div>
+                <p class="label mt-4 text-dirty/60">Fig. {{ n }} — {{ block.settings.caption }}</p>
+              </div>
+              <div class="relative md:col-span-7"><div class="relative mx-auto aspect-square w-[min(88vw,640px)]"><img src="{{ 'vinyl-22.webp' | asset_url }}" alt="Disco in vinile 22SIDE, Line 22 Sessions" loading="lazy" width="1400" height="1400" class="spin-33 absolute inset-0 h-full w-full rounded-full object-contain shadow-[0_40px_120px_rgba(0,0,0,0.8)]"></div></div>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="relative h-[75svh] min-h-[460px] overflow-hidden"><div class="absolute inset-[-8%_0]" data-parallax>{{ img }}</div></div>
+          <div class="absolute inset-x-0 top-0 h-[75svh] min-h-[460px] bg-obsidian/45"></div>
+          <div class="px-gutter absolute inset-x-0 top-0 flex h-[75svh] min-h-[460px] flex-col justify-center">{{ head }}</div>
+          <div class="px-gutter grid gap-10 py-16 md:grid-cols-12 md:py-24">
+            <div class="md:col-span-4" data-reveal><p class="text-base leading-relaxed text-dirty/80 md:text-lg">{{ block.settings.text }}</p><p class="label mt-4 text-dirty/60">Fig. {{ n }} — {{ block.settings.caption }}</p></div>
+            {%- if section.settings.quote != blank -%}<p class="font-serif text-[clamp(2rem,4.6vw,4.4rem)] italic leading-[1.02] md:col-span-7 md:col-start-6"><span class="text-blood-bright">“</span>{{ section.settings.quote }}<span class="text-blood-bright">”</span></p>{%- endif -%}
+          </div>
+      {%- endcase -%}
+    </article>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Underground Culture",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Numero", "default": "04" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Underground Culture" },
+    { "type": "textarea", "id": "intro", "label": "Introduzione", "default": "Prima del drop c’è la città. Cinque fermate lungo la Line 22: le immagini, i suoni e le persone che hanno dato forma al nostro modo di vestire." },
+    { "type": "text", "id": "quote", "label": "Citazione finale", "default": "The street doesn’t hand you a style. It hands you a point of view." }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Capitolo",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titolo", "default": "The Block" },
+        { "type": "textarea", "id": "text", "label": "Testo" },
+        { "type": "text", "id": "caption", "label": "Didascalia" },
+        { "type": "select", "id": "layout", "label": "Impaginazione", "default": "fullbleed", "options": [
+          { "value": "fullbleed", "label": "Immagine a tutto schermo" },
+          { "value": "split", "label": "Testo + immagine" },
+          { "value": "collage", "label": "Collage su fondo chiaro" },
+          { "value": "vinyl", "label": "Vinile che gira" },
+          { "value": "quote", "label": "Immagine + citazione" }
+        ] },
+        { "type": "image_picker", "id": "image", "label": "Immagine" },
+        { "type": "select", "id": "theme_image", "label": "Immagine del tema (se vuota sopra)", "default": "scene-street-night.jpg", "options": [
+          { "value": "scene-street-night.jpg", "label": "Strada di notte" },
+          { "value": "scene-subway.jpg", "label": "Metropolitana" },
+          { "value": "scene-water-towers.jpg", "label": "Cisterne sui tetti" },
+          { "value": "scene-turntable.jpg", "label": "Giradischi" },
+          { "value": "scene-tiles-22side.jpg", "label": "Mosaico 22 Side St" },
+          { "value": "scene-fire-escape.jpg", "label": "Scala antincendio" },
+          { "value": "scene-chainlink.jpg", "label": "Rete e luci" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Underground Culture",
+      "blocks": [
+        { "type": "chapter", "settings": { "title": "The Block", "layout": "fullbleed", "theme_image": "scene-street-night.jpg", "caption": "Avenue, 02:14 AM", "text": "Il blocco è il primo atelier. Marciapiedi bagnati, finestre accese, gli amici sotto casa: qui si decide cosa conta davvero." } },
+        { "type": "chapter", "settings": { "title": "The Train", "layout": "split", "theme_image": "scene-subway.jpg", "caption": "Last train downtown", "text": "Le notti passate in metropolitana. La banchina diventa passerella, il rumore dei binari una colonna sonora." } },
+        { "type": "chapter", "settings": { "title": "The Rooftops", "layout": "collage", "theme_image": "scene-water-towers.jpg", "caption": "Water towers, sunrise", "text": "Dai tetti la città sembra più piccola e i sogni più grandi. Cisterne di legno, antenne, un cielo bianco che non dorme mai." } },
+        { "type": "chapter", "settings": { "title": "The Sound", "layout": "vinyl", "theme_image": "scene-turntable.jpg", "caption": "Side A — Line 22 Sessions", "text": "Un giradischi, un muro, un microfono in prestito. L’hip-hop della golden age ha insegnato a costruire un mondo con quello che c’era." } },
+        { "type": "chapter", "settings": { "title": "The Culture", "layout": "quote", "theme_image": "scene-tiles-22side.jpg", "caption": "22 Side St. — mosaic", "text": "East Coast e West Coast, silhouette oversize e attitudine. Citiamo quell’epoca senza ripeterla: anni ’90 reinventati, tagliati per oggi." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

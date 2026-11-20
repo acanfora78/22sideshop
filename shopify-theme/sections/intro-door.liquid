@@ -1,0 +1,90 @@
+{%- comment -%}
+  Opening "short film": a kid unlocks the 22SIDE door with a key, the camera
+  dives into the shop, then a glitched logo slam with draggable stickers and the
+  CTA. Skippable (button / Esc), remembered for the browsing session
+  (sessionStorage, hidden before paint by layout/theme.liquid), reduced-motion safe.
+  Animation: assets/theme.js → initIntro().
+{%- endcomment -%}
+{%- if section.settings.enabled -%}
+<div class="fixed inset-0 z-[85] overflow-hidden bg-obsidian text-dirty" data-intro-overlay data-intro role="dialog" aria-modal="true" aria-label="22SIDE intro">
+  <div class="absolute inset-0 transition-opacity duration-300" style="visibility: hidden" data-intro-scene>
+    {%- render 'door-scene' -%}
+  </div>
+
+  <div class="label pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-4 md:p-8">
+    <span class="flex items-center gap-2"><span class="size-2 animate-pulse rounded-full bg-blood-bright"></span> REC — 02:22 AM</span>
+    <span class="hidden sm:inline">22 Side St.</span>
+  </div>
+
+  <div class="intro-title absolute inset-0 hidden flex-col items-center justify-center bg-obsidian px-6 text-center" data-intro-title>
+    {%- for block in section.blocks -%}
+      {%- liquid
+        case block.settings.tone
+          when 'red'
+            assign tone = 'bg-blood text-dirty'
+          when 'black'
+            assign tone = 'bg-obsidian text-dirty border-2 border-dirty'
+          else
+            assign tone = 'bg-dirty text-obsidian'
+        endcase
+        case forloop.index
+          when 1
+            assign pos = 'left-[6%] top-[18%] -rotate-[14deg]'
+          when 2
+            assign pos = 'right-[8%] top-[22%] rotate-[10deg]'
+          when 3
+            assign pos = 'left-[10%] bottom-[22%] rotate-[8deg]'
+          else
+            assign pos = 'right-[12%] bottom-[18%] -rotate-[6deg]'
+        endcase
+      -%}
+      <span class="sticker font-marker absolute z-10 inline-block select-none whitespace-nowrap rounded-[3px] shadow-[3px_4px_0_rgba(0,0,0,0.45)] {{ pos }} {{ tone }} {% if block.settings.big %}px-5 py-1 text-5xl md:text-7xl{% else %}px-3.5 py-1.5 text-lg md:text-2xl{% endif %}" data-sticker aria-hidden="true" {{ block.shopify_attributes }}>{{ block.settings.label }}</span>
+    {%- endfor -%}
+
+    <div class="relative"><div class="intro-logo">{%- render 'logo', class: 'text-[clamp(5rem,24vw,22rem)]' -%}</div></div>
+    <p class="font-marker mt-2 -rotate-3 text-2xl text-blood-bright md:text-4xl">{{ settings.slogan }}</p>
+    <div class="mt-10 md:mt-14">
+      <button type="button" data-intro-enter class="group flex items-center gap-4 bg-blood px-9 py-5 font-mono text-xs uppercase tracking-[0.3em] text-dirty shadow-[6px_6px_0_#e8e5df] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_#e8e5df] active:translate-y-1 active:shadow-[2px_2px_0_#e8e5df] md:px-12 md:py-6 md:text-sm">
+        {{ section.settings.cta }} <span class="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+      </button>
+    </div>
+    <p class="label pointer-events-none absolute bottom-6 text-concrete">{{ section.settings.hint }}</p>
+  </div>
+
+  <button type="button" data-intro-skip class="label absolute right-4 top-12 z-10 border border-dirty/30 bg-obsidian/60 px-3 py-2 text-dirty/80 backdrop-blur-sm transition-colors hover:bg-dirty hover:text-obsidian md:right-8 md:top-16">{{ 'sections.intro.skip' | t }} →</button>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Intro — porta e chiave",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Mostra l'intro", "default": true },
+    { "type": "text", "id": "cta", "label": "Pulsante", "default": "Enter the side" },
+    { "type": "text", "id": "hint", "label": "Suggerimento", "default": "psst — gli sticker si spostano" }
+  ],
+  "blocks": [
+    {
+      "type": "sticker",
+      "name": "Sticker",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Testo", "default": "No rules" },
+        { "type": "select", "id": "tone", "label": "Colore", "options": [ { "value": "red", "label": "Rosso" }, { "value": "white", "label": "Bianco" }, { "value": "black", "label": "Nero" } ], "default": "red" },
+        { "type": "checkbox", "id": "big", "label": "Grande", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Intro — porta e chiave",
+      "blocks": [
+        { "type": "sticker", "settings": { "label": "No rules", "tone": "red" } },
+        { "type": "sticker", "settings": { "label": "Open late", "tone": "white" } },
+        { "type": "sticker", "settings": { "label": "Fresh drop", "tone": "black" } },
+        { "type": "sticker", "settings": { "label": "22", "tone": "red", "big": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

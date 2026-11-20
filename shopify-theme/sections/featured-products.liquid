@@ -1,0 +1,79 @@
+{%- liquid
+  assign coll = section.settings.collection
+  if coll == blank
+    assign coll = collections.all
+  endif
+-%}
+<section id="store" class="relative bg-obsidian" aria-labelledby="store-title-{{ section.id }}">
+  {%- comment -%} A giant 22 cut out of black opens onto the store (pinned on scroll). {%- endcomment -%}
+  <div class="relative h-[100svh] overflow-hidden bg-obsidian" data-22-reveal>
+    {%- if section.settings.reveal_image != blank -%}
+      {{ section.settings.reveal_image | image_url: width: 2000 | image_tag: sizes: '100vw', loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover' }}
+    {%- else -%}
+      <img src="{{ 'store-overview.webp' | asset_url }}" alt="" loading="lazy" class="absolute inset-0 h-full w-full object-cover" width="1376" height="768">
+    {%- endif -%}
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 h-full w-full" aria-hidden="true">
+      <defs><mask id="m22-{{ section.id }}"><rect width="1600" height="1000" fill="white"/><g data-22-mask><text x="800" y="740" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="760" fill="black">22</text></g></mask></defs>
+      <rect width="1600" height="1000" fill="#080808" mask="url(#m22-{{ section.id }})"/>
+    </svg>
+    <div class="px-gutter label absolute inset-x-0 bottom-8 flex items-end justify-between text-dirty/80">
+      <span class="flex items-center gap-2">{% render 'line-bullet' %} {{ section.settings.index }} / {{ section.settings.title }}</span>
+      <span class="hidden text-dirty/60 sm:block">{{ 'sections.store.scroll' | t }}</span>
+    </div>
+  </div>
+
+  <div class="relative overflow-hidden">
+    <div aria-hidden="true" class="pattern-22 pointer-events-none absolute inset-0"></div>
+    <div class="px-gutter relative pb-12 pt-20 md:pb-16 md:pt-28">
+      {%- render 'section-label', index: section.settings.index, label: section.settings.title -%}
+      <div class="mt-10 grid gap-8 md:mt-16 md:grid-cols-12 md:items-end">
+        <h2 id="store-title-{{ section.id }}" class="font-display text-huge md:col-span-7" data-split>{{ section.settings.title }}</h2>
+        <div class="md:col-span-4 md:col-start-9" data-reveal>
+          <p class="text-base leading-relaxed text-dirty/80 md:text-lg">{{ section.settings.text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-gutter pb-24 md:pb-32">
+    <ul class="grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 md:gap-y-16 lg:grid-cols-4">
+      {%- for product in coll.products limit: section.settings.limit -%}
+        {%- liquid
+          assign m5 = forloop.index0 | modulo: 5
+          assign feature = false
+          if m5 == 0
+            assign feature = true
+          endif
+        -%}
+        <li class="{% if feature %}col-span-2{% elsif m5 == 2 %}lg:mt-24{% endif %}" data-reveal>
+          {%- if feature -%}
+            {%- render 'product-card', product: product, index: forloop.index0, aspect: 'aspect-[4/5] lg:aspect-[16/11]', sizes: '(min-width: 1024px) 50vw, 100vw' -%}
+          {%- else -%}
+            {%- render 'product-card', product: product, index: forloop.index0 -%}
+          {%- endif -%}
+        </li>
+      {%- else -%}
+        <li class="col-span-2 text-dirty/70 lg:col-span-4">{{ 'sections.collection.empty' | t }}</li>
+      {%- endfor -%}
+    </ul>
+    <div class="mt-16 flex justify-center">
+      <a href="{{ coll.url }}" class="group inline-flex items-center gap-3 bg-blood px-8 py-5 font-mono text-xs uppercase tracking-[0.16em] text-dirty transition-colors hover:bg-dirty hover:text-obsidian" data-magnetic>{{ section.settings.button_label }} {% render 'icon', name: 'arrow-up-right', class: 'size-4 transition-transform duration-500 group-hover:rotate-45' %}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Store (prodotti)",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Numero", "default": "03" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "The Store" },
+    { "type": "textarea", "id": "text", "label": "Testo", "default": "Tutti i capi 22SIDE, fotografati per strada. Passa sopra un capo per vederlo da un'altra angolazione, aprilo per tutti i dettagli." },
+    { "type": "collection", "id": "collection", "label": "Collezione (vuota = tutti i prodotti)" },
+    { "type": "range", "id": "limit", "label": "Numero di prodotti", "min": 4, "max": 24, "step": 1, "default": 12 },
+    { "type": "text", "id": "button_label", "label": "Pulsante", "default": "Acquista ora" },
+    { "type": "image_picker", "id": "reveal_image", "label": "Immagine dietro il 22 (vuota = immagine del tema)" }
+  ],
+  "presets": [{ "name": "The Store (prodotti)" }]
+}
+{% endschema %}

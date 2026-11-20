@@ -1,0 +1,80 @@
+{%- comment -%}
+  Editorial product card. Params: product, index (0-based, optional), aspect (class), sizes
+{%- endcomment -%}
+{%- liquid
+  assign aspect = aspect | default: 'aspect-[4/5]'
+  assign sizes = sizes | default: '(min-width: 1024px) 25vw, 50vw'
+  assign first_image = product.featured_media
+  assign second_image = product.media[1]
+  assign available_variants = product.variants | where: 'available'
+  assign pending = false
+  if product.tags contains 'prezzo-da-confermare'
+    assign pending = true
+  endif
+  assign buyable = false
+  if product.available and pending == false
+    assign buyable = true
+  endif
+  assign low = false
+  if buyable and product.variants.size > 2 and available_variants.size <= 2
+    assign low = true
+  endif
+-%}
+<article class="group relative transition-transform duration-500 ease-[var(--ease-out-expo)] md:hover:-rotate-1">
+  <div class="relative overflow-hidden bg-asphalt {{ aspect }}">
+    <a href="{{ product.url }}" class="absolute inset-0 block" tabindex="-1" aria-label="{{ product.title | escape }}">
+      {%- if first_image -%}
+        {{ first_image | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: sizes, loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover transition-[transform,opacity] duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]', alt: first_image.alt | default: product.title }}
+        {%- if second_image -%}
+          {{ second_image | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: sizes, loading: 'lazy', class: 'absolute inset-0 h-full w-full scale-[1.08] object-cover opacity-0 transition-[transform,opacity] duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-100 group-hover:opacity-100', alt: '' }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'absolute inset-0 h-full w-full fill-concrete/30' }}
+      {%- endif -%}
+    </a>
+
+    {%- if buyable -%}
+      <span aria-hidden="true" class="font-marker pointer-events-none absolute bottom-4 left-3 z-[4] -rotate-6 scale-0 bg-blood px-3 py-1 text-lg text-dirty shadow-[3px_3px_0_#080808] transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-100">cop it!</span>
+    {%- endif -%}
+
+    <div class="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between p-3">
+      {%- if index != blank -%}<span class="label text-dirty/80">{% assign n = index | plus: 1 %}{% if n < 10 %}0{% endif %}{{ n }}</span>{%- endif -%}
+      <div class="ml-auto flex flex-col items-end gap-1">
+        {%- if pending -%}<span class="label bg-dirty px-2 py-1 text-[0.6rem] text-obsidian">{{ 'products.product.coming_soon' | t }}</span>{%- elsif product.available == false -%}<span class="label bg-dirty px-2 py-1 text-[0.6rem] text-obsidian">{{ 'products.product.sold_out' | t }}</span>{%- endif -%}
+        {%- if low -%}<span class="label bg-blood px-2 py-1 text-[0.6rem] text-dirty">{{ 'products.product.low_stock' | t }}</span>{%- endif -%}
+      </div>
+    </div>
+
+    {%- if buyable -%}
+      {%- if product.has_only_default_variant -%}
+        <form action="{{ routes.cart_add_url }}" method="post" data-product-form class="absolute bottom-3 right-3 z-10">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="flex size-10 items-center justify-center bg-dirty text-obsidian transition-[transform,background-color] duration-300 hover:bg-blood hover:text-dirty md:translate-y-2 md:opacity-0 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 md:group-hover:translate-y-0 md:group-hover:opacity-100" aria-label="{{ 'products.product.add_to_cart' | t }} — {{ product.title | escape }}">{% render 'icon', name: 'plus' %}</button>
+        </form>
+      {%- else -%}
+        <details class="quick-add absolute inset-x-0 bottom-0 z-10" data-quick-add>
+          <summary class="absolute bottom-3 right-3 flex size-10 cursor-pointer list-none items-center justify-center bg-dirty text-obsidian transition-[transform,background-color] duration-300 hover:bg-blood hover:text-dirty md:translate-y-2 md:opacity-0 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 md:group-hover:translate-y-0 md:group-hover:opacity-100 [&::-webkit-details-marker]:hidden" aria-label="{{ 'products.product.quick_add' | t }} — {{ product.title | escape }}">{% render 'icon', name: 'plus' %}</summary>
+          <div class="bg-obsidian/95 p-3 pr-16 backdrop-blur">
+            <p class="label mb-2 text-concrete">{{ 'products.product.quick_add' | t }} — {{ product.options.first }}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {%- for variant in product.variants -%}
+                <form action="{{ routes.cart_add_url }}" method="post" data-product-form>
+                  <input type="hidden" name="id" value="{{ variant.id }}">
+                  <button type="submit" class="label min-w-9 border border-dirty/30 px-2 py-1.5 text-dirty transition-colors hover:bg-dirty hover:text-obsidian disabled:text-concrete disabled:line-through disabled:hover:bg-transparent" {% unless variant.available %}disabled{% endunless %}>{{ variant.title }}</button>
+                </form>
+              {%- endfor -%}
+            </div>
+          </div>
+        </details>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <div class="mt-3 flex items-start justify-between gap-4">
+    <div class="min-w-0">
+      <p class="label text-concrete">{{ product.type }}</p>
+      <h3 class="mt-1.5 font-display text-xl leading-[0.95] tracking-normal md:text-2xl"><a href="{{ product.url }}" class="hover:text-blood-bright">{{ product.title }}</a></h3>
+    </div>
+    {%- render 'price', product: product, class: 'shrink-0 text-sm' -%}
+  </div>
+</article>

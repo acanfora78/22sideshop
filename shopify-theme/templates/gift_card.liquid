@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ 'gift_card.title' | t }} — {{ shop.name }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="flex min-h-dvh items-center justify-center bg-obsidian p-6 text-dirty">
+    <main class="w-full max-w-md border border-dirty/15 bg-asphalt p-8 text-center">
+      {%- render 'logo', class: 'text-5xl' -%}
+      <p class="label mt-8 text-concrete">{{ 'gift_card.title' | t }}</p>
+      <p class="font-display mt-3 text-6xl">{{ gift_card.balance | money }}</p>
+      {%- if gift_card.enabled == false or gift_card.expired -%}<p class="label mt-3 text-blood-bright">{{ 'gift_card.expired' | t }}</p>{%- endif -%}
+      <p class="label mt-8 text-concrete">{{ 'gift_card.code' | t }}</p>
+      <p class="mt-2 select-all font-mono text-2xl tracking-widest">{{ gift_card.code | format_code }}</p>
+      {%- if gift_card.expires_on -%}<p class="label mt-6 text-concrete">{{ 'gift_card.expires_on' | t: date: gift_card.expires_on | date: '%d/%m/%Y' }}</p>{%- endif -%}
+      <a href="{{ shop.url }}" class="label mt-10 inline-block bg-blood px-6 py-4 text-dirty hover:bg-dirty hover:text-obsidian">{{ 'gift_card.shop' | t }} ↗</a>
+    </main>
+  </body>
+</html>

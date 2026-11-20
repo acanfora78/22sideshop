@@ -1,0 +1,17 @@
+<section class="px-gutter pb-24" data-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4">
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <h2 class="font-display text-big mb-10">{{ section.settings.title }}</h2>
+    <ul class="grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 lg:grid-cols-4">
+      {%- for rec in recommendations.products -%}
+        <li>{%- render 'product-card', product: rec, index: forloop.index0 -%}</li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Prodotti consigliati",
+  "settings": [{ "type": "text", "id": "title", "label": "Titolo", "default": "Complete the fit." }]
+}
+{% endschema %}

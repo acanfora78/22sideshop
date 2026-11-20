@@ -1,0 +1,24 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "22SIDE Underground",
+    "theme_version": "1.0.0",
+    "theme_author": "22SIDE",
+    "theme_documentation_url": "https://github.com/acanfora78/22sideshop",
+    "theme_support_url": "https://github.com/acanfora78/22sideshop"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "slogan", "label": "Slogan", "default": "No rules. Just attitude." },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "social_instagram_link", "label": "Instagram" },
+      { "type": "url", "id": "social_tiktok_link", "label": "TikTok" }
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+<section id="manifesto" class="relative overflow-hidden py-24 md:py-40" aria-label="{{ section.settings.label | escape }}">
+  <div class="px-gutter">
+    {%- render 'section-label', index: section.settings.index, label: section.settings.label -%}
+    <div class="relative mt-14 md:mt-24">
+      <h2 class="font-display text-mega block leading-[0.88]" data-split>{{ section.settings.headline }}</h2>
+      <div class="absolute -top-10 right-0 hidden size-36 md:block lg:size-44" aria-hidden="true">
+        <svg viewBox="0 0 200 200" class="size-full animate-[spin_22s_linear_infinite] motion-reduce:animate-none">
+          <defs><path id="stamp-circle-{{ section.id }}" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+          <text class="fill-dirty font-mono text-[13px] uppercase tracking-[0.18em]"><textPath href="#stamp-circle-{{ section.id }}">INDEPENDENT • STREETWEAR • LINE 22 • 22 SIDE STREET • </textPath></text>
+          <text x="100" y="114" text-anchor="middle" class="fill-blood font-display text-[44px]">22</text>
+        </svg>
+      </div>
+    </div>
+    <div class="mt-16 grid gap-12 md:mt-28 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <div class="halftone relative aspect-[3/4] overflow-hidden" data-img-reveal>
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1000 | image_tag: sizes: '(min-width: 768px) 33vw, 100vw', loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover' }}
+          {%- else -%}
+            <img src="{{ 'scene-fire-escape.jpg' | asset_url }}" alt="Facciata di mattoni con scala antincendio a zig-zag e ombre nette." loading="lazy" class="absolute inset-0 h-full w-full object-cover" width="1400" height="1900">
+          {%- endif -%}
+        </div>
+        <p class="label mt-3 flex justify-between text-concrete"><span>Fig. 02 — Brick &amp; iron</span><span>02:41 AM</span></p>
+      </div>
+      <div class="md:col-span-7 md:col-start-6 md:pt-16">
+        <p class="label mb-6 text-blood-bright">&ldquo;</p>
+        <p class="font-display text-[clamp(2.2rem,4.8vw,5rem)] leading-[0.95]" data-light-up>{{ section.settings.body }}</p>
+        <div class="mt-12 grid gap-6 border-t border-dirty/15 pt-6 sm:grid-cols-2" data-reveal>
+          <p class="font-serif text-2xl italic leading-snug text-dirty/90">{{ section.settings.quote }}</p>
+          <p class="text-sm leading-relaxed text-dirty/65">{{ section.settings.aside }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Manifesto",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Numero", "default": "02" },
+    { "type": "text", "id": "label", "label": "Etichetta", "default": "Manifesto" },
+    { "type": "text", "id": "headline", "label": "Titolo", "default": "Not made to fit in." },
+    { "type": "textarea", "id": "body", "label": "Testo grande", "default": "Più che vestiti. Una prospettiva diversa. Un’attitudine indipendente, nata dalla cultura di strada." },
+    { "type": "text", "id": "quote", "label": "Citazione", "default": "A different perspective." },
+    { "type": "textarea", "id": "aside", "label": "Testo laterale", "default": "Ogni capo nasce per chi non ha mai chiesto il permesso: cotone pesante, stampe decise, nessun compromesso. Lo indossi una volta e capisci da che parte stai." },
+    { "type": "image_picker", "id": "image", "label": "Immagine (vuota = immagine del tema)" }
+  ],
+  "presets": [{ "name": "Manifesto" }]
+}
+{% endschema %}

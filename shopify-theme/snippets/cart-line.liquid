@@ -1,0 +1,27 @@
+{%- comment -%} One cart line. Params: item, index (1-based line number), large (bool) {%- endcomment -%}
+<li class="flex gap-4 border-b border-dirty/10 py-5" data-cart-line="{{ index }}">
+  <a href="{{ item.url }}" class="relative shrink-0 overflow-hidden bg-asphalt {% if large %}h-40 w-32{% else %}h-28 w-22{% endif %}">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 260 | image_tag: class: 'absolute inset-0 h-full w-full object-cover', loading: 'lazy', alt: item.product.title }}
+    {%- endif -%}
+  </a>
+  <div class="flex min-w-0 flex-1 flex-col">
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        {%- unless item.product.has_only_default_variant -%}
+          <p class="label text-concrete">{% for option in item.options_with_values %}{{ option.name }} {{ option.value }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p>
+        {%- endunless -%}
+        <a href="{{ item.url }}" class="mt-1 block font-display text-xl leading-none hover:text-blood-bright">{{ item.product.title }}</a>
+      </div>
+      <p class="font-mono text-sm tabular-nums">{{ item.final_line_price | money }}</p>
+    </div>
+    <div class="mt-auto flex items-center justify-between pt-3">
+      <div class="inline-flex h-8 items-center border border-dirty/30" role="group" aria-label="{{ 'sections.cart.quantity_for' | t: title: item.product.title }}">
+        <button type="button" class="flex size-8 items-center justify-center hover:bg-dirty hover:text-obsidian" data-cart-qty="{{ index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'sections.cart.decrease' | t }}">{% render 'icon', name: 'minus', class: 'size-3.5' %}</button>
+        <output class="w-7 text-center font-mono text-sm tabular-nums">{{ item.quantity }}</output>
+        <button type="button" class="flex size-8 items-center justify-center hover:bg-dirty hover:text-obsidian" data-cart-qty="{{ index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'sections.cart.increase' | t }}">{% render 'icon', name: 'plus', class: 'size-3.5' %}</button>
+      </div>
+      <button type="button" class="label link-underline text-concrete hover:text-dirty" data-cart-qty="{{ index }}" data-qty="0">{{ 'sections.cart.remove' | t }}</button>
+    </div>
+  </div>
+</li>

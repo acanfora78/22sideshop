@@ -1,0 +1,27 @@
+<section class="px-gutter pb-24 pt-32 md:pt-44" data-main-cart>
+  <h1 class="font-display text-huge" data-split>{{ 'sections.cart.title' | t }}</h1>
+  {%- if cart.item_count == 0 -%}
+    <div class="mt-14 flex flex-col items-start gap-6">
+      <p class="label text-blood-bright">{{ 'sections.cart.empty' | t }}</p>
+      <p class="font-display text-big">Nothing here. Yet.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="label bg-dirty px-6 py-4 text-obsidian hover:bg-blood hover:text-dirty">{{ 'sections.cart.shop_all' | t }} ↗</a>
+    </div>
+  {%- else -%}
+    <div class="mt-14 grid gap-12 lg:grid-cols-12">
+      <ul class="lg:col-span-8" aria-label="{{ 'sections.cart.items' | t }}">
+        {%- for item in cart.items -%}
+          {%- render 'cart-line', item: item, index: forloop.index, large: true -%}
+        {%- endfor -%}
+      </ul>
+      <div class="lg:col-span-4">
+        <div class="border border-dirty/15 bg-asphalt p-6 lg:sticky lg:top-28">
+          {%- render 'cart-summary' -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Carrello" }
+{% endschema %}

@@ -1,0 +1,72 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+-%}
+<header class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[transform,background-color,border-color] duration-500 ease-[var(--ease-out-expo)]" data-header>
+  <div class="px-gutter flex h-[var(--header-h)] items-center justify-between gap-6">
+    <a href="{{ routes.root_url }}" class="relative z-10 text-[1.75rem] text-dirty" aria-label="{{ shop.name }} — home page">
+      {%- render 'logo' -%}
+    </a>
+
+    <nav aria-label="{{ 'sections.header.menu' | t }}" class="hidden items-center gap-9 md:flex">
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}" class="label group relative flex items-baseline gap-1.5 py-2 transition-colors {% if link.active %}text-dirty{% else %}text-dirty/60 hover:text-dirty{% endif %}" {% if link.active %}aria-current="page"{% endif %}>
+            <span class="text-[0.55rem] text-blood">{{ forloop.index | prepend: '0' }}</span><span class="link-underline">{{ link.title }}</span>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}" class="label link-underline py-2 text-dirty/80 hover:text-dirty">Shop</a>
+        <a href="{{ routes.collections_url }}" class="label link-underline py-2 text-dirty/80 hover:text-dirty">{{ 'sections.header.collections' | t }}</a>
+      {%- endif -%}
+    </nav>
+
+    <div class="flex items-center gap-1 sm:gap-3">
+      <span class="label mr-3 hidden text-concrete lg:inline">NYC <span class="tabular-nums" data-nyc-clock>--:--</span></span>
+      <a href="{{ routes.search_url }}" class="label hidden items-center gap-2 p-2 text-dirty/70 transition-colors hover:text-dirty md:flex" aria-label="{{ 'general.search.search' | t }}">
+        {%- render 'icon', name: 'search' -%}<span class="hidden xl:inline">{{ 'general.search.search' | t }}</span>
+      </a>
+      <a href="{{ routes.cart_url }}" class="label flex items-center gap-2 p-2 text-dirty transition-colors hover:text-blood-bright" data-cart-open aria-label="{{ 'sections.header.cart_count' | t: count: cart.item_count }}">
+        {%- render 'icon', name: 'bag', class: 'size-[1.1rem]' -%}
+        <span class="hidden sm:inline">{{ 'sections.header.cart' | t }}</span>
+        <span class="inline-flex h-5 min-w-5 items-center justify-center bg-dirty px-1 text-[0.65rem] text-obsidian" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="label relative z-10 ml-1 flex h-10 items-center gap-2 px-2 text-dirty md:hidden" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+        <span data-menu-label data-open="{{ 'sections.header.close' | t }}" data-closed="Menu">Menu</span>
+        <span aria-hidden="true" class="relative block h-3 w-5"><span class="absolute left-0 top-0 h-px w-full bg-dirty transition-transform duration-500" data-bar-1></span><span class="absolute bottom-0 left-0 h-px w-full bg-dirty transition-transform duration-500" data-bar-2></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 flex flex-col overflow-y-auto bg-obsidian pt-[var(--header-h)] md:hidden" role="dialog" aria-modal="true" aria-label="Menu" data-mobile-menu>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="px-gutter mt-4 flex items-center gap-3 border-b border-dirty/20 pb-3">
+    {%- render 'icon', name: 'search', class: 'size-4 text-concrete' -%}
+    <label for="mobile-search" class="sr-only">{{ 'general.search.search' | t }}</label>
+    <input id="mobile-search" type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="label w-full bg-transparent py-2 text-sm text-dirty placeholder:text-concrete focus:outline-none">
+  </form>
+  <nav aria-label="Mobile" class="px-gutter mt-8 flex flex-1 flex-col">
+    {%- for link in menu.links -%}
+      <a href="{{ link.url }}" class="flex items-baseline justify-between border-b border-dirty/10 py-3">
+        <span class="font-display text-[17vw] leading-[0.95]">{{ link.title }}</span><span class="label text-blood">{{ forloop.index | prepend: '0' }}</span>
+      </a>
+    {%- endfor -%}
+    <div class="mt-6 grid grid-cols-2 gap-3">
+      <a href="{{ routes.search_url }}" class="label border border-dirty/25 px-4 py-4 text-center">{{ 'general.search.search' | t }}</a>
+      <a href="{{ routes.cart_url }}" class="label border border-dirty/25 px-4 py-4 text-center">{{ 'sections.header.cart' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)</a>
+    </div>
+  </nav>
+  <div class="px-gutter label mt-10 flex items-center justify-between pb-8 text-concrete">
+    {%- if settings.social_instagram_link != blank -%}<a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="text-dirty">Instagram ↗</a>{%- endif -%}
+    <span>{{ settings.slogan }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

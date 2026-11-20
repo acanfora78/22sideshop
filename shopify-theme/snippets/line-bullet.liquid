@@ -1,0 +1,18 @@
+{%- comment -%} Line 22 bullet. Params: label (default "22"), size (xs|sm|md), tone (red|white) {%- endcomment -%}
+{%- liquid
+  assign l = label | default: '22'
+  case size
+    when 'md'
+      assign s = 'size-10 text-base'
+    when 'sm'
+      assign s = 'size-7 text-xs'
+    else
+      assign s = 'size-5 text-[0.6rem]'
+  endcase
+  if tone == 'white'
+    assign t = 'bg-dirty text-obsidian'
+  else
+    assign t = 'bg-blood text-dirty'
+  endif
+-%}
+<span aria-hidden="true" class="inline-flex shrink-0 items-center justify-center rounded-full font-sans font-extrabold leading-none tracking-tight [font-stretch:85%] {{ s }} {{ t }}">{{ l }}</span>

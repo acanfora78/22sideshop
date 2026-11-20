@@ -1,0 +1,63 @@
+<section id="collection" class="relative isolate overflow-hidden" aria-labelledby="coll-title-{{ section.id }}" data-collection-list>
+  <div class="absolute inset-0 -z-10">
+    <img src="{{ 'scene-subway.jpg' | asset_url }}" alt="" loading="lazy" class="h-full w-full object-cover opacity-30" width="2400" height="1500">
+    <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/70 to-obsidian"></div>
+  </div>
+  <div class="px-gutter py-24 md:py-36">
+    {%- render 'section-label', index: section.settings.index, label: section.settings.label -%}
+    <div class="mt-12 flex flex-col gap-8 md:mt-20 md:flex-row md:items-end md:justify-between">
+      <h2 id="coll-title-{{ section.id }}" class="font-display text-huge" data-split>{{ section.settings.title }}</h2>
+      <p class="font-marker max-w-[18rem] -rotate-2 text-xl text-dirty/80">{{ section.settings.note }}</p>
+    </div>
+    <ul class="relative mt-14 border-t border-dirty/20 md:mt-20">
+      {%- liquid
+        if section.blocks.size > 0
+          assign list = section.blocks
+        else
+          assign list = collections
+        endif
+      -%}
+      {%- for item in list -%}
+        {%- liquid
+          if section.blocks.size > 0
+            assign c = item.settings.collection
+          else
+            assign c = item
+          endif
+        -%}
+        {%- if c != blank and c.products_count > 0 -%}
+          <li class="border-b border-dirty/20" {% if section.blocks.size > 0 %}{{ item.shopify_attributes }}{% endif %}>
+            <a href="{{ c.url }}" class="group relative flex items-center justify-between gap-4 py-5 md:py-7" data-preview="{% if c.featured_image %}{{ c.featured_image | image_url: width: 480 }}{% elsif c.products.first.featured_image %}{{ c.products.first.featured_image | image_url: width: 480 }}{% endif %}">
+              <span class="flex items-baseline gap-4 md:gap-8">
+                <span class="label w-6 text-blood">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+                <span class="font-display text-[clamp(2.6rem,8vw,8.5rem)] transition-[color,transform] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-4 group-hover:text-outline-dirty">{{ c.title }}</span>
+              </span>
+              <span class="label flex items-center gap-3 text-concrete"><span class="text-dirty">({{ c.products_count }})</span>{% render 'icon', name: 'arrow-up-right', class: 'size-5 text-dirty transition-transform duration-500 group-hover:rotate-45' %}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+      <img alt="" aria-hidden="true" width="240" height="320" class="pointer-events-none absolute left-0 top-0 z-20 hidden h-64 w-48 -translate-x-1/2 -translate-y-1/2 -rotate-3 object-cover opacity-0 transition-opacity duration-300 lg:block xl:h-80 xl:w-60" data-preview-img>
+    </ul>
+    <div class="mt-16 flex justify-center md:mt-24">
+      <a href="{{ routes.all_products_collection_url }}" class="group inline-flex items-center gap-3 bg-blood px-10 py-6 font-mono text-sm uppercase tracking-[0.16em] text-dirty transition-colors hover:bg-dirty hover:text-obsidian" data-magnetic>{{ section.settings.button_label }} {% render 'icon', name: 'arrow-up-right', class: 'size-4 transition-transform duration-500 group-hover:rotate-45' %}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Elenco collezioni",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Numero", "default": "05" },
+    { "type": "text", "id": "label", "label": "Etichetta", "default": "Shop the Collection" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Pick your line." },
+    { "type": "text", "id": "note", "label": "Nota a mano", "default": "Un’unica attitudine. Scegli da dove partire." },
+    { "type": "text", "id": "button_label", "label": "Pulsante", "default": "Scopri tutti i prodotti" }
+  ],
+  "blocks": [
+    { "type": "collection", "name": "Collezione", "settings": [ { "type": "collection", "id": "collection", "label": "Collezione" } ] }
+  ],
+  "presets": [{ "name": "Elenco collezioni" }]
+}
+{% endschema %}

@@ -37,7 +37,7 @@ for (const p of rawProducts) {
       first ? html(p) : "",
       first ? "22SIDE" : "",
       first ? p.productType : "",
-      first ? p.tags.join(", ") : "",
+      first ? [...p.tags, ...(confirmed ? [] : ["prezzo-da-confermare"])].join(", ") : "",
       first ? (confirmed ? "TRUE" : "FALSE") : "",
       first ? "Taglia" : "",
       size ?? "",

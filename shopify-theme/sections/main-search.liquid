@@ -1,0 +1,35 @@
+<section class="px-gutter pb-24 pt-32 md:pt-44">
+  <h1 class="font-display text-huge" data-split>{{ 'general.search.title' | t }}</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="mt-10 flex border-b-2 border-dirty">
+    <input type="hidden" name="type" value="product">
+    <label for="search-input" class="sr-only">{{ 'general.search.placeholder' | t }}</label>
+    <input id="search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="font-display w-full bg-transparent py-4 text-4xl placeholder:text-concrete focus:outline-none md:text-6xl" autocomplete="off">
+    <button type="submit" class="p-4 hover:text-blood-bright" aria-label="{{ 'general.search.submit' | t }}">{% render 'icon', name: 'search', class: 'size-7' %}</button>
+  </form>
+
+  {%- if search.performed -%}
+    <p class="label mt-8 text-concrete">{{ 'general.search.results_count' | t: count: search.results_count, terms: search.terms }}</p>
+    {%- paginate search.results by 24 -%}
+      <ul class="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 lg:grid-cols-4">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            <li>{%- render 'product-card', product: item, index: forloop.index0 -%}</li>
+          {%- endif -%}
+        {%- else -%}
+          <li class="col-span-2 py-16 lg:col-span-4"><p class="font-display text-big">No match.</p><p class="mt-4 text-dirty/70">{{ 'general.search.no_results' | t }}</p></li>
+        {%- endfor -%}
+      </ul>
+      {%- if paginate.pages > 1 -%}
+        <nav class="label mt-16 flex items-center justify-center gap-4" aria-label="{{ 'general.pagination.label' | t }}">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="border border-dirty/30 px-4 py-2 hover:border-dirty">← {{ 'general.pagination.previous' | t }}</a>{%- endif -%}
+          <span class="text-concrete">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="border border-dirty/30 px-4 py-2 hover:border-dirty">{{ 'general.pagination.next' | t }} →</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Ricerca" }
+{% endschema %}

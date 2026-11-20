@@ -1,0 +1,12 @@
+<div class="space-y-4">
+  <div class="flex items-baseline justify-between">
+    <span class="label text-concrete">{{ 'sections.cart.subtotal' | t }} · {{ 'sections.cart.item_count' | t: count: cart.item_count }}</span>
+    <span class="font-display text-3xl tabular-nums">{{ cart.total_price | money }}</span>
+  </div>
+  <p class="label text-[0.6rem] leading-relaxed text-concrete">{{ 'sections.cart.taxes_note' | t }}</p>
+  <form action="{{ routes.cart_url }}" method="post">
+    <button type="submit" name="checkout" class="label flex w-full items-center justify-center gap-3 bg-blood px-6 py-4 text-dirty transition-colors hover:bg-dirty hover:text-obsidian">
+      {%- render 'icon', name: 'lock', class: 'size-3.5' -%} {{ 'sections.cart.checkout' | t }}
+    </button>
+  </form>
+</div>

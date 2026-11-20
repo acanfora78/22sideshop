@@ -1,0 +1,20 @@
+{%- assign items = section.settings.items | split: '|' -%}
+<div class="overflow-hidden py-6" aria-hidden="true">
+  <div class="marquee font-display -rotate-2 scale-105 border-y border-dirty/15 py-3 text-4xl md:text-6xl {% if section.settings.light %}bg-dirty text-obsidian{% endif %}">
+    <div class="marquee-track flex w-max" style="animation-duration: {{ section.settings.speed }}s">
+      {%- for r in (1..2) -%}<div class="flex shrink-0 items-center">{% for t in items %}<span class="whitespace-nowrap px-[0.45em]">{{ t | strip }}</span><span class="px-[0.45em] text-blood">✕</span>{% endfor %}</div>{%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testo scorrevole",
+  "settings": [
+    { "type": "text", "id": "items", "label": "Testi (separati da |)", "default": "Not made to fit in|22|Built different|22|The movement|22" },
+    { "type": "range", "id": "speed", "label": "Durata (secondi)", "min": 10, "max": 80, "step": 2, "default": 36 },
+    { "type": "checkbox", "id": "light", "label": "Fascia chiara", "default": true }
+  ],
+  "presets": [{ "name": "Testo scorrevole" }]
+}
+{% endschema %}

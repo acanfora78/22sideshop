@@ -1,0 +1,13 @@
+{%- comment -%} Product price. Params: product, class. Shows "da" when variants differ, compare-at when on sale. {%- endcomment -%}
+{%- liquid
+  assign target = product.selected_or_first_available_variant
+-%}
+<span class="font-mono tabular-nums {{ class }}" data-price>
+  {%- if product.tags contains 'prezzo-da-confermare' -%}<span class="text-concrete">{{ 'products.product.price_pending' | t }}</span>{%- else -%}
+  {%- if product.price_varies -%}{{ 'products.product.price_from' | t }} {% endif -%}
+  {{- target.price | money -}}
+  {%- if target.compare_at_price > target.price -%}
+    <s class="ml-2 text-concrete">{{ target.compare_at_price | money }}</s>
+  {%- endif -%}
+  {%- endif -%}
+</span>

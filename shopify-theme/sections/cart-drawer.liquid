@@ -1,0 +1,33 @@
+{%- comment -%}
+  Cart drawer. Re-rendered after every cart change through the Section Rendering
+  API (/cart/add.js and /cart/change.js with `sections: 'cart-drawer'`).
+{%- endcomment -%}
+<div class="drawer fixed inset-0 z-[70]" data-cart-drawer id="cart-drawer">
+  <button type="button" class="drawer-backdrop absolute inset-0 cursor-default bg-obsidian/70 backdrop-blur-[2px]" aria-label="{{ 'sections.cart.close' | t }}" data-cart-close></button>
+  <aside class="drawer-panel absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-dirty/10 bg-asphalt" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" data-lenis-prevent>
+    <div class="flex items-center justify-between border-b border-dirty/10 px-6 py-5">
+      <h2 id="cart-drawer-title" class="font-display text-3xl">{{ 'sections.cart.title' | t }}</h2>
+      <button type="button" class="label flex items-center gap-2 p-2 hover:text-blood-bright" data-cart-close>{{ 'sections.cart.close' | t }} {% render 'icon', name: 'x' %}</button>
+    </div>
+
+    <div class="flex min-h-0 flex-1 flex-col" data-cart-drawer-body>
+      {%- if cart.item_count == 0 -%}
+        <div class="flex flex-1 flex-col items-start justify-center gap-6 px-6">
+          <p class="label text-blood-bright">{{ 'sections.cart.empty' | t }}</p>
+          <p class="font-display text-6xl leading-[0.9]">Nothing here. Yet.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="label bg-dirty px-6 py-4 text-obsidian hover:bg-blood hover:text-dirty">{{ 'sections.cart.shop_all' | t }} ↗</a>
+        </div>
+      {%- else -%}
+        <ul class="flex-1 overflow-y-auto px-6" aria-label="{{ 'sections.cart.items' | t }}">
+          {%- for item in cart.items -%}
+            {%- render 'cart-line', item: item, index: forloop.index -%}
+          {%- endfor -%}
+        </ul>
+        <div class="border-t border-dirty/10 bg-obsidian/60 p-6">
+          {%- render 'cart-summary' -%}
+          <a href="{{ routes.cart_url }}" class="label link-underline mt-4 block text-center text-dirty/80">{{ 'sections.cart.view_cart' | t }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </aside>
+</div>

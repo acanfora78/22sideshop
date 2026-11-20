@@ -1,0 +1,14 @@
+<section class="px-gutter relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pb-24 pt-32">
+  <div aria-hidden="true" class="pattern-22 pointer-events-none absolute inset-0 -z-10"></div>
+  <p class="label text-blood-bright">404 — {{ 'general.404.label' | t }}</p>
+  <h1 class="font-display text-mega mt-6 leading-[0.8]">Wrong side.</h1>
+  <p class="mt-8 max-w-md text-lg text-dirty/80">{{ 'general.404.text' | t }}</p>
+  <div class="mt-10 flex flex-wrap gap-3">
+    <a href="{{ routes.root_url }}" class="label bg-dirty px-6 py-4 text-obsidian hover:bg-blood hover:text-dirty">{{ 'general.404.home' | t }}</a>
+    <a href="{{ routes.all_products_collection_url }}" class="label border border-dirty/30 px-6 py-4 hover:border-dirty">{{ 'sections.cart.shop_all' | t }} ↗</a>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Pagina 404" }
+{% endschema %}

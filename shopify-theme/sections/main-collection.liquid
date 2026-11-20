@@ -1,0 +1,57 @@
+{%- paginate collection.products by section.settings.per_page -%}
+<section class="px-gutter pb-24 pt-32 md:pt-44">
+  <p class="label text-concrete"><span class="text-blood">Shop</span> / {{ 'sections.collection.items' | t: count: collection.products_count }}</p>
+  <div class="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+    <h1 class="font-display text-huge" data-split>{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="max-w-md text-base leading-relaxed text-dirty/80">{{ collection.description }}</div>{%- endif -%}
+  </div>
+
+  {%- if collections.size > 1 -%}
+    <nav class="no-scrollbar -mx-[var(--gutter)] mt-10 flex gap-2 overflow-x-auto px-[var(--gutter)]" aria-label="{{ 'sections.collection.nav' | t }}">
+      <a href="{{ routes.all_products_collection_url }}" class="label shrink-0 border px-4 py-2 {% if collection.handle == 'all' %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}">{{ 'sections.collection.all' | t }}</a>
+      {%- for c in collections -%}
+        {%- if c.products_count > 0 and c.handle != 'all' and c.handle != 'frontpage' -%}
+          <a href="{{ c.url }}" class="label shrink-0 border px-4 py-2 {% if c.handle == collection.handle %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}">{{ c.title }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
+
+  <div class="mt-8 flex items-center justify-between border-y border-dirty/15 py-4">
+    <span class="label text-concrete">{{ 'sections.collection.items' | t: count: collection.products_count }}</span>
+    <label class="label flex items-center gap-3 text-concrete">{{ 'sections.collection.sort' | t }}
+      <select class="label border border-dirty/30 bg-obsidian px-3 py-2 text-dirty" data-sort>
+        {%- for option in collection.sort_options -%}
+          <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+        {%- endfor -%}
+      </select>
+    </label>
+  </div>
+
+  <ul class="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:gap-x-5 md:gap-y-16 lg:grid-cols-4">
+    {%- for product in collection.products -%}
+      <li data-reveal>{%- render 'product-card', product: product, index: forloop.index0 -%}</li>
+    {%- else -%}
+      <li class="col-span-2 py-20 lg:col-span-4">
+        <p class="font-display text-big">Nothing here. Yet.</p>
+        <p class="mt-4 text-dirty/70">{{ 'sections.collection.empty' | t }}</p>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  {%- if paginate.pages > 1 -%}
+    <nav class="label mt-16 flex items-center justify-center gap-4" aria-label="{{ 'general.pagination.label' | t }}">
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="border border-dirty/30 px-4 py-2 hover:border-dirty">← {{ 'general.pagination.previous' | t }}</a>{%- endif -%}
+      <span class="text-concrete">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="border border-dirty/30 px-4 py-2 hover:border-dirty">{{ 'general.pagination.next' | t }} →</a>{%- endif -%}
+    </nav>
+  {%- endif -%}
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collezione",
+  "settings": [{ "type": "range", "id": "per_page", "label": "Prodotti per pagina", "min": 8, "max": 48, "step": 4, "default": 24 }]
+}
+{% endschema %}

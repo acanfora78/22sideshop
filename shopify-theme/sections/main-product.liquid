@@ -1,0 +1,109 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign pending = false
+  if product.tags contains 'prezzo-da-confermare'
+    assign pending = true
+  endif
+-%}
+<section class="px-gutter pb-24 pt-28 md:pt-36" data-product data-product-id="{{ product.id }}" data-pending="{{ pending }}">
+  <nav class="label text-concrete" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}" class="hover:text-dirty">Home</a> /
+    <a href="{{ routes.all_products_collection_url }}" class="hover:text-dirty">Shop</a> /
+    <span class="text-dirty">{{ product.title }}</span>
+  </nav>
+
+  <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-14">
+    {%- comment -%} Gallery: stacked on desktop, swipe on mobile. {%- endcomment -%}
+    <div class="lg:col-span-7">
+      <ul class="no-scrollbar -mx-[var(--gutter)] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[var(--gutter)] lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0" aria-label="{{ 'products.product.gallery' | t }}">
+        {%- for media in product.media -%}
+          <li class="relative aspect-[4/5] w-[85%] shrink-0 snap-center overflow-hidden bg-asphalt lg:w-auto {% if forloop.first %}lg:col-span-2{% endif %}" data-img-reveal>
+            {%- if media.media_type == 'image' -%}
+              {%- liquid
+                assign load = 'lazy'
+                if forloop.first
+                  assign load = 'eager'
+                endif
+              -%}
+              {{ media | image_url: width: 1600 | image_tag: widths: '540, 720, 1000, 1300, 1600', sizes: '(min-width: 1024px) 58vw, 85vw', class: 'absolute inset-0 h-full w-full object-cover', loading: load, alt: media.alt }}
+            {%- else -%}
+              {{ media | media_tag: image_size: '1600x', class: 'absolute inset-0 h-full w-full object-cover' }}
+            {%- endif -%}
+          </li>
+        {%- else -%}
+          <li class="relative aspect-[4/5] w-full bg-asphalt lg:col-span-2">{{ 'product-1' | placeholder_svg_tag: 'absolute inset-0 h-full w-full fill-concrete/30' }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-28">
+        <p class="label text-blood-bright">{{ product.type | default: product.vendor }}</p>
+        <h1 class="font-display mt-3 text-[clamp(2.8rem,6vw,5.5rem)] leading-[0.9]">{{ product.title }}</h1>
+        <div class="mt-5 text-xl">{% render 'price', product: product %}</div>
+
+        {%- form 'product', product, class: 'mt-8 space-y-6', data-product-form: '', data-main-form: '' -%}
+          <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <fieldset>
+                <legend class="label mb-3 flex w-full justify-between text-concrete"><span>{{ option.name }}</span><span class="text-dirty" data-option-value="{{ forloop.index0 }}">{{ option.selected_value }}</span></legend>
+                <div class="flex flex-wrap gap-2">
+                  {%- assign oi = forloop.index0 -%}
+                  {%- for value in option.values -%}
+                    <label class="relative">
+                      <input type="radio" class="peer sr-only" name="option-{{ oi }}" value="{{ value | escape }}" data-option-index="{{ oi }}" {% if option.selected_value == value %}checked{% endif %}>
+                      <span class="label flex min-w-12 cursor-pointer items-center justify-center border border-dirty/30 px-4 py-3 text-dirty transition-colors hover:border-dirty peer-checked:border-dirty peer-checked:bg-dirty peer-checked:text-obsidian peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-blood-bright">{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="flex gap-3">
+            <div class="flex items-center border border-dirty/30">
+              <button type="button" class="p-3 hover:text-blood-bright" data-qty-step="-1" aria-label="{{ 'products.product.quantity_decrease' | t }}">{% render 'icon', name: 'minus' %}</button>
+              <input type="number" name="quantity" value="1" min="1" class="w-12 bg-transparent text-center font-mono [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none" aria-label="{{ 'products.product.quantity' | t }}" data-qty-input>
+              <button type="button" class="p-3 hover:text-blood-bright" data-qty-step="1" aria-label="{{ 'products.product.quantity_increase' | t }}">{% render 'icon', name: 'plus' %}</button>
+            </div>
+            <button type="submit" name="add" class="label flex flex-1 items-center justify-center gap-3 bg-blood px-6 py-4 text-dirty transition-colors hover:bg-dirty hover:text-obsidian disabled:cursor-not-allowed disabled:bg-concrete/40 disabled:text-dirty/60" data-add-button {% if pending or current.available == false %}disabled{% endif %}>
+              {%- if pending -%}{{ 'products.product.coming_soon' | t }}{%- elsif current.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+            </button>
+          </div>
+          <p class="label text-[0.65rem] text-concrete" data-availability aria-live="polite">
+            {%- if pending -%}{{ 'products.product.price_pending_note' | t }}{%- elsif current.available -%}{{ 'products.product.in_stock' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+          </p>
+          <script type="application/json" data-variants>{{ product.variants | json }}</script>
+        {%- endform -%}
+
+        <div class="mt-10 divide-y divide-dirty/15 border-y border-dirty/15">
+          <details class="group py-5" open>
+            <summary class="label flex cursor-pointer list-none justify-between [&::-webkit-details-marker]:hidden">{{ 'products.product.details' | t }} <span class="transition-transform group-open:rotate-45">{% render 'icon', name: 'plus' %}</span></summary>
+            <div class="prose-22 mt-4 text-base leading-relaxed text-dirty/80">{{ product.description }}</div>
+          </details>
+          {%- for block in section.blocks -%}
+            <details class="group py-5" {{ block.shopify_attributes }}>
+              <summary class="label flex cursor-pointer list-none justify-between [&::-webkit-details-marker]:hidden">{{ block.settings.heading }} <span class="transition-transform group-open:rotate-45">{% render 'icon', name: 'plus' %}</span></summary>
+              <div class="mt-4 text-base leading-relaxed text-dirty/80">{{ block.settings.content }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Prodotto",
+  "blocks": [
+    { "type": "accordion", "name": "Riquadro informazioni", "settings": [
+      { "type": "text", "id": "heading", "label": "Titolo", "default": "Spedizione e resi" },
+      { "type": "richtext", "id": "content", "label": "Contenuto", "default": "<p>Tempi e costi di spedizione vengono mostrati al checkout.</p>" }
+    ] }
+  ],
+  "presets": [{ "name": "Prodotto" }]
+}
+{% endschema %}

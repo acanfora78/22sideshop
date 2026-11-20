@@ -1,0 +1,28 @@
+<section class="px-gutter pb-24 pt-32 md:pt-44">
+  <p class="label text-concrete"><span class="text-blood">Shop</span> / {{ 'sections.collection.collections' | t }}</p>
+  <h1 class="font-display text-huge mt-8" data-split>{{ section.settings.title }}</h1>
+  <ul class="mt-14 grid gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+    {%- for c in collections -%}
+      {%- if c.products_count > 0 and c.handle != 'frontpage' -%}
+        <li data-reveal>
+          <a href="{{ c.url }}" class="group relative block aspect-[4/5] overflow-hidden bg-asphalt">
+            {%- assign img = c.featured_image | default: c.products.first.featured_image -%}
+            {%- if img -%}{{ img | image_url: width: 1000 | image_tag: widths: '360, 540, 720, 1000', sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw', loading: 'lazy', class: 'absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-105', alt: c.title }}{%- endif -%}
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+              <span class="font-display text-5xl leading-none">{{ c.title }}</span>
+              <span class="label text-dirty/80">({{ c.products_count }}) ↗</span>
+            </div>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Pagina collezioni",
+  "settings": [{ "type": "text", "id": "title", "label": "Titolo", "default": "Pick your line." }]
+}
+{% endschema %}

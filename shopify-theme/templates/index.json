@@ -1,0 +1,149 @@
+{
+  "sections": {
+    "intro": {
+      "type": "intro-door",
+      "blocks": {
+        "s1": {
+          "type": "sticker",
+          "settings": {
+            "label": "No rules",
+            "tone": "red"
+          }
+        },
+        "s2": {
+          "type": "sticker",
+          "settings": {
+            "label": "Open late",
+            "tone": "white"
+          }
+        },
+        "s3": {
+          "type": "sticker",
+          "settings": {
+            "label": "Fresh drop",
+            "tone": "black"
+          }
+        },
+        "s4": {
+          "type": "sticker",
+          "settings": {
+            "label": "22",
+            "tone": "red",
+            "big": true
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "settings": {}
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {}
+    },
+    "why-22": {
+      "type": "why-22",
+      "settings": {}
+    },
+    "store": {
+      "type": "featured-products",
+      "settings": {
+        "limit": 12
+      }
+    },
+    "underground": {
+      "type": "underground-culture",
+      "blocks": {
+        "c1": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Block",
+            "layout": "fullbleed",
+            "theme_image": "scene-street-night.jpg",
+            "caption": "Avenue, 02:14 AM",
+            "text": "Il blocco è il primo atelier. Marciapiedi bagnati, finestre accese, gli amici sotto casa: qui si decide cosa conta davvero."
+          }
+        },
+        "c2": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Train",
+            "layout": "split",
+            "theme_image": "scene-subway.jpg",
+            "caption": "Last train downtown",
+            "text": "Le notti passate in metropolitana. La banchina diventa passerella, il rumore dei binari una colonna sonora."
+          }
+        },
+        "c3": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Rooftops",
+            "layout": "collage",
+            "theme_image": "scene-water-towers.jpg",
+            "caption": "Water towers, sunrise",
+            "text": "Dai tetti la città sembra più piccola e i sogni più grandi. Cisterne di legno, antenne, un cielo bianco che non dorme mai."
+          }
+        },
+        "c4": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Sound",
+            "layout": "vinyl",
+            "theme_image": "scene-turntable.jpg",
+            "caption": "Side A — Line 22 Sessions",
+            "text": "Un giradischi, un muro, un microfono in prestito. L’hip-hop della golden age ha insegnato a costruire un mondo con quello che c’era."
+          }
+        },
+        "c5": {
+          "type": "chapter",
+          "settings": {
+            "title": "The Culture",
+            "layout": "quote",
+            "theme_image": "scene-tiles-22side.jpg",
+            "caption": "22 Side St. — mosaic",
+            "text": "East Coast e West Coast, silhouette oversize e attitudine. Citiamo quell’epoca senza ripeterla: anni ’90 reinventati, tagliati per oggi."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "settings": {}
+    },
+    "collections": {
+      "type": "collection-list",
+      "settings": {}
+    },
+    "final": {
+      "type": "final-statement",
+      "settings": {}
+    }
+  },
+  "order": [
+    "intro",
+    "hero",
+    "manifesto",
+    "marquee",
+    "why-22",
+    "store",
+    "underground",
+    "collections",
+    "final"
+  ]
+}

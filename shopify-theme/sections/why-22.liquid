@@ -1,0 +1,32 @@
+<section id="why-22" class="relative overflow-hidden py-24 md:py-36" aria-labelledby="why22-title-{{ section.id }}">
+  <div aria-hidden="true" class="pattern-22 pointer-events-none absolute inset-0"></div>
+  <div class="px-gutter relative">
+    {%- render 'section-label', index: '22', label: section.settings.label -%}
+    <div class="mt-12 grid items-center gap-10 md:mt-16 md:grid-cols-12">
+      <div class="relative md:col-span-6" aria-hidden="true">
+        <svg viewBox="0 0 200 140" class="w-full overflow-visible text-dirty" data-draw-22><text x="100" y="128" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="150" stroke="currentColor" stroke-width="1.6" fill="currentColor">22</text></svg>
+        <svg viewBox="0 0 200 140" class="absolute inset-0 w-full translate-x-[3%] translate-y-[3%] overflow-visible text-blood-bright" data-draw-22 data-no-fill><text x="100" y="128" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="150" stroke="currentColor" stroke-width="1.6" fill="none">22</text></svg>
+      </div>
+      <div class="md:col-span-5 md:col-start-8">
+        <h2 id="why22-title-{{ section.id }}" class="font-display text-big" data-split>{{ section.settings.title }}</h2>
+        <p class="mt-6 text-base leading-relaxed text-dirty/80 md:text-lg" data-reveal>{{ section.settings.text }}</p>
+        <div class="mt-10 flex items-end gap-6">
+          <span class="font-display text-[clamp(5rem,12vw,10rem)] leading-none tabular-nums text-blood-bright" data-count-22>22</span>
+          <p class="label pb-3 text-concrete">Line 22<br>Two tracks · one direction</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why 22",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Etichetta", "default": "Why 22" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "Two sides. One number." },
+    { "type": "textarea", "id": "text", "label": "Testo", "default": "Il 22 sono due tratti uguali, uno accanto all’altro: i due binari della Line 22, le due anime della strada, tu e la tua crew. È il segno che riconosci anche senza logo. Ovunque lo vedi, sei dalla parte giusta." }
+  ],
+  "presets": [{ "name": "Why 22" }]
+}
+{% endschema %}

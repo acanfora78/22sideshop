@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "theme:build": "bash scripts/theme/build.sh --zip"
   },
   "dependencies": {
     "framer-motion": "^14.14.0",

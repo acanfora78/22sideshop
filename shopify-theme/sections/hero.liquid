@@ -1,0 +1,76 @@
+{%- liquid
+  assign words = section.settings.title | split: ' '
+  assign half = words.size | divided_by: 2
+-%}
+<section id="arrival" class="relative isolate h-[100svh] min-h-[600px] overflow-hidden [--mark-h:4.5rem] md:[--mark-h:min(9vw,15svh)]" aria-label="{{ section.settings.title | escape }}" data-hero>
+  <div class="absolute inset-0 -z-10 will-change-transform" data-hero-img>
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', fetchpriority: 'high', class: 'absolute inset-0 h-full w-full object-cover object-[50%_30%]' }}
+    {%- else -%}
+      <img src="{{ 'still-movement-alt.webp' | asset_url }}" alt="{{ section.settings.image_alt | escape }}" class="absolute inset-0 h-full w-full object-cover object-[50%_30%]" fetchpriority="high" width="1028" height="768">
+    {%- endif -%}
+    <div class="absolute inset-0 bg-gradient-to-b from-obsidian/80 via-obsidian/10 to-obsidian/70"></div>
+  </div>
+
+  <div class="px-gutter label pointer-events-none absolute inset-x-0 top-[calc(var(--header-h)+0.75rem)] flex items-start justify-between gap-4" data-reveal>
+    <div class="space-y-2">
+      <div class="inline-flex flex-col bg-obsidian text-dirty"><span class="block h-1 bg-dirty"></span><span class="flex items-center gap-2.5 px-3 py-2 font-sans text-sm font-bold normal-case tracking-[-0.02em] [font-stretch:90%]">22 Side Street {% render 'line-bullet' %}</span></div>
+      <p class="text-dirty/75"><span class="text-blood-bright">●</span> {{ section.settings.issue }}</p>
+    </div>
+    <div class="flex flex-col items-end gap-2 text-right">
+      <span class="label inline-flex items-center gap-2 border border-dirty/40 px-2 py-1 text-dirty/85">{% render 'line-bullet' %} Platform 2</span>
+      <p class="hidden text-concrete sm:block">40.6782° N — 73.9442° W</p>
+    </div>
+  </div>
+
+  <div class="px-gutter absolute inset-x-0 bottom-[calc(var(--mark-h)+1rem)] top-[calc(var(--header-h)+6.5rem)] flex flex-col justify-center" data-hero-title>
+    <h1 class="font-display text-[clamp(3.4rem,min(9vw,14svh),10rem)] leading-[0.86]" data-split>
+      <span class="block">{% for w in words limit: half %}{{ w }} {% endfor %}</span>
+      <span class="block text-blood-bright">{% for w in words offset: half %}{{ w }} {% endfor %}</span>
+    </h1>
+    <p class="mt-5 max-w-md text-sm leading-relaxed text-dirty/85 md:mt-7 md:text-base" data-reveal>{{ section.settings.text }}</p>
+    <div class="mt-6 flex flex-wrap items-center gap-3 md:mt-8" data-reveal>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="group relative inline-flex items-center gap-3 overflow-hidden bg-blood px-6 py-4 font-mono text-xs uppercase tracking-[0.16em] text-dirty transition-colors hover:bg-dirty hover:text-obsidian" data-magnetic>
+          {{ section.settings.button_label }} {% render 'icon', name: 'arrow-up-right', class: 'size-4 transition-transform duration-500 group-hover:rotate-45' %}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.button2_label != blank -%}
+        <a href="{{ section.settings.button2_link | default: '#store' }}" class="label group flex items-center gap-2 px-3 py-4 text-dirty"><span class="link-underline">{{ section.settings.button2_label }}</span>{% render 'icon', name: 'arrow-down', class: 'size-4 transition-transform group-hover:translate-y-1' %}</a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.sticker != blank -%}
+    <span class="sticker font-marker absolute right-[6%] top-[22%] z-10 inline-block -rotate-[10deg] select-none whitespace-nowrap rounded-[3px] bg-blood px-3.5 py-1.5 text-lg text-dirty shadow-[3px_4px_0_rgba(0,0,0,0.45)] md:right-[12%] md:top-[30%] md:text-2xl" data-sticker aria-hidden="true">{{ section.settings.sticker }}</span>
+  {%- endif -%}
+
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[var(--mark-h)] overflow-hidden border-t border-dirty/20 bg-obsidian/70 backdrop-blur-sm" aria-hidden="true">
+    {%- assign items = section.settings.marquee | split: '|' -%}
+    <div class="marquee font-display flex h-full items-center text-[calc(var(--mark-h)*0.72)] leading-none">
+      <div class="marquee-track flex w-max" style="animation-duration: 30s">
+        {%- for r in (1..2) -%}<div class="flex shrink-0 items-center">{% for t in items %}<span class="whitespace-nowrap px-[0.45em]">{{ t | strip }}</span><span class="px-[0.45em] text-blood">●</span>{% endfor %}</div>{%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Immagine (vuota = immagine del tema)" },
+    { "type": "text", "id": "image_alt", "label": "Testo alternativo immagine del tema", "default": "Un ragazzo con giacca di pelle nera al centro del negozio 22SIDE, davanti a un enorme 22 dipinto sul muro." },
+    { "type": "text", "id": "issue", "label": "Didascalia", "default": "Issue 22 — Night Shift" },
+    { "type": "text", "id": "title", "label": "Titolo", "default": "The movement." },
+    { "type": "textarea", "id": "text", "label": "Testo", "default": "22SIDE non è solo streetwear. È un modo di stare al mondo: indipendente, cresciuto nell’underground di New York, tenuto insieme da un numero." },
+    { "type": "text", "id": "button_label", "label": "Pulsante principale", "default": "Acquista ora" },
+    { "type": "url", "id": "button_link", "label": "Link pulsante principale" },
+    { "type": "text", "id": "button2_label", "label": "Secondo link", "default": "Entra nel negozio" },
+    { "type": "url", "id": "button2_link", "label": "Link secondo link" },
+    { "type": "text", "id": "sticker", "label": "Sticker", "default": "Fresh drop" },
+    { "type": "text", "id": "marquee", "label": "Testi scorrevoli (separati da |)", "default": "22|The movement|22|No rules. Just attitude.|22|Line 22" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

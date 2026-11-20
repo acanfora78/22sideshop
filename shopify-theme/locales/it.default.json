@@ -1,0 +1,91 @@
+{
+  "general": {
+    "page": "Pagina {{ page }}",
+    "pagination": { "label": "Paginazione", "previous": "Indietro", "next": "Avanti" },
+    "search": {
+      "title": "Cerca",
+      "search": "Cerca",
+      "submit": "Cerca",
+      "placeholder": "Cosa cerchi?",
+      "no_results": "Nessun prodotto trovato. Prova con un’altra parola.",
+      "results_count": { "one": "{{ count }} risultato per “{{ terms }}”", "other": "{{ count }} risultati per “{{ terms }}”" }
+    },
+    "404": {
+      "label": "Pagina non trovata",
+      "text": "Questa strada non porta da nessuna parte. Torna indietro e prendi la Line 22.",
+      "home": "Torna alla home"
+    }
+  },
+  "accessibility": { "skip_to_content": "Vai al contenuto" },
+  "newsletter": {
+    "label": "Newsletter",
+    "placeholder": "La tua email",
+    "button": "Iscriviti",
+    "note": "Solo drop e novità. Niente spam, ti cancelli quando vuoi.",
+    "success": "Ci sei. Ti scriviamo al prossimo drop."
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Aggiungi al carrello",
+      "added": "Aggiunto al carrello",
+      "coming_soon": "In arrivo",
+      "details": "Dettagli",
+      "gallery": "Galleria immagini",
+      "in_stock": "Disponibile — spedizione dal nostro magazzino",
+      "low_stock": "Ultimi pezzi",
+      "price_from": "da",
+      "price_pending": "Prezzo da confermare",
+      "price_pending_note": "Prezzo e taglie in arrivo. Il capo sarà acquistabile appena confermati.",
+      "quantity": "Quantità",
+      "quantity_decrease": "Diminuisci quantità",
+      "quantity_increase": "Aumenta quantità",
+      "quick_add": "Aggiunta rapida",
+      "select_size": "Scegli la taglia",
+      "sold_out": "Esaurito",
+      "unavailable": "Non disponibile"
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "close": "Chiudi",
+      "cart": "Carrello",
+      "collections": "Collezioni",
+      "cart_count": { "one": "Carrello, {{ count }} articolo", "other": "Carrello, {{ count }} articoli" }
+    },
+    "footer": { "map": "Mappa della Line 22", "replay_intro": "Rivedi l’intro" },
+    "intro": { "skip": "Salta intro" },
+    "store": { "scroll": "Scorri per entrare" },
+    "collection": {
+      "all": "Tutti",
+      "collections": "Collezioni",
+      "empty": "Nessun prodotto disponibile in questa collezione per ora.",
+      "nav": "Collezioni",
+      "sort": "Ordina",
+      "items": { "one": "{{ count }} prodotto", "other": "{{ count }} prodotti" }
+    },
+    "cart": {
+      "title": "Carrello",
+      "close": "Chiudi",
+      "empty": "Il carrello è vuoto",
+      "shop_all": "Vai allo shop",
+      "items": "Articoli nel carrello",
+      "view_cart": "Vedi carrello",
+      "subtotal": "Subtotale",
+      "item_count": { "one": "{{ count }} articolo", "other": "{{ count }} articoli" },
+      "taxes_note": "Tasse incluse. Spedizione calcolata al checkout.",
+      "checkout": "Vai al checkout sicuro",
+      "remove": "Rimuovi",
+      "increase": "Aumenta quantità",
+      "decrease": "Diminuisci quantità",
+      "quantity_for": "Quantità per {{ title }}"
+    }
+  },
+  "gift_card": {
+    "title": "Gift card",
+    "code": "Codice",
+    "expired": "Scaduta o disattivata",
+    "expires_on": "Scade il {{ date }}",
+    "shop": "Vai allo shop"
+  }
+}
