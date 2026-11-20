@@ -119,6 +119,8 @@ async function page(file: string, templateName: string, extra: any = {}) {
 await page("index.html", "index");
 await page("collections/all/index.html", "collection", { collection: collections.all });
 await page("products/heaven-tee/index.html", "product", { product: products[2] });
+await page("products/baggy-jeans-vintage-blue/index.html", "product", { product: products[9] });
+await page("cart/index.html", "cart");
 fs.rmSync(path.join(outDir, "assets"), { force: true, recursive: true });
 fs.symlinkSync(path.join(T, "assets"), path.join(outDir, "assets"));
 fs.rmSync(path.join(outDir, "products-img"), { force: true });

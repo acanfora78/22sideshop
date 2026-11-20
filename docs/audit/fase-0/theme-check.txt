@@ -1,0 +1,7 @@
+1 RemoteAsset templates/gift_card.liquid:7 Asset should be served by the Shopify CDN for better performance.
+1 RemoteAsset templates/gift_card.liquid:8 Asset should be served by the Shopify CDN for better performance.
+1 RemoteAsset templates/gift_card.liquid:9 Asset should be served by the Shopify CDN for better performance.
+1 RemoteAsset layout/theme.liquid:22 Asset should be served by the Shopify CDN for better performance.
+1 RemoteAsset layout/theme.liquid:23 Asset should be served by the Shopify CDN for better performance.
+1 RemoteAsset layout/theme.liquid:24 Asset should be served by the Shopify CDN for better performance.
+total 6

@@ -1,0 +1,136 @@
+{
+  "home": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "n": 1,
+      "help": "Elements must only use permitted ARIA attributes",
+      "sample": [
+        ".tracking-\\[-0\\.02em\\].text-xl[aria-label=\"22SIDE\"]"
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "n": 45,
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "sample": [
+        "#manifesto > .px-gutter > .gap-3.text-concrete.items-center > .text-blood",
+        ".mt-3.justify-between.text-concrete > span:nth-child(1)",
+        ".mt-3.justify-between.text-concrete > span:nth-child(2)"
+      ]
+    }
+  ],
+  "home:smallTargets": 16,
+  "overflow": [
+    "home@375: +3px",
+    "home@768: +11px",
+    "collezione@375: +3px"
+  ],
+  "collezione": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "n": 1,
+      "help": "Elements must only use permitted ARIA attributes",
+      "sample": [
+        ".flex-wrap > .tracking-\\[-0\\.02em\\].inline-flex[aria-label=\"22SIDE\"]"
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "n": 32,
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "sample": [
+        "section > p",
+        ".text-blood",
+        ".border-y > .text-concrete.label:nth-child(1)"
+      ]
+    }
+  ],
+  "collezione:smallTargets": 17,
+  "heaven-tee": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "n": 1,
+      "help": "Elements must only use permitted ARIA attributes",
+      "sample": [
+        ".tracking-\\[-0\\.02em\\].text-xl[aria-label=\"22SIDE\"]"
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "n": 11,
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "sample": [
+        "nav[aria-label=\"Breadcrumb\"]",
+        ".hover\\:text-dirty[href=\"/\"]",
+        "nav[aria-label=\"Breadcrumb\"] > .hover\\:text-dirty[href$=\"all\"]"
+      ]
+    }
+  ],
+  "heaven-tee:smallTargets": 21,
+  "baggy-vintage": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "n": 1,
+      "help": "Elements must only use permitted ARIA attributes",
+      "sample": [
+        ".tracking-\\[-0\\.02em\\].text-xl[aria-label=\"22SIDE\"]"
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "n": 11,
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "sample": [
+        "nav[aria-label=\"Breadcrumb\"]",
+        ".hover\\:text-dirty[href=\"/\"]",
+        "nav[aria-label=\"Breadcrumb\"] > .hover\\:text-dirty[href$=\"all\"]"
+      ]
+    }
+  ],
+  "baggy-vintage:smallTargets": 21,
+  "carrello": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "n": 1,
+      "help": "Elements must only use permitted ARIA attributes",
+      "sample": [
+        ".text-xl"
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "n": 5,
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "sample": [
+        ".mt-14 > .text-blood-bright",
+        ".min-h-4",
+        ".mb-4"
+      ]
+    }
+  ],
+  "carrello:smallTargets": 12,
+  "intro": {
+    "secondsToTitle": 5.524,
+    "scrollLocked": true,
+    "firstFocusable": "Enter the side →",
+    "repeatsOnReload": false,
+    "repeatsInNewTab": true
+  },
+  "introAxe": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "n": 1
+    }
+  ]
+}
