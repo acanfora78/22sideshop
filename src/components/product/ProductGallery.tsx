@@ -74,7 +74,8 @@ export function ProductGallery({ images, title }: { images: Img[]; title: string
               className="object-cover transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
             />
             <figcaption className="label absolute bottom-3 left-3 text-dirty/70">
-              Fig. {String(i + 1).padStart(2, "0")} — {i === 0 ? "Fronte" : i === 1 ? "Retro" : "Dettaglio"}
+              Fig. {String(i + 1).padStart(2, "0")}
+              {img.caption ? ` — ${img.caption}` : ""}
             </figcaption>
           </figure>
         ))}

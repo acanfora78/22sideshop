@@ -18,6 +18,8 @@ export interface Money {
 export interface Image {
   url: string;
   altText: string;
+  /** Fig. caption (Fronte, Retro, Outfit…). */
+  caption?: string;
   width: number;
   height: number;
 }

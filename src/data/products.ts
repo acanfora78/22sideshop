@@ -12,6 +12,8 @@ import type { SizeGuideKey } from "./size-guides";
 export interface RawImage {
   file: string;
   alt: string;
+  /** What the shot shows (Fig. caption). Never derived from the image position. */
+  caption: string;
 }
 
 export interface RawProduct {
@@ -52,7 +54,7 @@ export const rawProducts: RawProduct[] = [
     sizes: null,
     sizeGuide: "top",
     createdAt: "2026-11-19T01",
-    images: [{ file: "cash-mouth-layered-tee-1", alt: "Ragazzo con t-shirt nera con stampa bocca leopardata e maniche camouflage." }],
+    images: [{ file: "cash-mouth-layered-tee-1", alt: "Ragazzo con t-shirt nera con stampa bocca leopardata e maniche camouflage.", caption: "Fronte" }],
   },
   {
     code: "22-02",
@@ -68,7 +70,7 @@ export const rawProducts: RawProduct[] = [
     sizes: null,
     sizeGuide: "top",
     createdAt: "2026-11-19T02",
-    images: [{ file: "chase-light-longsleeve-1", alt: "Ragazzo con maglia bianca a manica lunga stampa Chase Light Break Fear." }],
+    images: [{ file: "chase-light-longsleeve-1", alt: "Ragazzo con maglia bianca a manica lunga stampa Chase Light Break Fear.", caption: "Fronte" }],
   },
   {
     code: "22-03",
@@ -85,8 +87,8 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "top",
     createdAt: "2026-11-19T03",
     images: [
-      { file: "heaven-tee-1", alt: "Ragazzo con t-shirt nera Heaven con angelo bendato e bilancia." },
-      { file: "heaven-tee-2", alt: "Outfit completo: t-shirt Heaven nera e pantalone tuta nero." },
+      { file: "heaven-tee-1", alt: "Ragazzo con t-shirt nera Heaven con angelo bendato e bilancia.", caption: "Fronte" },
+      { file: "heaven-tee-2", alt: "Outfit completo: t-shirt Heaven nera e pantalone tuta nero.", caption: "Outfit" },
     ],
   },
   {
@@ -102,7 +104,7 @@ export const rawProducts: RawProduct[] = [
     sizes: null,
     sizeGuide: "top",
     createdAt: "2026-11-19T04",
-    images: [{ file: "rise-with-faith-tee-1", alt: "Ragazzo in un parcheggio con t-shirt nera Rise with Faith e jeans blu." }],
+    images: [{ file: "rise-with-faith-tee-1", alt: "Ragazzo in un parcheggio con t-shirt nera Rise with Faith e jeans blu.", caption: "Fronte" }],
   },
   {
     code: "22-05",
@@ -119,8 +121,8 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "top",
     createdAt: "2026-11-19T05",
     images: [
-      { file: "cash-grill-tee-1", alt: "Ragazzo con t-shirt nera con stampa bocca, dollari e croce dorata." },
-      { file: "cash-grill-tee-2", alt: "Outfit completo: t-shirt Cash Grill nera e jeans neri larghi." },
+      { file: "cash-grill-tee-1", alt: "Ragazzo con t-shirt nera con stampa bocca, dollari e croce dorata.", caption: "Fronte" },
+      { file: "cash-grill-tee-2", alt: "Outfit completo: t-shirt Cash Grill nera e jeans neri larghi.", caption: "Outfit" },
     ],
   },
   {
@@ -138,9 +140,9 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "top",
     createdAt: "2026-11-19T06",
     images: [
-      { file: "eternity-tee-1", alt: "Ragazzo con t-shirt bianca Eternity con la Statua della Libertà." },
-      { file: "eternity-tee-2", alt: "Outfit completo: t-shirt Eternity bianca e jeans blu larghi." },
-      { file: "eternity-tee-back", alt: "Retro della t-shirt Eternity bianca, senza stampa." },
+      { file: "eternity-tee-1", alt: "Ragazzo con t-shirt bianca Eternity con la Statua della Libertà.", caption: "Fronte" },
+      { file: "eternity-tee-2", alt: "Outfit completo: t-shirt Eternity bianca e jeans blu larghi.", caption: "Outfit" },
+      { file: "eternity-tee-back", alt: "Retro della t-shirt Eternity bianca, senza stampa.", caption: "Retro" },
     ],
   },
   {
@@ -156,7 +158,7 @@ export const rawProducts: RawProduct[] = [
     sizes: null,
     sizeGuide: "top",
     createdAt: "2026-11-19T07",
-    images: [{ file: "cash-lips-longsleeve-1", alt: "Ragazzo con maglia bianca a manica lunga con stampa bocca e banconote." }],
+    images: [{ file: "cash-lips-longsleeve-1", alt: "Ragazzo con maglia bianca a manica lunga con stampa bocca e banconote.", caption: "Fronte" }],
   },
   {
     code: "22-08",
@@ -172,8 +174,8 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "bottom",
     createdAt: "2026-11-19T08",
     images: [
-      { file: "baggy-jeans-washed-black-1", alt: "Jeans baggy neri slavati indossati, vista frontale." },
-      { file: "cash-grill-tee-2", alt: "Outfit completo con jeans baggy neri slavati." },
+      { file: "baggy-jeans-washed-black-1", alt: "Jeans baggy neri slavati indossati, vista frontale.", caption: "Fronte" },
+      { file: "cash-grill-tee-2", alt: "Outfit completo con jeans baggy neri slavati.", caption: "Outfit" },
     ],
   },
   {
@@ -190,8 +192,8 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "bottom",
     createdAt: "2026-11-19T09",
     images: [
-      { file: "wide-sweatpants-black-1", alt: "Pantalone tuta nero con laccio panna indossato, vista frontale." },
-      { file: "heaven-tee-2", alt: "Outfit completo con pantalone tuta nero." },
+      { file: "wide-sweatpants-black-1", alt: "Pantalone tuta nero con laccio panna indossato, vista frontale.", caption: "Fronte" },
+      { file: "heaven-tee-2", alt: "Outfit completo con pantalone tuta nero.", caption: "Outfit" },
     ],
   },
   {
@@ -208,8 +210,7 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "bottom",
     createdAt: "2026-11-19T10",
     images: [
-      { file: "baggy-jeans-vintage-blue-1", alt: "Jeans baggy blu vintage indossati, vista frontale." },
-      { file: "eternity-tee-back", alt: "Jeans baggy blu vintage, vista posteriore." },
+      { file: "baggy-jeans-vintage-blue-1", alt: "Jeans baggy blu vintage indossati, vista frontale.", caption: "Fronte" },
     ],
   },
   {
@@ -232,10 +233,10 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "top",
     createdAt: "2026-11-19T11",
     images: [
-      { file: "cargo-set-black-full", alt: "Completo cargo nero, giacca e pantalone, in un parcheggio giallo." },
-      { file: "cargo-jacket-black-1", alt: "Giacca del completo cargo nero con tasche e lacci." },
-      { file: "cargo-pant-black-1", alt: "Pantalone del completo cargo nero con tasconi e lacci." },
-      { file: "cargo-set-black-back", alt: "Completo cargo nero, vista posteriore." },
+      { file: "cargo-set-black-full", alt: "Completo cargo nero, giacca e pantalone, in un parcheggio giallo.", caption: "Completo" },
+      { file: "cargo-jacket-black-1", alt: "Giacca del completo cargo nero con tasche e lacci.", caption: "Giacca" },
+      { file: "cargo-pant-black-1", alt: "Pantalone del completo cargo nero con tasconi e lacci.", caption: "Pantalone" },
+      { file: "cargo-set-black-back", alt: "Completo cargo nero, vista posteriore.", caption: "Retro" },
     ],
   },
   {
@@ -259,9 +260,9 @@ export const rawProducts: RawProduct[] = [
     sizeGuide: "top",
     createdAt: "2026-11-19T12",
     images: [
-      { file: "faded-set-grey-full", alt: "Completo grigio sfumato, felpa con zip e pantalone tuta." },
-      { file: "faded-zip-hoodie-1", alt: "Felpa con zip del completo grigio sfumato." },
-      { file: "faded-sweatpants-1", alt: "Pantalone tuta del completo grigio sfumato." },
+      { file: "faded-set-grey-full", alt: "Completo grigio sfumato, felpa con zip e pantalone tuta.", caption: "Completo" },
+      { file: "faded-zip-hoodie-1", alt: "Felpa con zip del completo grigio sfumato.", caption: "Felpa" },
+      { file: "faded-sweatpants-1", alt: "Pantalone tuta del completo grigio sfumato.", caption: "Pantalone" },
     ],
   },
 ];

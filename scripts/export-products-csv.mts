@@ -12,7 +12,7 @@ const cols = [
   "Handle", "Title", "Body (HTML)", "Vendor", "Type", "Tags", "Published",
   "Option1 Name", "Option1 Value", "Variant SKU", "Variant Price", "Variant Inventory Qty",
   "Variant Inventory Policy", "Variant Fulfillment Service", "Variant Requires Shipping", "Variant Taxable",
-  "Image Src", "Image Position", "Image Alt Text", "Status", "Collections (22SIDE)", "Codice", "Note",
+  "Image Src", "Image Position", "Image Alt Text", "Status", "Collections (22SIDE)", "Codice (product.metafields.custom.codice)", "Note",
 ];
 const esc = (v: unknown) => {
   const s = v === null || v === undefined ? "" : String(v);

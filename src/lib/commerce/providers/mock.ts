@@ -8,6 +8,7 @@ function toProduct(raw: RawProduct): Product {
   const images = raw.images.map((im) => ({
     url: `/media/products/real/${im.file}.webp`,
     altText: im.alt,
+    caption: im.caption,
     width: 1200,
     height: 1600,
   }));
