@@ -4,8 +4,8 @@ export const INTRO_TTL_MS = 12 * 60 * 60 * 1000;
 
 /**
  * Which opening plays on the homepage.
- *  - "movement": THE MOVEMENT — cinematic short: the rapper, the key, the door, the store (current).
+ *  - "movement": THE MOVEMENT — cinematic short: the rapper, the key, the door, the store (video kept).
  *  - "arrival": THE ARRIVAL — subway platform, train, 22 SIDE STREET sign.
- *  - "door":    the kid unlocking the shop door (kept on request, see archive/intro-porta-chiave).
+ *  - "door":    the kid unlocking the shop door (current, chosen by the brand).
  */
-export const INTRO_VARIANT: "movement" | "arrival" | "door" = "movement";
+export const INTRO_VARIANT: "movement" | "arrival" | "door" = "door";
