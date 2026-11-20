@@ -33,6 +33,7 @@ const products = raw.map((p: any, i: number) => {
     variants: [variant], selected_or_first_available_variant: variant, has_only_default_variant: false, price_varies: false,
     options: ["Taglia"], options_with_values: [{ name: "Taglia", values: ["Da confermare"], selected_value: "Da confermare" }],
     description: `<p>${p.description ?? ""}</p>`,
+    metafields: { custom: { codice: p.code, immagini_didascalie: { value: p.images.map((im: any) => im.caption) } } },
   };
 });
 const coll = (handle: string, title: string, list: any[]) => ({ handle, title, url: `/collections/${handle}`, products: list, products_count: list.length, featured_image: list[0]?.featured_image, sort_options: [{ value: "manual", name: "In evidenza" }], sort_by: "manual", description: "" });

@@ -2,7 +2,7 @@
 <div class="overflow-hidden py-6" aria-hidden="true">
   <div class="marquee font-display -rotate-2 scale-105 border-y border-dirty/15 py-3 text-4xl md:text-6xl {% if section.settings.light %}bg-dirty text-obsidian{% endif %}">
     <div class="marquee-track flex w-max" style="animation-duration: {{ section.settings.speed }}s">
-      {%- for r in (1..2) -%}<div class="flex shrink-0 items-center">{% for t in items %}<span class="whitespace-nowrap px-[0.45em]">{{ t | strip }}</span><span class="px-[0.45em] text-blood">✕</span>{% endfor %}</div>{%- endfor -%}
+      {%- for r in (1..2) -%}<div class="flex shrink-0 items-center">{% for t in items %}<span class="whitespace-nowrap px-[0.45em]">{{ t | strip }}</span><span class="px-[0.45em] text-signal">✕</span>{% endfor %}</div>{%- endfor -%}
     </div>
   </div>
 </div>

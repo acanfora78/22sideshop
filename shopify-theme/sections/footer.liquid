@@ -18,11 +18,11 @@
         <label for="newsletter-email" class="sr-only">{{ 'newsletter.label' | t }}</label>
         <div class="flex border-b border-dirty/40 focus-within:border-dirty">
           <input id="newsletter-email" type="email" name="contact[email]" required autocomplete="email" placeholder="{{ 'newsletter.placeholder' | t }}" class="w-full bg-transparent py-3 font-mono text-sm text-dirty placeholder:text-concrete focus:outline-none">
-          <button type="submit" class="label flex items-center gap-2 px-2 text-dirty hover:text-blood-bright">{{ 'newsletter.button' | t }} {% render 'icon', name: 'arrow-right' %}</button>
+          <button type="submit" class="label flex items-center gap-2 px-2 text-dirty hover:text-signal">{{ 'newsletter.button' | t }} {% render 'icon', name: 'arrow-right' %}</button>
         </div>
         <p class="label mt-3 min-h-4 text-[0.6rem] text-concrete" role="status">
           {%- if form.posted_successfully? -%}<span class="text-dirty">{{ 'newsletter.success' | t }}</span>
-          {%- elsif form.errors -%}<span class="text-blood-bright">{{ form.errors | default_errors }}</span>
+          {%- elsif form.errors -%}<span class="text-signal">{{ form.errors | default_errors }}</span>
           {%- else -%}{{ 'newsletter.note' | t }}{%- endif -%}
         </p>
       {%- endform -%}
@@ -72,7 +72,7 @@
     <div class="flex flex-wrap items-center gap-4">
       {%- render 'logo', class: 'text-xl text-dirty' -%}
       <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} — Independent Streetwear</span>
-      <button type="button" class="link-underline text-dirty hover:text-blood-bright" data-replay-intro>{{ 'sections.footer.replay_intro' | t }}</button>
+      <button type="button" class="link-underline text-dirty hover:text-signal" data-replay-intro>{{ 'sections.footer.replay_intro' | t }}</button>
     </div>
     <div class="flex items-center gap-3">{{ powered_by_link }}</div>
   </div>

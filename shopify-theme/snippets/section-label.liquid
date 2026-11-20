@@ -1,6 +1,6 @@
 {%- comment -%} "04 / LABEL ———" Params: index, label, class {%- endcomment -%}
 <div class="label flex items-center gap-3 text-concrete {{ class }}">
-  {%- if index != blank -%}<span class="text-blood">{{ index }}</span><span aria-hidden="true">/</span>{%- endif -%}
+  {%- if index != blank -%}<span class="text-signal">{{ index }}</span><span aria-hidden="true">/</span>{%- endif -%}
   <span class="text-dirty">{{ label }}</span>
   <span aria-hidden="true" class="h-px flex-1 bg-concrete/40"></span>
 </div>

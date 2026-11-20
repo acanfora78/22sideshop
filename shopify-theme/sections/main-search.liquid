@@ -4,7 +4,7 @@
     <input type="hidden" name="type" value="product">
     <label for="search-input" class="sr-only">{{ 'general.search.placeholder' | t }}</label>
     <input id="search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="font-display w-full bg-transparent py-4 text-4xl placeholder:text-concrete focus:outline-none md:text-6xl" autocomplete="off">
-    <button type="submit" class="p-4 hover:text-blood-bright" aria-label="{{ 'general.search.submit' | t }}">{% render 'icon', name: 'search', class: 'size-7' %}</button>
+    <button type="submit" class="p-4 hover:text-signal" aria-label="{{ 'general.search.submit' | t }}">{% render 'icon', name: 'search', class: 'size-7' %}</button>
   </form>
 
   {%- if search.performed -%}

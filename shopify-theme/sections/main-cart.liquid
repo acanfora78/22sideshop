@@ -2,7 +2,7 @@
   <h1 class="font-display text-huge" data-split>{{ 'sections.cart.title' | t }}</h1>
   {%- if cart.item_count == 0 -%}
     <div class="mt-14 flex flex-col items-start gap-6">
-      <p class="label text-blood-bright">{{ 'sections.cart.empty' | t }}</p>
+      <p class="label text-signal">{{ 'sections.cart.empty' | t }}</p>
       <p class="font-display text-big">Nothing here. Yet.</p>
       <a href="{{ routes.all_products_collection_url }}" class="label bg-dirty px-6 py-4 text-obsidian hover:bg-blood hover:text-dirty">{{ 'sections.cart.shop_all' | t }} ↗</a>
     </div>

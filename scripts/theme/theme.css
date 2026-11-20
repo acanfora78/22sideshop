@@ -7,10 +7,13 @@
   --color-obsidian: #080808;
   --color-asphalt: #171717;
   --color-asphalt-2: #222120;
-  --color-concrete: #777777;
+  /* #8c8c8c: 5.9:1 on obsidian, 5.3:1 on asphalt (was #777, 4.4:1) */
+  --color-concrete: #8c8c8c;
   --color-dirty: #e8e5df;
   --color-blood: #8b1717;
   --color-blood-bright: #b31e1e;
+  /* Red for TEXT on dark grounds: blood/blood-bright stay for surfaces (1.8–2.3:1 as text). 5.3:1 on obsidian. */
+  --color-signal: #e5484d;
 
   --font-display: var(--font-anton), "Impact", "Arial Narrow", sans-serif;
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
@@ -295,7 +298,7 @@ html[data-intro="seen"] [data-intro-overlay] {
   [data-img-reveal]::after { display: none; }
   [data-reveal], .split-word > span, .intro-logo { transition: none !important; opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }
-.lu-word { opacity: .14; transition: opacity .35s linear; }
+.lu-word { opacity: .45; transition: opacity .35s linear; }
 .lu-word.on { opacity: 1; }
 .prose-22 p + p, .prose-22 ul, .prose-22 p + ul { margin-top: 1em; }
 .prose-22 ul { list-style: none; padding: 0; }
