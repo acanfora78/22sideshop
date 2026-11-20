@@ -1,9 +1,11 @@
+{%- capture line_csv -%}{% render 'catalog-handles' %}{%- endcapture -%}{%- assign line_handles = line_csv | split: ',' -%}
 <section class="px-gutter pb-24 pt-32 md:pt-44">
   <p class="label text-concrete"><span class="text-signal">Shop</span> / {{ 'sections.collection.collections' | t }}</p>
   <h1 class="font-display text-huge mt-8" data-split>{{ section.settings.title }}</h1>
   <ul class="mt-14 grid gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-    {%- for c in collections -%}
-      {%- if c.products_count > 0 and c.handle != 'frontpage' -%}
+    {%- for h in line_handles -%}
+      {%- assign c = collections[h] -%}
+      {%- if c.products_count > 0 -%}
         <li data-reveal>
           <a href="{{ c.url }}" class="group relative block aspect-[4/5] overflow-hidden bg-asphalt">
             {%- assign img = c.featured_image | default: c.products.first.featured_image -%}

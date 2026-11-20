@@ -27,6 +27,8 @@ const rows: string[][] = [];
 for (const p of rawProducts) {
   const sizes = p.sizes ?? ["Da confermare"];
   const confirmed = p.price !== null;
+  // Smart collections in Shopify use these tags (see docs/admin-checklist.md).
+  const lineTags = p.collections.filter((h) => h !== "new-arrivals").map((h) => `linea-${h}`);
   const blockTags = [...(p.price === null ? ["prezzo-da-confermare"] : []), ...(p.sizes === null ? ["taglie-da-confermare"] : [])];
   const colls = p.collections.map((h) => collections.find((c) => c.handle === h)?.title ?? h).join("; ");
   const n = Math.max(sizes.length, p.images.length);
@@ -40,7 +42,7 @@ for (const p of rawProducts) {
       first ? html(p) : "",
       first ? "22SIDE" : "",
       first ? p.productType : "",
-      first ? [...p.tags, ...blockTags].join(", ") : "",
+      first ? [...p.tags, ...lineTags, ...blockTags].join(", ") : "",
       first ? (confirmed ? "TRUE" : "FALSE") : "",
       first ? "Taglia" : "",
       size ?? "",

@@ -1,0 +1,23 @@
+{%- comment -%}
+  Outputs the catalogue lines as comma-separated collection handles, in order.
+  Source: theme setting "Catalogo › Linee" (default: t-shirt, longsleeve, coordinati, pantaloni).
+  Only collections with products are kept; if none of them exists yet, every non-empty collection is used.
+  Usage: {%- capture csv -%}{% render 'catalog-handles' %}{%- endcapture -%}{%- assign handles = csv | split: ',' -%}
+{%- endcomment -%}
+{%- liquid
+  assign out = ''
+  assign wanted = settings.catalog_lines | remove: ' ' | split: ','
+  for h in wanted
+    if collections[h].products_count > 0
+      assign out = out | append: h | append: ','
+    endif
+  endfor
+  if out == ''
+    for c in collections
+      if c.products_count > 0 and c.handle != 'frontpage' and c.handle != 'all'
+        assign out = out | append: c.handle | append: ','
+      endif
+    endfor
+  endif
+  echo out
+-%}

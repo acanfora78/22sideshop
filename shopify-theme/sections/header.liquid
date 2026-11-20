@@ -10,13 +10,16 @@
     <nav aria-label="{{ 'sections.header.menu' | t }}" class="hidden items-center gap-9 md:flex">
       {%- if menu.links.size > 0 -%}
         {%- for link in menu.links -%}
+          {%- if link.links.size > 0 -%}
+            {%- render 'catalog-menu', style: 'desktop', parent: link -%}
+            {%- continue -%}
+          {%- endif -%}
           <a href="{{ link.url }}" class="label group relative flex items-baseline gap-1.5 py-2 transition-colors {% if link.active %}text-dirty{% else %}text-dirty/60 hover:text-dirty{% endif %}" {% if link.active %}aria-current="page"{% endif %}>
             <span class="link-underline">{{ link.title }}</span>
           </a>
         {%- endfor -%}
       {%- else -%}
-        <a href="{{ routes.all_products_collection_url }}" class="label link-underline py-2 text-dirty/80 hover:text-dirty">Shop</a>
-        <a href="{{ routes.collections_url }}" class="label link-underline py-2 text-dirty/80 hover:text-dirty">{{ 'sections.header.collections' | t }}</a>
+        {%- render 'catalog-menu', style: 'desktop' -%}
       {%- endif -%}
     </nav>
 
@@ -45,11 +48,19 @@
     <input id="mobile-search" type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="label w-full bg-transparent py-2 text-sm text-dirty placeholder:text-concrete focus:outline-none">
   </form>
   <nav aria-label="Mobile" class="px-gutter mt-8 flex flex-1 flex-col">
-    {%- for link in menu.links -%}
-      <a href="{{ link.url }}" class="flex items-baseline justify-between border-b border-dirty/10 py-3">
-        <span class="font-display text-[17vw] leading-[0.95]">{{ link.title }}</span><span aria-hidden="true" class="label text-signal">↗</span>
-      </a>
-    {%- endfor -%}
+    {%- if menu.links.size > 0 -%}
+      {%- for link in menu.links -%}
+        {%- if link.links.size > 0 -%}
+          {%- render 'catalog-menu', style: 'mobile', parent: link -%}
+        {%- else -%}
+          <a href="{{ link.url }}" class="flex items-baseline justify-between border-b border-dirty/10 py-3">
+            <span class="font-display text-[17vw] leading-[0.95]">{{ link.title }}</span><span aria-hidden="true" class="label text-signal">↗</span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- render 'catalog-menu', style: 'mobile' -%}
+    {%- endif -%}
     <div class="mt-6 grid grid-cols-2 gap-3">
       <a href="{{ routes.search_url }}" class="label border border-dirty/25 px-4 py-4 text-center">{{ 'general.search.search' | t }}</a>
       <a href="{{ routes.cart_url }}" class="label border border-dirty/25 px-4 py-4 text-center">{{ 'sections.header.cart' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)</a>

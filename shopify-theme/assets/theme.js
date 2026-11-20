@@ -86,6 +86,27 @@
     }
   }
 
+  /* ───────────── Dropdowns (Catalogo) ───────────── */
+  function initDropdowns() {
+    $$('[data-dropdown]').forEach((wrap) => {
+      const btn = $('[data-dropdown-toggle]', wrap);
+      const panel = $('[data-dropdown-panel]', wrap);
+      if (!btn || !panel) return;
+      const icon = $('svg', btn);
+      const setOpen = (open) => {
+        btn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+        if (icon) icon.style.transform = open ? 'rotate(180deg)' : '';
+      };
+      btn.addEventListener('click', () => setOpen(panel.hidden));
+      document.addEventListener('pointerdown', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+      });
+      wrap.addEventListener('focusout', (e) => { if (e.relatedTarget && !wrap.contains(e.relatedTarget)) setOpen(false); });
+    });
+  }
+
   /* ───────────── Text & image reveals ───────────── */
   function splitWords(el) {
     if (el.dataset.splitDone) return;
@@ -533,6 +554,7 @@
     initLenis();
     initIntro();
     initHeader();
+    initDropdowns();
     initReveals();
     initLightUp();
     initScenes();

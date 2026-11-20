@@ -6,12 +6,14 @@
     {%- if collection.description != blank -%}<div class="max-w-md text-base leading-relaxed text-dirty/80">{{ collection.description }}</div>{%- endif -%}
   </div>
 
-  {%- if collections.size > 1 -%}
+{%- capture line_csv -%}{% render 'catalog-handles' %}{%- endcapture -%}{%- assign line_handles = line_csv | split: ',' -%}
+  {%- if line_handles.size > 0 -%}
     <nav class="no-scrollbar -mx-[var(--gutter)] mt-10 flex gap-2 overflow-x-auto px-[var(--gutter)]" aria-label="{{ 'sections.collection.nav' | t }}">
-      <a href="{{ routes.all_products_collection_url }}" class="label shrink-0 border px-4 py-2 {% if collection.handle == 'all' %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}">{{ 'sections.collection.all' | t }}</a>
-      {%- for c in collections -%}
-        {%- if c.products_count > 0 and c.handle != 'all' and c.handle != 'frontpage' -%}
-          <a href="{{ c.url }}" class="label shrink-0 border px-4 py-2 {% if c.handle == collection.handle %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}">{{ c.title }}</a>
+      <a href="{{ routes.all_products_collection_url }}" class="label inline-flex min-h-11 shrink-0 items-center border px-4 {% if collection.handle == 'all' %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}">{{ 'sections.collection.all' | t }}</a>
+      {%- for h in line_handles -%}
+        {%- assign c = collections[h] -%}
+        {%- if c.products_count > 0 -%}
+          <a href="{{ c.url }}" class="label inline-flex min-h-11 shrink-0 items-center border px-4 {% if c.handle == collection.handle %}border-dirty bg-dirty text-obsidian{% else %}border-dirty/30 hover:border-dirty{% endif %}">{{ c.title }}</a>
         {%- endif -%}
       {%- endfor -%}
     </nav>

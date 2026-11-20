@@ -1,0 +1,49 @@
+{%- comment -%}
+  "Catalogo" with the list of lines. Params: style ('desktop' | 'mobile'), parent (menu link with children, optional).
+  Lines come from the parent's child links if any, otherwise from settings.catalog_lines (collection handles).
+  Collections without products are skipped.
+{%- endcomment -%}
+{%- liquid
+  assign label = settings.catalog_label | default: 'Catalogo'
+  assign all_url = routes.all_products_collection_url
+  if parent != blank
+    assign label = parent.title
+    assign all_url = parent.url
+  endif
+-%}
+{%- capture line_csv -%}{% render 'catalog-handles' %}{%- endcapture -%}
+{%- assign handles = line_csv | split: ',' -%}
+{%- capture items -%}
+  {%- if parent != blank and parent.links.size > 0 -%}
+    {%- for child in parent.links -%}
+      <li><a href="{{ child.url }}" class="CLS" {% if child.active %}aria-current="page"{% endif %}>{{ child.title }}<span aria-hidden="true" class="label text-xs">↗</span></a></li>
+    {%- endfor -%}
+  {%- else -%}
+    {%- for h in handles -%}
+      {%- assign c = collections[h] -%}
+      {%- if c != blank and c.products_count > 0 -%}
+        <li><a href="{{ c.url }}" class="CLS">{{ c.title }}<span aria-hidden="true" class="label text-xs">↗</span></a></li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- if style == 'mobile' -%}
+  <div class="border-b border-dirty/10">
+    <a href="{{ all_url }}" class="flex items-baseline justify-between py-3">
+      <span class="font-display text-[17vw] leading-[0.95]">{{ label }}</span><span aria-hidden="true" class="label text-signal">↗</span>
+    </a>
+    <ul class="-mt-1 grid grid-cols-2 gap-2 pb-4">{{ items | replace: 'CLS', 'label flex min-h-11 items-center justify-between border border-dirty/20 px-3 text-dirty' }}</ul>
+  </div>
+{%- else -%}
+  <div class="relative" data-dropdown>
+    <button type="button" class="label flex min-h-11 items-center gap-1.5 text-dirty/60 transition-colors hover:text-dirty aria-expanded:text-dirty" aria-expanded="false" aria-controls="catalog-menu" data-dropdown-toggle>
+      <span class="link-underline">{{ label }}</span>{% render 'icon', name: 'chevron-down', class: 'size-3.5 transition-transform duration-300' %}
+    </button>
+    <div id="catalog-menu" class="absolute left-1/2 top-full z-10 mt-2 w-60 -translate-x-1/2 border border-dirty/15 bg-obsidian/95 p-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-md" hidden data-dropdown-panel>
+      <ul>
+        {{ items | replace: 'CLS', 'font-display flex min-h-11 items-center justify-between px-3 text-2xl text-dirty transition-colors hover:bg-dirty hover:text-obsidian' }}
+        <li class="mt-1 border-t border-dirty/15 pt-1"><a href="{{ all_url }}" class="label flex min-h-11 items-center px-3 text-dirty/80 hover:text-dirty">{{ 'sections.header.all_catalog' | t }} →</a></li>
+      </ul>
+    </div>
+  </div>
+{%- endif -%}

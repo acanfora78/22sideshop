@@ -69,7 +69,8 @@
       "cart_count": {
         "one": "Carrello, {{ count }} articolo",
         "other": "Carrello, {{ count }} articoli"
-      }
+      },
+      "all_catalog": "Tutto il catalogo"
     },
     "footer": {
       "map": "Mappa della Line 22",

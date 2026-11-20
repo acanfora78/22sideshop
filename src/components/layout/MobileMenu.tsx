@@ -84,8 +84,19 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
               >
                 <Link href={item.href} onClick={onClose} className="flex items-baseline justify-between py-3">
                   <span className="font-display text-[17vw] leading-[0.95]">{item.label}</span>
-                  <span className="label text-blood">0{i + 1}</span>
+                  <span aria-hidden className="label text-blood-bright">↗</span>
                 </Link>
+                {item.children && (
+                  <ul className="-mt-1 grid grid-cols-2 gap-2 pb-4">
+                    {item.children.map((c) => (
+                      <li key={c.href}>
+                        <Link href={c.href} onClick={onClose} className="label flex min-h-11 items-center border border-dirty/20 px-3 text-dirty">
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             ))}
             <motion.div

@@ -25,7 +25,10 @@
           assign mode = 'blocks'
           assign list = section.blocks
         else
-          assign list = collections
+          capture line_csv
+            render 'catalog-handles'
+          endcapture
+          assign list = line_csv | split: ','
         endif
         assign shown = 0
       -%}
@@ -42,7 +45,7 @@
             when 'blocks'
               assign c = item.settings.collection
             else
-              assign c = item
+              assign c = collections[item]
           endcase
           if label == blank
             assign label = c.title

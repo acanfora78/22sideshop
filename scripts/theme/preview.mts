@@ -37,11 +37,14 @@ const products = raw.map((p: any, i: number) => {
   };
 });
 const coll = (handle: string, title: string, list: any[]) => ({ handle, title, url: `/collections/${handle}`, products: list, products_count: list.length, featured_image: list[0]?.featured_image, sort_options: [{ value: "manual", name: "In evidenza" }], sort_by: "manual", description: "" });
+const byLine = (h: string) => products.filter((_: any, i: number) => raw[i].collections.includes(h));
 const collections: any = [
-  coll("tops", "Tops", products.filter((p: any) => /tee|longsleeve|hoodie|crewneck/i.test(p.handle))),
-  coll("bottoms", "Bottoms", products.filter((p: any) => /jeans|pants|cargo/i.test(p.handle))),
-  coll("sets", "Sets", products.filter((p: any) => /set|tracksuit/i.test(p.handle))),
+  coll("coordinati", "Coordinati", byLine("coordinati")),
+  coll("longsleeve", "Longsleeve", byLine("longsleeve")),
+  coll("pantaloni", "Pantaloni", byLine("pantaloni")),
+  coll("t-shirt", "T-shirt", byLine("t-shirt")),
 ];
+for (const c of [...collections]) collections[c.handle] = c;
 collections.all = coll("all", "Tutti i prodotti", products);
 
 // ── engine ──
@@ -98,6 +101,8 @@ const globals: any = {
   cart: { item_count: 0, items: [], total_price: 0 }, collections, linklists: {}, content_for_header: "", canonical_url: "/", page_title: "22SIDE", current_page: 1,
   template: { name: "index" },
 };
+// Shopify globals are visible inside {% render %} snippets too (liquidjs isolates them unless set as engine globals).
+Object.assign(engine.options.globals, globals);
 async function renderSection(type: string, data: any, extra: any = {}) {
   return engine.parseAndRender(read(`sections/${type}.liquid`), { ...globals, ...extra, section: sectionObj(type, data) });
 }

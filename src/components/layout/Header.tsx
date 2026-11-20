@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, ShoppingBag } from "lucide-react";
+import { ChevronDown, Search, ShoppingBag } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { useCart } from "@/components/cart/CartProvider";
-import { mainNav } from "@/content/site";
+import { mainNav, type NavItem } from "@/content/site";
 import { cn } from "@/lib/format";
 import { MobileMenu } from "./MobileMenu";
 import { NycClock } from "./NycClock";
@@ -57,20 +57,23 @@ export function Header() {
           </Link>
 
           <nav aria-label="Principale" className="hidden items-center gap-9 md:flex">
-            {mainNav.map((item, i) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "label group relative flex items-baseline gap-1.5 py-2 transition-colors",
-                  isActive(item.href) ? "text-dirty" : "text-dirty/60 hover:text-dirty",
-                )}
-                aria-current={isActive(item.href) ? "page" : undefined}
-              >
-                <span className="text-[0.55rem] text-blood">0{i + 1}</span>
-                <span className="link-underline">{item.label}</span>
-              </Link>
-            ))}
+            {mainNav.map((item) =>
+              item.children ? (
+                <NavDropdown key={item.href} item={item} active={isActive(item.href) || item.children.some((c) => isActive(c.href))} />
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "label group relative flex items-baseline gap-1.5 py-2 transition-colors",
+                    isActive(item.href) ? "text-dirty" : "text-dirty/60 hover:text-dirty",
+                  )}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  <span className="link-underline">{item.label}</span>
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-1 sm:gap-3">
@@ -133,5 +136,67 @@ export function Header() {
       </header>
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
+  );
+}
+
+/** "Catalogo": click opens the list of lines; Esc or a click outside closes it. */
+function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const id = useId();
+  const pathname = usePathname();
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen((v) => !v)}
+        className={cn("label flex min-h-11 items-center gap-1.5 transition-colors", active || open ? "text-dirty" : "text-dirty/60 hover:text-dirty")}
+      >
+        <span className="link-underline">{item.label}</span>
+        <ChevronDown aria-hidden className={cn("size-3.5 transition-transform duration-300", open && "rotate-180")} />
+      </button>
+      <div
+        id={id}
+        hidden={!open}
+        className="absolute left-1/2 top-full z-10 mt-2 w-60 -translate-x-1/2 border border-dirty/15 bg-obsidian/95 p-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-md"
+      >
+        <ul>
+          {item.children?.map((c) => (
+            <li key={c.href}>
+              <Link href={c.href} className="font-display flex min-h-11 items-center justify-between px-3 text-2xl text-dirty transition-colors hover:bg-dirty hover:text-obsidian">
+                {c.label} <span aria-hidden className="label text-xs">↗</span>
+              </Link>
+            </li>
+          ))}
+          <li className="mt-1 border-t border-dirty/15 pt-1">
+            <Link href={item.href} className="label flex min-h-11 items-center px-3 text-dirty/80 hover:text-dirty">
+              Tutto il catalogo →
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }

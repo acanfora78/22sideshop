@@ -10,15 +10,50 @@
   {
     "name": "Brand",
     "settings": [
-      { "type": "text", "id": "slogan", "label": "Slogan", "default": "No rules. Just attitude." },
-      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+      {
+        "type": "text",
+        "id": "slogan",
+        "label": "Slogan",
+        "default": "No rules. Just attitude."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Catalogo",
+    "settings": [
+      {
+        "type": "text",
+        "id": "catalog_label",
+        "label": "Voce del menu",
+        "default": "Catalogo"
+      },
+      {
+        "type": "text",
+        "id": "catalog_lines",
+        "label": "Linee (handle delle collezioni, in ordine, separate da virgola)",
+        "default": "t-shirt, longsleeve, coordinati, pantaloni",
+        "info": "Usate dal menu Catalogo, dai filtri del catalogo e da \"Pick your line\". Si vedono solo le collezioni che hanno prodotti."
+      }
     ]
   },
   {
     "name": "Social",
     "settings": [
-      { "type": "url", "id": "social_instagram_link", "label": "Instagram" },
-      { "type": "url", "id": "social_tiktok_link", "label": "TikTok" }
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      }
     ]
   }
 ]

@@ -13,7 +13,7 @@ import { TrackLines } from "@/components/twentytwo/TwentyTwo";
 import { home } from "@/content/site";
 
 /** Collections shown as "lines" in the Pick-your-line index. */
-const LINES = ["new-arrivals", "tops", "graphic-tees", "long-sleeve", "bottoms", "sets"];
+const LINES = ["t-shirt", "longsleeve", "coordinati", "pantaloni"];
 
 /**
  * Homepage — one continuous film: intro → the movement → manifesto → why 22 →

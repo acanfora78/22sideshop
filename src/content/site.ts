@@ -23,12 +23,22 @@ export const site = {
 };
 
 /** Functional navigation stays Italian for clarity. */
-export const mainNav = [
-  { label: "Shop", href: "/shop" },
+export type NavLink = { label: string; href: string };
+export type NavItem = NavLink & { children?: readonly NavLink[] };
+
+/** The four lines of the catalogue (Shopify: one collection each). */
+export const catalogLines: readonly NavLink[] = [
+  { label: "T-shirt", href: "/collections/t-shirt" },
+  { label: "Longsleeve", href: "/collections/longsleeve" },
+  { label: "Coordinati", href: "/collections/coordinati" },
+  { label: "Pantaloni", href: "/collections/pantaloni" },
+];
+
+export const mainNav: readonly NavItem[] = [
+  { label: "Catalogo", href: "/shop", children: catalogLines },
   { label: "Novità", href: "/new-arrivals" },
-  { label: "Collezioni", href: "/collections" },
   { label: "Chi siamo", href: "/about" },
-] as const;
+];
 
 /** Station names shown by the "Next stop" page transition. */
 export const stops: { match: (p: string) => boolean; name: string }[] = [
