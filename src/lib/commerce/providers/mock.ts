@@ -59,11 +59,13 @@ export const mockProvider = {
   async getProduct(handle: string): Promise<Product | undefined> {
     return products.find((p) => p.handle === handle);
   },
+  /** Only collections that currently contain at least one product. */
   async getCollections(): Promise<Collection[]> {
-    return collections;
+    return collections.filter((c) => products.some((p) => p.collections.includes(c.handle)));
   },
   async getCollection(handle: string): Promise<Collection | undefined> {
-    return collections.find((c) => c.handle === handle);
+    const c = collections.find((col) => col.handle === handle);
+    return c && products.some((p) => p.collections.includes(c.handle)) ? c : undefined;
   },
   async getCollectionProducts(handle: string): Promise<Product[]> {
     const col = collections.find((c) => c.handle === handle);

@@ -32,7 +32,7 @@ export const movement = {
     kicker: "22SIDE — The Movement",
     title: "The movement.",
     sub: "22SIDE non è solo streetwear. È un modo di stare al mondo: indipendente, cresciuto nell’underground di New York, tenuto insieme da un numero.",
-    primaryCta: { label: "Shop the drop", href: "/collections/drop-001" },
+    primaryCta: { label: "Acquista ora", href: "/shop" },
     secondaryCta: { label: "Entra nel negozio", href: "#store" },
   },
   store: {
@@ -40,10 +40,10 @@ export const movement = {
     label: "The Store",
     title: "The Store",
     intro:
-      "Un negozio vero, anche online. Cemento, binari in acciaio, luci industriali: i capi sono appesi alle barre come in boutique. Passa sopra un capo per illuminarlo, aprilo per acquistarlo.",
+      "Tutti i capi 22SIDE, fotografati per strada. Passa sopra un capo per vederlo da un'altra angolazione, aprilo per tutti i dettagli.",
     overview: m("store-overview.webp"),
     overviewAlt: "Interno vuoto del negozio con due barre appendiabiti e un grande 22 dipinto sulla parete.",
-    note: "Prezzi e taglie in arrivo: apri un capo per vederlo da vicino.",
+    note: "Prezzi e taglie in arrivo.",
   },
   why22: {
     label: "Why 22",

@@ -65,7 +65,7 @@ export const home = {
     platform: "Platform 2",
     title: "The street is ours.",
     sub: "Streetwear indipendente cresciuto tra cemento, treni notturni e il suono della golden age. Per chi le regole non le segue: le riscrive.",
-    primaryCta: { label: "Shop the drop", href: "/collections/drop-001" },
+    primaryCta: { label: "Acquista ora", href: "/shop" },
     secondaryCta: { label: "The culture", href: "#underground" },
     marquee: ["No rules", "Just attitude", "Fresh drop", "Built different", "Underground NYC", "Line 22", "22SIDE®"],
   },
@@ -85,7 +85,7 @@ export const home = {
     subtitle: "Night Shift",
     description:
       "Il primo capitolo, fotografato dopo il tramonto. Volumi ampi, stampe che si fanno notare, un solo segnale rosso.",
-    cta: { label: "Scopri tutto il drop", href: "/collections/drop-001" },
+    cta: { label: "Scopri tutti i prodotti", href: "/shop" },
   },
   underground: {
     index: "04",

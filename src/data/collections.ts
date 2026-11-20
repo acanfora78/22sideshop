@@ -1,4 +1,3 @@
-import { media } from "@/content/media";
 import type { Collection } from "@/lib/commerce/types";
 
 /** Collezioni demo. Handles follow Shopify's URL convention (/collections/{handle}). */
@@ -9,17 +8,8 @@ export const collections: Collection[] = [
     title: "New Arrivals",
     kicker: "Fresh off the line",
     description: "Gli ultimi capi arrivati sul blocco.",
-    image: media.subway,
+    image: { url: "/media/products/real/eternity-tee-2.webp", width: 1200, height: 1600, altText: "Outfit con t-shirt Eternity bianca e jeans blu." },
     sortOrder: "created-desc",
-  },
-  {
-    id: "gid://22side/Collection/drop-001",
-    handle: "drop-001",
-    title: "Drop 001",
-    kicker: "Night Shift",
-    description: "Il primo capitolo, fotografato dopo il tramonto.",
-    image: media.streetNight,
-    sortOrder: "manual",
   },
   {
     id: "gid://22side/Collection/tops",
@@ -27,7 +17,7 @@ export const collections: Collection[] = [
     title: "Tops",
     kicker: "Heavy cotton, loud statements",
     description: "T-shirt, maniche lunghe, felpe e giacche.",
-    image: media.fireEscape,
+    image: { url: "/media/products/real/heaven-tee-1.webp", width: 1200, height: 1600, altText: "T-shirt Heaven nera indossata." },
     sortOrder: "manual",
   },
   {
@@ -36,16 +26,7 @@ export const collections: Collection[] = [
     title: "Bottoms",
     kicker: "Built for the pavement",
     description: "Jeans, cargo e pantaloni tuta tagliati per muoversi liberi.",
-    image: media.chainlink,
-    sortOrder: "manual",
-  },
-  {
-    id: "gid://22side/Collection/essentials",
-    handle: "essentials",
-    title: "The Essentials",
-    kicker: "Built to last",
-    description: "Jeans larghi, pantaloni tuta e cargo: le basi del guardaroba 22SIDE.",
-    image: media.concrete,
+    image: { url: "/media/products/real/baggy-jeans-vintage-blue-1.webp", width: 1200, height: 1600, altText: "Jeans baggy blu vintage indossati." },
     sortOrder: "manual",
   },
   {
@@ -54,7 +35,7 @@ export const collections: Collection[] = [
     title: "Graphic Tees",
     kicker: "Loud on the back",
     description: "T-shirt con stampe grandi e messaggi diretti.",
-    image: media.tiles,
+    image: { url: "/media/products/real/cash-grill-tee-1.webp", width: 1200, height: 1600, altText: "T-shirt Cash Grill nera indossata." },
     sortOrder: "manual",
   },
   {
@@ -63,7 +44,7 @@ export const collections: Collection[] = [
     title: "The Sets",
     kicker: "Head to toe",
     description: "Completi pensati per essere indossati insieme: il cargo nero e la tuta grigia sfumata.",
-    image: media.fireEscape,
+    image: { url: "/media/products/real/cargo-set-black-full.webp", width: 1200, height: 1600, altText: "Completo cargo nero in un parcheggio giallo." },
     sortOrder: "manual",
   },
   {
@@ -72,7 +53,7 @@ export const collections: Collection[] = [
     title: "Long Sleeve",
     kicker: "Layer up",
     description: "Maniche lunghe stampate per le mezze stagioni.",
-    image: media.subway,
+    image: { url: "/media/products/real/chase-light-longsleeve-1.webp", width: 1200, height: 1600, altText: "Manica lunga Chase Light bianca indossata." },
     sortOrder: "manual",
   },
 ];

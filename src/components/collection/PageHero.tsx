@@ -25,7 +25,7 @@ export function PageHero({
     <section className="relative isolate overflow-hidden pt-[calc(var(--header-h)+2rem)]">
       {image && (
         <Parallax className="absolute inset-0 -z-10 opacity-45" speed={18}>
-          <Image src={image.url} alt="" fill priority sizes="100vw" className="object-cover" />
+          <Image src={image.url} alt="" fill priority sizes="100vw" className="object-cover object-[50%_25%]" />
           <div className="absolute inset-0 bg-gradient-to-b from-obsidian/40 via-obsidian/30 to-obsidian" />
         </Parallax>
       )}

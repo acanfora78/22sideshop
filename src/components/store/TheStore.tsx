@@ -1,20 +1,19 @@
-import { getCollectionProducts } from "@/lib/commerce";
-import { storeWalls } from "@/content/store";
+import { getProducts } from "@/lib/commerce";
 import { movement } from "@/content/movement";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal, SplitText } from "@/components/motion/Reveal";
-import { Pattern22, TrackLines, TwentyTwoReveal } from "@/components/twentytwo/TwentyTwo";
+import { Pattern22, TwentyTwoReveal } from "@/components/twentytwo/TwentyTwo";
 import { LineBullet } from "@/components/transit/Transit";
-import { StoreWall } from "./StoreWall";
+import { ProductGrid } from "@/components/collection/ProductGrid";
+import { ButtonLink } from "@/components/ui/Button";
 
 /**
- * THE STORE — the collection shown as a physical boutique: a giant 22 opens
- * onto the shop floor, then each collection hangs on its own wall.
- * (Shopify: a "store" section listing walls → collection pickers.)
+ * THE STORE — a giant 22 opens onto the shop floor, then the real catalogue.
+ * (Shopify: a featured-collection section.)
  */
 export async function TheStore() {
   const { store } = movement;
-  const walls = await Promise.all(storeWalls.map(async (w) => ({ wall: w, products: await getCollectionProducts(w.collection) })));
+  const products = await getProducts();
   return (
     <section id="store" aria-labelledby="store-title" className="relative bg-obsidian">
       <TwentyTwoReveal image={store.overview} alt={store.overviewAlt}>
@@ -40,13 +39,13 @@ export async function TheStore() {
         </div>
       </div>
 
-      <div className="space-y-6 pb-24 md:space-y-10 md:pb-32">
-        {walls.map(({ wall, products }, i) => (
-          <div key={wall.id}>
-            {i > 0 && <TrackLines label={`Next wall — ${wall.title}`} />}
-            <StoreWall wall={wall} products={products} />
-          </div>
-        ))}
+      <div className="px-gutter pb-24 md:pb-32">
+        <ProductGrid products={products} />
+        <div className="mt-16 flex justify-center">
+          <ButtonLink href="/shop" variant="red">
+            Acquista ora
+          </ButtonLink>
+        </div>
       </div>
     </section>
   );
