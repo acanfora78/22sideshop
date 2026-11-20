@@ -4,10 +4,10 @@
     <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/60 to-obsidian"></div>
   </div>
   <div class="px-gutter">
-    <p class="label text-concrete"><span class="text-blood">06</span> / Last Stop</p>
+    <p class="label text-concrete"><span class="text-signal">{{ section.settings.index }}</span> / {{ section.settings.label }}</p>
     <h2 class="mt-12 md:mt-20">
       <span class="font-display text-big block text-dirty/90" data-split>{{ section.settings.line_one }}</span>
-      <span class="font-display text-huge mt-2 block text-blood-bright" data-split>{{ section.settings.line_two }}</span>
+      <span class="font-display text-huge mt-2 block text-signal" data-split>{{ section.settings.line_two }}</span>
     </h2>
     <div class="label mt-12 flex flex-wrap justify-between gap-4 text-concrete">
       <span>{{ settings.slogan }}</span>
@@ -23,6 +23,8 @@
 {
   "name": "Chiusura",
   "settings": [
+    { "type": "text", "id": "index", "label": "Numero", "default": "05" },
+    { "type": "text", "id": "label", "label": "Etichetta", "default": "Last Stop" },
     { "type": "text", "id": "line_one", "label": "Riga 1", "default": "You don't follow the side." },
     { "type": "text", "id": "line_two", "label": "Riga 2", "default": "You create it." },
     { "type": "text", "id": "follow", "label": "Link Instagram", "default": "Seguici su Instagram @22sideshop" }

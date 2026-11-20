@@ -11,28 +11,63 @@
     </div>
     <ul class="relative mt-14 border-t border-dirty/20 md:mt-20">
       {%- liquid
-        if section.blocks.size > 0
+        comment
+          One source for line numbers and names: the "linea" metaobject (numero, nome,
+          sottotitolo, collezione). Fallback: section blocks, then every collection.
+          Product counts always come from collection.products_count.
+        endcomment
+        assign lines = shop.metaobjects.linea.values
+        assign mode = 'collections'
+        if lines.size > 0
+          assign mode = 'lines'
+          assign list = lines | sort: 'numero'
+        elsif section.blocks.size > 0
+          assign mode = 'blocks'
           assign list = section.blocks
         else
           assign list = collections
         endif
+        assign shown = 0
       -%}
       {%- for item in list -%}
         {%- liquid
-          if section.blocks.size > 0
-            assign c = item.settings.collection
-          else
-            assign c = item
+          assign label = blank
+          assign sub = blank
+          case mode
+            when 'lines'
+              assign c = item.collezione.value
+              assign label = item.nome.value
+              assign sub = item.sottotitolo.value
+              assign num = item.numero.value
+            when 'blocks'
+              assign c = item.settings.collection
+            else
+              assign c = item
+          endcase
+          if label == blank
+            assign label = c.title
           endif
         -%}
-        {%- if c != blank and c.products_count > 0 -%}
-          <li class="border-b border-dirty/20" {% if section.blocks.size > 0 %}{{ item.shopify_attributes }}{% endif %}>
+        {%- if c != blank and c.products_count > 0 and c.handle != 'frontpage' -%}
+          {%- liquid
+            assign shown = shown | plus: 1
+            if mode != 'lines'
+              assign num = shown
+              if shown < 10
+                assign num = shown | prepend: '0'
+              endif
+            endif
+          -%}
+          <li class="border-b border-dirty/20" {% if mode == 'blocks' %}{{ item.shopify_attributes }}{% endif %}>
             <a href="{{ c.url }}" class="group relative flex items-center justify-between gap-4 py-5 md:py-7" data-preview="{% if c.featured_image %}{{ c.featured_image | image_url: width: 480 }}{% elsif c.products.first.featured_image %}{{ c.products.first.featured_image | image_url: width: 480 }}{% endif %}">
-              <span class="flex items-baseline gap-4 md:gap-8">
-                <span class="label w-6 text-blood">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
-                <span class="font-display text-[clamp(2.6rem,8vw,8.5rem)] transition-[color,transform] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-4 group-hover:text-outline-dirty">{{ c.title }}</span>
+              <span class="flex min-w-0 items-baseline gap-4 md:gap-8">
+                <span class="label w-6 shrink-0 text-signal">{{ num }}</span>
+                <span class="min-w-0">
+                  <span class="font-display block text-[clamp(2.6rem,8vw,8.5rem)] transition-[color,transform] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-4 group-hover:text-outline-dirty">{{ label }}</span>
+                  {%- if sub != blank -%}<span class="label mt-2 block text-concrete">{{ sub }}</span>{%- endif -%}
+                </span>
               </span>
-              <span class="label flex items-center gap-3 text-concrete"><span class="text-dirty">({{ c.products_count }})</span>{% render 'icon', name: 'arrow-up-right', class: 'size-5 text-dirty transition-transform duration-500 group-hover:rotate-45' %}</span>
+              <span class="label flex shrink-0 items-center gap-3 text-concrete"><span class="text-dirty">({{ c.products_count }})</span>{% render 'icon', name: 'arrow-up-right', class: 'size-5 text-dirty transition-transform duration-500 group-hover:rotate-45' %}</span>
             </a>
           </li>
         {%- endif -%}
@@ -49,7 +84,7 @@
 {
   "name": "Elenco collezioni",
   "settings": [
-    { "type": "text", "id": "index", "label": "Numero", "default": "05" },
+    { "type": "text", "id": "index", "label": "Numero", "default": "04" },
     { "type": "text", "id": "label", "label": "Etichetta", "default": "Shop the Collection" },
     { "type": "text", "id": "title", "label": "Titolo", "default": "Pick your line." },
     { "type": "text", "id": "note", "label": "Nota a mano", "default": "Un’unica attitudine. Scegli da dove partire." },
