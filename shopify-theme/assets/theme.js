@@ -142,8 +142,7 @@
       if (window.privacyBanner && typeof window.privacyBanner.showPreferences === 'function') {
         window.privacyBanner.showPreferences();
       } else {
-        const cookiePage = document.querySelector('a[href$="/pages/cookie"]');
-        window.location.href = cookiePage ? cookiePage.href : '/policies/privacy-policy';
+        window.location.href = (window.theme.routes.root_url || '/') + '?view=cookie';
       }
     }));
   }

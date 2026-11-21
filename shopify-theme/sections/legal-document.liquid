@@ -1,0 +1,63 @@
+{%- comment -%}
+  Legal document stored in the theme (snippets/legal-*.liquid, generated from docs/legal/*.md by
+  scripts/legal/build.sh). Shown through alternate templates of the home page, e.g. /?view=privacy,
+  so no Shopify page has to be created. Readable body (≥ 16px), clickable index from the H2s.
+{%- endcomment -%}
+{%- assign doc = section.settings.doc -%}
+<section id="doc-{{ doc }}" class="px-gutter {% if section.settings.compact %}pb-16 pt-8{% else %}pb-20 pt-32 md:pt-44{% endif %}" data-legal>
+  {%- unless section.settings.compact -%}
+    <p class="label text-concrete"><span class="text-signal">{{ 'sections.legal.kicker' | t }}</span> / {{ shop.name }}</p>
+  {%- endunless -%}
+  {%- assign title_key = 'sections.legal.docs.' | append: doc -%}
+  {%- if section.settings.compact -%}
+    <h2 class="font-display text-[clamp(2.2rem,5vw,4rem)] leading-[0.95]">{{ title_key | t }}</h2>
+  {%- else -%}
+    <h1 class="font-display mt-6 text-[clamp(2.8rem,8vw,7rem)] leading-[0.9]">{{ title_key | t }}</h1>
+  {%- endif -%}
+
+  <div class="mt-10 grid gap-12 lg:grid-cols-12">
+    <nav class="lg:col-span-3" aria-label="{{ 'sections.legal.index' | t }}" data-legal-toc hidden>
+      <div class="border-l-2 border-signal pl-4 lg:sticky lg:top-28">
+        <p class="label mb-3 text-concrete">{{ 'sections.legal.index' | t }}</p>
+        <ol class="space-y-1 text-sm" data-legal-toc-list></ol>
+      </div>
+    </nav>
+    <div class="prose-legal max-w-3xl lg:col-span-8 lg:col-start-5" data-legal-body>
+      {%- case doc -%}
+        {%- when 'condizioni' -%}{%- render 'legal-condizioni' -%}
+        {%- when 'recesso' -%}{%- render 'legal-recesso' -%}
+        {%- when 'resi' -%}{%- render 'legal-resi' -%}
+        {%- when 'spedizioni' -%}{%- render 'legal-spedizioni' -%}
+        {%- when 'privacy' -%}{%- render 'legal-privacy' -%}
+        {%- when 'cookie' -%}{%- render 'legal-cookie' -%}
+        {%- when 'venditore' -%}{%- render 'legal-venditore' -%}
+        {%- when 'garanzia' -%}{%- render 'legal-garanzia' -%}
+        {%- when 'accessibilita' -%}{%- render 'legal-accessibilita' -%}
+      {%- endcase -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Documento legale",
+  "settings": [
+    {
+      "type": "select", "id": "doc", "label": "Documento", "default": "condizioni",
+      "options": [
+        { "value": "condizioni", "label": "Condizioni di vendita" },
+        { "value": "recesso", "label": "Recedi dal contratto qui (introduzione)" },
+        { "value": "resi", "label": "Recesso e resi" },
+        { "value": "spedizioni", "label": "Spedizioni" },
+        { "value": "privacy", "label": "Informativa sulla privacy" },
+        { "value": "cookie", "label": "Cookie policy" },
+        { "value": "venditore", "label": "Informazioni di contatto" },
+        { "value": "garanzia", "label": "Garanzia legale" },
+        { "value": "accessibilita", "label": "Accessibilità" }
+      ]
+    },
+    { "type": "checkbox", "id": "compact", "label": "Senza intestazione grande (sotto un'altra sezione)", "default": false }
+  ],
+  "presets": [{ "name": "Documento legale" }]
+}
+{% endschema %}

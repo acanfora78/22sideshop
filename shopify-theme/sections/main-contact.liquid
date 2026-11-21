@@ -13,8 +13,7 @@
         {%- if settings.social_instagram_link != blank -%}
           <li><a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="link-underline text-dirty">Instagram @22sideshop ↗</a></li>
         {%- endif -%}
-        {%- assign withdrawal = pages['recesso'] -%}
-        {%- if withdrawal != blank -%}<li><a href="{{ withdrawal.url }}" class="link-underline text-dirty">{{ 'sections.footer.withdraw' | t }}</a></li>{%- endif -%}
+        <li><a href="{{ routes.root_url }}?view=recesso" class="link-underline text-dirty">{{ 'sections.footer.withdraw' | t }}</a></li>
       </ul>
     </div>
 
@@ -45,7 +44,7 @@
           </div>
           <p class="text-sm text-dirty/70">
             {{- 'contact.privacy' | t -}}
-            {%- if shop.privacy_policy -%} <a href="{{ shop.privacy_policy.url }}" class="underline underline-offset-2">{{ 'newsletter.privacy_link' | t }}</a>.{%- endif -%}
+             <a href="{{ routes.root_url }}?view=privacy" class="underline underline-offset-2">{{ 'newsletter.privacy_link' | t }}</a>.
           </p>
           <button type="submit" class="label inline-flex min-h-12 items-center bg-blood px-8 text-dirty hover:bg-dirty hover:text-obsidian">{{ 'contact.send' | t }}</button>
         {%- endif -%}

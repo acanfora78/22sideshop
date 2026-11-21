@@ -24,7 +24,7 @@
           <input id="newsletter-consent" type="checkbox" name="contact[accepts_marketing]" value="true" required class="mt-0.5 size-5 shrink-0 accent-[#e5484d]">
           <label for="newsletter-consent" class="text-xs leading-relaxed text-dirty/80">
             {{- 'newsletter.consent' | t -}}
-            {%- if shop.privacy_policy -%} <a href="{{ shop.privacy_policy.url }}" class="underline underline-offset-2 hover:text-dirty">{{ 'newsletter.privacy_link' | t }}</a>.{%- endif -%}
+             <a href="{{ routes.root_url }}?view=privacy" class="underline underline-offset-2 hover:text-dirty">{{ 'newsletter.privacy_link' | t }}</a>.
           </label>
         </div>
         <p class="label mt-3 min-h-4 text-[0.6rem] text-concrete" role="status">
@@ -53,19 +53,14 @@
       <div>
         <p class="label mb-4 text-concrete">{{ 'sections.footer.legal' | t }}</p>
         <ul class="space-y-2.5 text-sm">
-          {%- for policy in shop.policies -%}
-            {%- if policy != blank -%}<li><a href="{{ policy.url }}" class="link-underline text-dirty/80 hover:text-dirty">{{ policy.title }}</a></li>{%- endif -%}
-          {%- endfor -%}
-          {%- assign legal_handles = section.settings.legal_pages | remove: ' ' | split: ',' -%}
-          {%- for handle in legal_handles -%}
-            {%- assign pg = pages[handle] -%}
-            {%- if pg != blank -%}<li><a href="{{ pg.url }}" class="link-underline text-dirty/80 hover:text-dirty">{{ pg.title }}</a></li>{%- endif -%}
+          {%- assign legal_docs = 'condizioni,recesso,spedizioni,privacy,cookie,garanzia,venditore,accessibilita' | split: ',' -%}
+          {%- for doc in legal_docs -%}
+            {%- assign key = 'sections.legal.docs.' | append: doc -%}
+            {%- if doc == 'recesso' -%}{%- assign key = 'sections.legal.docs.resi' -%}{%- endif -%}
+            <li><a href="{{ routes.root_url }}?view={{ doc }}{% if doc == 'recesso' %}#doc-resi{% endif %}" class="link-underline text-dirty/80 hover:text-dirty">{{ key | t }}</a></li>
           {%- endfor -%}
           <li><button type="button" class="link-underline text-left text-dirty/80 hover:text-dirty" data-cookie-preferences>{{ 'sections.footer.cookie_preferences' | t }}</button></li>
-          {%- assign withdrawal = pages[section.settings.withdrawal_page] -%}
-          {%- if withdrawal != blank -%}
-            <li><a href="{{ withdrawal.url }}" class="link-underline font-semibold text-dirty hover:text-signal">{{ 'sections.footer.withdraw' | t }}</a></li>
-          {%- endif -%}
+          <li><a href="{{ routes.root_url }}?view=recesso" class="link-underline font-semibold text-dirty hover:text-signal">{{ 'sections.footer.withdraw' | t }}</a></li>
         </ul>
       </div>
       <div>
@@ -156,10 +151,7 @@
     { "type": "link_list", "id": "menu_1", "label": "Menu colonna 1", "default": "footer" },
     { "type": "link_list", "id": "menu_2", "label": "Menu colonna 2" },
     { "type": "link_list", "id": "menu_3", "label": "Menu colonna 3" },
-    { "type": "text", "id": "support_text", "label": "Testo assistenza", "default": "Hai bisogno di aiuto? Scrivici su Instagram @22sideshop." },
-    { "type": "header", "content": "Legale" },
-    { "type": "text", "id": "legal_pages", "label": "Pagine legali (handle, separati da virgola)", "default": "cookie, garanzia, accessibilita", "info": "Le policy di Impostazioni › Policy compaiono da sole. Qui le pagine extra." },
-    { "type": "text", "id": "withdrawal_page", "label": "Pagina della funzione di recesso (handle)", "default": "recesso", "info": "Art. 54-bis Codice del Consumo: link sempre visibile \"Recedi dal contratto qui\"." }
+    { "type": "text", "id": "support_text", "label": "Testo assistenza", "default": "Hai bisogno di aiuto? Scrivici su Instagram @22sideshop." }
   ]
 }
 {% endschema %}

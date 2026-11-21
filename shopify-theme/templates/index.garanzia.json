@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "doc": {
+      "type": "legal-document",
+      "settings": {
+        "doc": "garanzia"
+      }
+    },
+    "notice": {
+      "type": "guarantee-notice",
+      "settings": {}
+    }
+  },
+  "order": [
+    "doc",
+    "notice"
+  ]
+}

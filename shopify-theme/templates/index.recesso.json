@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "doc": {
+      "type": "legal-document",
+      "settings": {
+        "doc": "recesso"
+      }
+    },
+    "withdrawal": {
+      "type": "withdrawal-function",
+      "settings": {}
+    },
+    "resi": {
+      "type": "legal-document",
+      "settings": {
+        "doc": "resi",
+        "compact": true
+      }
+    }
+  },
+  "order": [
+    "doc",
+    "withdrawal",
+    "resi"
+  ]
+}

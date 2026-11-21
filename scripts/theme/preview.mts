@@ -140,7 +140,7 @@ async function page(file: string, templateName: string, extra: any = {}) {
   const tpl = JSON.parse(read(`templates/${templateName}.json`));
   let body = "";
   for (const key of tpl.order) body += await renderSection(tpl.sections[key].type, tpl.sections[key], extra);
-  const html = await engine.parseAndRender(read("layout/theme.liquid"), { ...globals, ...extra, template: { name: templateName }, content_for_layout: body });
+  const html = await engine.parseAndRender(read("layout/theme.liquid"), { ...globals, ...extra, template: { name: templateName.split(".")[0], suffix: templateName.split(".")[1] }, content_for_layout: body });
   fs.mkdirSync(path.dirname(path.join(outDir, file)), { recursive: true });
   fs.writeFileSync(path.join(outDir, file), html);
   console.log("wrote", file, html.length);
@@ -151,9 +151,7 @@ await page("collections/all/index.html", "collection", { collection: collections
 await page("products/heaven-tee/index.html", "product", { product: products[2] });
 await page("products/baggy-jeans-vintage-blue/index.html", "product", { product: products[9] });
 await page("cart/index.html", "cart");
-const legalHtml = (f: string) => fs.readFileSync(`docs/legal/html/${f}.html`, "utf8");
-await page("pages/privacy/index.html", "page.legal", { page: { title: "Informativa sulla privacy", content: legalHtml("04-privacy"), metafields: {} } });
-await page("pages/recesso/index.html", "page.recesso", { page: { title: "Recedi dal contratto qui", content: legalHtml("09-pagina-recesso"), metafields: {} } });
+for (const v of ["privacy", "recesso", "garanzia", "cookie", "condizioni"]) await page(`legal/${v}/index.html`, `index.${v}`);
 fs.rmSync(path.join(outDir, "assets"), { force: true, recursive: true });
 fs.symlinkSync(path.join(T, "assets"), path.join(outDir, "assets"));
 fs.rmSync(path.join(outDir, "products-img"), { force: true });

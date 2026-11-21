@@ -127,7 +127,18 @@
       "index": "Indice",
       "guarantee_notice": "Avviso armonizzato UE sulla garanzia legale",
       "guarantee_notice_pdf": "Versione testuale dell’avviso",
-      "guarantee_notice_missing": "Carica qui l’avviso armonizzato ufficiale in italiano (Reg. di esecuzione (UE) 2025/1960), obbligatorio dal 27 settembre 2026. Questo promemoria lo vedi solo nell’editor."
+      "guarantee_notice_missing": "Carica qui l’avviso armonizzato ufficiale in italiano (Reg. di esecuzione (UE) 2025/1960), obbligatorio dal 27 settembre 2026. Questo promemoria lo vedi solo nell’editor.",
+      "docs": {
+        "condizioni": "Condizioni di vendita",
+        "recesso": "Recedi dal contratto qui",
+        "resi": "Recesso e resi",
+        "spedizioni": "Spedizioni",
+        "privacy": "Informativa sulla privacy",
+        "cookie": "Cookie policy",
+        "venditore": "Informazioni di contatto",
+        "garanzia": "Garanzia legale",
+        "accessibilita": "Accessibilità"
+      }
     }
   },
   "gift_card": {

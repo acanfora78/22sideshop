@@ -2,22 +2,26 @@
 
 Testi per un'attività di **vendita occasionale**. Ai consumatori sono riconosciuti comunque recesso di 14 giorni e garanzia legale di 2 anni, come nel Codice del Consumo.
 
-## Dove va ogni testo
+## Dove sono
 
-| File | Dove in Shopify | Modello del tema |
-|---|---|---|
-| `01-condizioni-di-vendita.md` | Impostazioni › Policy › **Termini di servizio** | — |
-| `02-recesso-e-resi.md` | Impostazioni › Policy › **Politica di rimborso** | — |
-| `03-spedizioni.md` | Impostazioni › Policy › **Politica di spedizione** | — |
-| `04-privacy.md` | Impostazioni › Policy › **Informativa sulla privacy** | — |
-| `06-informazioni-venditore.md` | Impostazioni › Policy › **Informazioni di contatto** | — |
-| `05-cookie.md` | Pagine › "Cookie policy", handle `cookie` | `legal` |
-| `07-garanzia-legale.md` | Pagine › "Garanzia legale", handle `garanzia` | `garanzia` |
-| `08-accessibilita.md` | Pagine › "Accessibilità", handle `accessibilita` | `legal` |
-| `09-pagina-recesso.md` | Pagine › "Recedi dal contratto qui", handle `recesso` | `recesso` |
-| — | Pagine › "Contatti", handle `contact` (già presente) | `contact` |
+I testi sono **già nel tema**: i file `.md` di questa cartella generano gli snippet `shopify-theme/snippets/legal-*.liquid`
+(`bash scripts/legal/build.sh`), mostrati dalla sezione "Documento legale" su queste pagine:
 
-**Come incollarli:** apri `html/anteprima.html` nel browser, seleziona il testo di un documento e incollalo nell'editor di Shopify. Dopo ogni modifica dei file `.md`: `bash scripts/legal/build.sh`.
+| Documento | Indirizzo |
+|---|---|
+| Condizioni di vendita | `/?view=condizioni` |
+| Recedi dal contratto qui + Recesso e resi + modulo tipo | `/?view=recesso` |
+| Spedizioni | `/?view=spedizioni` |
+| Informativa sulla privacy | `/?view=privacy` |
+| Cookie policy | `/?view=cookie` |
+| Garanzia legale (+ avviso armonizzato UE) | `/?view=garanzia` |
+| Informazioni di contatto | `/?view=venditore` |
+| Accessibilità | `/?view=accessibilita` |
+
+Il footer di ogni pagina li collega tutti. Non serve creare pagine in Shopify.
+
+Facoltativo: i link alle policy nel **checkout** di Shopify compaiono solo se incolli i testi anche in
+Impostazioni › Policy (copia pronta in `html/anteprima.html`).
 
 ## Norme di riferimento
 

@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "doc": {
+      "type": "legal-document",
+      "settings": {
+        "doc": "cookie"
+      }
+    }
+  },
+  "order": [
+    "doc"
+  ]
+}

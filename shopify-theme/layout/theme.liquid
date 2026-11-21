@@ -5,13 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#080808">
-    <link rel="canonical" href="{{ canonical_url }}">
+    {%- liquid
+      assign legal_view = false
+      if template.name == 'index' and template.suffix != blank
+        assign legal_view = true
+        assign legal_key = 'sections.legal.docs.' | append: template.suffix
+        assign legal_title = legal_key | t
+      endif
+    -%}
+    {%- if legal_view -%}
+      <link rel="canonical" href="{{ shop.url }}{{ routes.root_url }}?view={{ template.suffix }}">
+    {%- else -%}
+      <link rel="canonical" href="{{ canonical_url }}">
+    {%- endif -%}
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
     {%- endif -%}
 
     <title>
-      {{ page_title }}
+      {% if legal_view %}{{ legal_title }} &ndash; {% endif %}{{ page_title }}
       {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
       {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}

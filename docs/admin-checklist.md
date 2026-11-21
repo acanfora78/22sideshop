@@ -30,16 +30,12 @@ diventano automaticamente la tendina.
 2. Prodotti → Importa → `exports/22side-prodotti-shopify.csv` (spunta "Sovrascrivi i prodotti con lo stesso handle").
 3. Quando inserisci le taglie: togli il tag `taglie-da-confermare`.
 
-## 4. Testi legali (vedi `docs/legal/README.md`)
+## 4. Testi legali
 
-1. Impostazioni › **Policy**: incolla Termini di servizio, Politica di rimborso, Politica di spedizione, Informativa sulla privacy, Informazioni di contatto (sostituendo i testi di Shopify).
-2. Negozio online › **Pagine** › Aggiungi pagina, scegliendo il **modello** a destra:
-   - "Cookie policy" — handle `cookie` — modello `legal`
-   - "Garanzia legale" — handle `garanzia` — modello `garanzia`
-   - "Accessibilità" — handle `accessibilita` — modello `legal`
-   - "Recedi dal contratto qui" — handle `recesso` — modello `recesso`
-   - "Contatti" esiste già: controlla che usi il modello `contact`.
-3. Pagina **Garanzia legale** › Personalizza › sezione "Avviso garanzia UE": carica l'immagine ufficiale italiana dell'avviso armonizzato (allegato del Reg. di esecuzione (UE) 2025/1960).
-4. Impostazioni › **Privacy dei clienti** › Banner sui cookie: attivo per UE/SEE, con "Accetta" e "Rifiuta".
-5. Impostazioni › **Notifiche** › Marketing: attiva la doppia conferma per la newsletter.
-6. **Recessi**: rispondi a ogni richiesta con la conferma di ricezione (contenuto in `docs/legal/README.md`).
+Sono già nel tema (`/?view=privacy`, `/?view=recesso`…, link nel footer): non serve creare pagine.
+
+1. Impostazioni › **Privacy dei clienti** › Banner sui cookie: attivo per UE/SEE, con "Accetta" e "Rifiuta".
+2. Impostazioni › **Notifiche** › Marketing: attiva la doppia conferma per la newsletter.
+3. Personalizza tema › modello **Home page — garanzia** › sezione "Avviso garanzia UE": carica l'immagine ufficiale italiana dell'avviso armonizzato (allegato del Reg. di esecuzione (UE) 2025/1960).
+4. **Recessi**: rispondi a ogni richiesta con la conferma di ricezione (contenuto in `docs/legal/README.md`).
+5. Facoltativo: incolla i testi anche in Impostazioni › Policy, per avere i link nel checkout.
