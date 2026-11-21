@@ -147,6 +147,18 @@
     }));
   }
 
+  /* ───────────── Hero video ───────────── */
+  function initHeroVideo() {
+    $$('[data-hero-video]').forEach((v) => {
+      v.muted = true;
+      if (reduced) { v.removeAttribute('autoplay'); v.pause(); return; }
+      const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([en]) => { if (en.isIntersecting) play(); else v.pause(); }, { threshold: 0.1 }).observe(v);
+      } else play();
+    });
+  }
+
   /* ───────────── Dropdowns (Catalogo) ───────────── */
   function initDropdowns() {
     $$('[data-dropdown]').forEach((wrap) => {
@@ -681,6 +693,7 @@
     initIntro();
     initHeader();
     initDropdowns();
+    initHeroVideo();
     initLegal();
     initReveals();
     initLightUp();
