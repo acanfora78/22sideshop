@@ -214,5 +214,9 @@
     "send": "Invia",
     "done_title": "Messaggio inviato.",
     "done_text": "Ti rispondiamo il prima possibile all’email che hai indicato."
+  },
+  "floating": {
+    "whatsapp": "Scrivici su WhatsApp",
+    "instagram": "Seguici su Instagram"
   }
 }

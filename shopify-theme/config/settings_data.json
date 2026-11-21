@@ -4,7 +4,10 @@
     "social_instagram_link": "https://www.instagram.com/22sideshop/",
     "catalog_label": "Catalogo",
     "catalog_lines": "t-shirt, longsleeve, coordinati, pantaloni",
-    "returns_days": 14
+    "returns_days": 14,
+    "show_floating_contact": true,
+    "whatsapp_number": "393532359486",
+    "whatsapp_message": "Ciao 22SIDE!"
   },
   "presets": {
     "Default": {
@@ -12,7 +15,10 @@
       "social_instagram_link": "https://www.instagram.com/22sideshop/",
       "catalog_label": "Catalogo",
       "catalog_lines": "t-shirt, longsleeve, coordinati, pantaloni",
-      "returns_days": 14
+      "returns_days": 14,
+      "show_floating_contact": true,
+      "whatsapp_number": "393532359486",
+      "whatsapp_message": "Ciao 22SIDE!"
     }
   }
 }

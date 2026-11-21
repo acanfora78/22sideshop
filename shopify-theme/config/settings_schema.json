@@ -78,5 +78,28 @@
         "default": 14
       }
     ]
+  },
+  {
+    "name": "Contatti rapidi",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_floating_contact",
+        "label": "Mostra i pulsanti WhatsApp e Instagram a destra",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "Numero WhatsApp (con prefisso, es. 393532359486)",
+        "default": "393532359486"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "Messaggio precompilato",
+        "default": "Ciao 22SIDE!"
+      }
+    ]
   }
 ]

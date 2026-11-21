@@ -67,6 +67,8 @@
     <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
     <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
     <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+    {%- render 'floating-contact', template_name: template.name, current_product: product -%}
+
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </body>
 </html>

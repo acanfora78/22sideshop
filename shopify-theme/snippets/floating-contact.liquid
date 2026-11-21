@@ -1,0 +1,26 @@
+{%- comment -%}
+  Floating contact buttons (right side): WhatsApp, Instagram below. Params: template_name, current_product.
+  Number and message: Theme settings › Contatti rapidi. Sits under drawers/menus (z-30) and above
+  the mobile sticky add-to-cart on product pages.
+{%- endcomment -%}
+{%- liquid
+  assign wa = settings.whatsapp_number | remove: ' ' | remove: '+' | remove: '-'
+  assign wa_text = settings.whatsapp_message
+  if template_name == 'product' and current_product != blank
+    assign wa_text = settings.whatsapp_message | append: ' ' | append: current_product.title
+  endif
+-%}
+{%- if settings.show_floating_contact and wa != blank or settings.show_floating_contact and settings.social_instagram_link != blank -%}
+  <div class="fixed right-4 z-30 flex flex-col items-center gap-3 md:right-6 {% if template_name == 'product' %}bottom-24 lg:bottom-6{% else %}bottom-4 md:bottom-6{% endif %}" data-floating-contact>
+    {%- if wa != blank -%}
+      <a href="https://wa.me/{{ wa }}?text={{ wa_text | url_encode }}" target="_blank" rel="noopener" class="group flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dirty" aria-label="{{ 'floating.whatsapp' | t }}">
+        <svg viewBox="0 0 32 32" class="size-8" fill="currentColor" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3 29l6.5-2c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.3c-2.1 0-4.1-.6-5.8-1.6l-.4-.2-3.9 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.8 0-5.9 4.9-10.6 11-10.6s11 4.8 11 10.6-4.9 10.5-11 10.5zm6-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+      </a>
+    {%- endif -%}
+    {%- if settings.social_instagram_link != blank -%}
+      <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="flex size-12 items-center justify-center rounded-full border border-dirty/30 bg-obsidian text-dirty shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-[transform,background-color,color] duration-300 hover:scale-110 hover:bg-dirty hover:text-obsidian focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dirty" aria-label="{{ 'floating.instagram' | t }}">
+        <svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}
