@@ -114,7 +114,13 @@ const globals: any = {
     recesso: { title: "Recedi dal contratto qui", url: "/pages/recesso" },
   }, request: { locale: { iso_code: "it" } }, settings: JSON.parse(read("config/settings_data.json")).current,
   routes: { root_url: "/", cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", search_url: "/search", all_products_collection_url: "/collections/all", collections_url: "/collections", product_recommendations_url: "/recommendations/products" },
-  cart: { item_count: 0, items: [], total_price: 0 }, collections, linklists: {}, content_for_header: "", canonical_url: "/", page_title: "22SIDE", current_page: 1,
+  cart: { item_count: 0, items: [], total_price: 0 }, collections,
+  // Shopify's default main menu, as on the real store
+  linklists: { "main-menu": { title: "Menu principale", links: [
+    { title: "Home", url: "/", type: "frontpage_link", links: [] },
+    { title: "Catalogo", url: "/collections/all", type: "catalog_link", links: [] },
+    { title: "Contatti", url: "/pages/contact", type: "page_link", links: [] },
+  ] } }, content_for_header: "", canonical_url: "/", page_title: "22SIDE", current_page: 1,
   template: { name: "index" },
 };
 // Shopify globals are visible inside {% render %} snippets too (liquidjs isolates them unless set as engine globals).

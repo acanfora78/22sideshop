@@ -10,7 +10,17 @@
     <nav aria-label="{{ 'sections.header.menu' | t }}" class="hidden items-center gap-9 md:flex">
       {%- if menu.links.size > 0 -%}
         {%- for link in menu.links -%}
-          {%- if link.links.size > 0 -%}
+          {%- liquid
+            comment
+              The catalogue link (Shopify's default "Catalogo" → /collections/all) opens the list of lines
+              even without sub-items; any link with sub-items becomes a dropdown too.
+            endcomment
+            assign is_catalog = false
+            if link.links.size > 0 or link.type == 'catalog_link' or link.url == routes.all_products_collection_url
+              assign is_catalog = true
+            endif
+          -%}
+          {%- if is_catalog -%}
             {%- render 'catalog-menu', style: 'desktop', parent: link -%}
             {%- continue -%}
           {%- endif -%}
@@ -50,7 +60,7 @@
   <nav aria-label="Mobile" class="px-gutter mt-8 flex flex-1 flex-col">
     {%- if menu.links.size > 0 -%}
       {%- for link in menu.links -%}
-        {%- if link.links.size > 0 -%}
+        {%- if link.links.size > 0 or link.type == 'catalog_link' or link.url == routes.all_products_collection_url -%}
           {%- render 'catalog-menu', style: 'mobile', parent: link -%}
         {%- else -%}
           <a href="{{ link.url }}" class="flex items-baseline justify-between border-b border-dirty/10 py-3">
