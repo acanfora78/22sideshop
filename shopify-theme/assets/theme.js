@@ -149,13 +149,26 @@
 
   /* ───────────── Hero video ───────────── */
   function initHeroVideo() {
+    // Always playing, no controls: restart if the browser pauses it, and retry on the first
+    // interaction when autoplay is blocked (e.g. iPhone Low Power Mode). Only people who asked
+    // their device to "reduce motion" get the still frame.
     $$('[data-hero-video]').forEach((v) => {
       v.muted = true;
-      if (reduced) { v.removeAttribute('autoplay'); v.pause(); return; }
+      v.defaultMuted = true;
+      v.playsInline = true;
+      v.controls = false;
+      if (reduced) { v.autoplay = false; v.pause(); return; }
       const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(([en]) => { if (en.isIntersecting) play(); else v.pause(); }, { threshold: 0.1 }).observe(v);
-      } else play();
+      play();
+      v.addEventListener('pause', () => { if (!document.hidden) setTimeout(play, 50); });
+      v.addEventListener('ended', play);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) play(); });
+      const events = ['touchstart', 'pointerdown', 'scroll', 'keydown'];
+      const kick = () => {
+        play();
+        if (!v.paused) events.forEach((t) => window.removeEventListener(t, kick));
+      };
+      events.forEach((t) => window.addEventListener(t, kick, { passive: true }));
     });
   }
 

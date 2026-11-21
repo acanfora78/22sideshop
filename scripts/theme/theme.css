@@ -337,3 +337,10 @@ html[data-intro="seen"] [data-intro-overlay] {
 .payment-buttons .shopify-payment-button__button--unbranded { background: #e8e5df !important; color: #080808 !important; font-family: var(--font-plex-mono), monospace; text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; }
 .payment-buttons .shopify-payment-button__button--unbranded:hover { background: #fff !important; }
 .payment-buttons .shopify-payment-button__more-options { color: #8c8c8c; text-decoration: underline; font-size: .75rem; margin-top: .75rem; }
+
+/* Hero video: never show native controls or the iOS start-playback button */
+.hero-video::-webkit-media-controls,
+.hero-video::-webkit-media-controls-panel,
+.hero-video::-webkit-media-controls-play-button,
+.hero-video::-webkit-media-controls-start-playback-button,
+.hero-video::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; opacity: 0 !important; }

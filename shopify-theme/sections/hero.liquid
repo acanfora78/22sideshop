@@ -26,13 +26,13 @@
   {%- if show_video -%}
     {%- comment -%}
       Vertical clip: full screen on phones and tablets, a framed "Fig." panel on the right from 1024px.
-      Muted, looped, inline; paused off screen and for "reduce motion" (theme.js → initHeroVideo).
+      Muted, looped, inline, always playing, no controls (theme.js → initHeroVideo); still frame only for "reduce motion".
     {%- endcomment -%}
     <figure class="absolute inset-0 -z-10 m-0 overflow-hidden lg:inset-auto lg:bottom-[calc(var(--mark-h)+1.5rem)] lg:right-[var(--gutter)] lg:top-[calc(var(--header-h)+5.75rem)] lg:z-0 lg:aspect-[9/16] lg:border lg:border-dirty/20 lg:shadow-[0_30px_80px_rgba(0,0,0,0.6)]" data-hero-video-wrap>
       {%- if section.settings.video != blank -%}
-        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1080x', class: 'absolute inset-0 h-full w-full object-cover', data-hero-video: '' }}
+        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1080x', class: 'hero-video pointer-events-none absolute inset-0 h-full w-full object-cover', data-hero-video: '' }}
       {%- else -%}
-        <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline preload="metadata" poster="{{ 'hero-22side-poster.webp' | asset_url }}" width="720" height="1280" aria-label="{{ section.settings.video_alt | escape }}" data-hero-video>
+        <video class="hero-video pointer-events-none absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback x-webkit-airplay="deny" controlslist="nodownload nofullscreen noremoteplayback noplaybackrate" preload="auto" poster="{{ 'hero-22side-poster.webp' | asset_url }}" width="720" height="1280" aria-label="{{ section.settings.video_alt | escape }}" data-hero-video>
           <source src="{{ 'hero-22side.mp4' | asset_url }}" type="video/mp4">
         </video>
       {%- endif -%}
