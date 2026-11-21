@@ -55,5 +55,28 @@
         "label": "TikTok"
       }
     ]
+  },
+  {
+    "name": "Scheda prodotto",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Spedizione gratuita sopra (€)",
+        "info": "Vuoto o 0 = non mostrare. Deve coincidere con le tariffe in Impostazioni › Spedizione."
+      },
+      {
+        "type": "text",
+        "id": "delivery_text",
+        "label": "Tempi di consegna (es. \"Consegna in 2–4 giorni lavorativi\")",
+        "info": "Vuoto = non mostrare."
+      },
+      {
+        "type": "number",
+        "id": "returns_days",
+        "label": "Giorni per il reso",
+        "default": 14
+      }
+    ]
   }
 ]

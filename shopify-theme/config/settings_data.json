@@ -3,14 +3,16 @@
     "slogan": "No rules. Just attitude.",
     "social_instagram_link": "https://www.instagram.com/22sideshop/",
     "catalog_label": "Catalogo",
-    "catalog_lines": "t-shirt, longsleeve, coordinati, pantaloni"
+    "catalog_lines": "t-shirt, longsleeve, coordinati, pantaloni",
+    "returns_days": 14
   },
   "presets": {
     "Default": {
       "slogan": "No rules. Just attitude.",
       "social_instagram_link": "https://www.instagram.com/22sideshop/",
       "catalog_label": "Catalogo",
-      "catalog_lines": "t-shirt, longsleeve, coordinati, pantaloni"
+      "catalog_lines": "t-shirt, longsleeve, coordinati, pantaloni",
+      "returns_days": 14
     }
   }
 }

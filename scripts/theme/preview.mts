@@ -31,7 +31,7 @@ const products = raw.map((p: any, i: number) => {
   const variant = variants[0];
   return {
     id: i + 1, handle: p.slug, title: p.title, url: `/products/${p.slug}`, type: p.productType, vendor: "22SIDE",
-    available: true, tags: [...p.tags, ...(p.price === null ? ["prezzo-da-confermare"] : []), ...(p.sizes === null ? ["taglie-da-confermare"] : [])], media, featured_media: media[0], featured_image: media[0],
+    available: true, tags: [...p.tags, ...p.collections.filter((h: string) => h !== "new-arrivals").map((h: string) => `linea-${h}`), ...(p.price === null ? ["prezzo-da-confermare"] : []), ...(p.sizes === null ? ["taglie-da-confermare"] : [])], media, featured_media: media[0], featured_image: media[0],
     variants, selected_or_first_available_variant: variant, has_only_default_variant: false, price_varies: false,
     options: ["Taglia"], options_with_values: [{ name: "Taglia", values: sizes, selected_value: sizes[0] }],
     description: `<p>${p.description ?? ""}</p>`,
@@ -70,6 +70,10 @@ engine.registerFilter("money", (c: number) => new Intl.NumberFormat("it-IT", { s
 engine.registerFilter("placeholder_svg_tag", (_: string, cls: string) => `<svg class="${cls}"></svg>`);
 engine.registerFilter("format_code", (s: string) => s);
 engine.registerFilter("media_tag", () => "");
+engine.registerFilter("structured_data", () => "{}");
+engine.registerFilter("payment_button", () => '<div class="shopify-payment-button"><button type="button" class="shopify-payment-button__button shopify-payment-button__button--unbranded">Acquista ora</button></div>');
+engine.registerFilter("money_without_trailing_zeros", (c: number) => new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format((c || 0) / 100));
+engine.registerFilter("newline_to_br", (x: string) => String(x ?? "").replace(/\n/g, "<br>"));
 
 engine.registerTag("schema", class extends Tag {
   constructor(token: any, remain: any[], liquid: any) { super(token, remain, liquid); while (remain.length) { const t = remain.shift(); if (t.name === "endschema") break; } }

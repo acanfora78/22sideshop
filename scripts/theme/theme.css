@@ -331,3 +331,9 @@ html[data-intro="seen"] [data-intro-overlay] {
   header, footer, [data-header], [data-mobile-menu], .grain { display: none !important; }
   body, .prose-legal, [data-withdrawal] * { background: #fff !important; color: #000 !important; }
 }
+
+/* Dynamic checkout (Shop Pay / Apple Pay / Google Pay) in the brand style */
+.payment-buttons .shopify-payment-button__button { border-radius: 0 !important; min-height: 3rem; }
+.payment-buttons .shopify-payment-button__button--unbranded { background: #e8e5df !important; color: #080808 !important; font-family: var(--font-plex-mono), monospace; text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; }
+.payment-buttons .shopify-payment-button__button--unbranded:hover { background: #fff !important; }
+.payment-buttons .shopify-payment-button__more-options { color: #8c8c8c; text-decoration: underline; font-size: .75rem; margin-top: .75rem; }

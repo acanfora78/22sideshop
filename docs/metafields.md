@@ -60,3 +60,46 @@ nulla e tu vedi un avviso solo nell'editor del tema.
 | Nome | Chiave | Tipo | Uso |
 |---|---|---|---|
 | Aggiornato il | `custom.aggiornato_il` | Data | "Ultimo aggiornamento" nelle pagine legali. Se manca, il tema usa la data impostata nella sezione (21/11/2026) |
+
+## Prodotto — campi facoltativi della scheda prodotto
+
+Ogni riquadro della scheda compare **solo se il dato c'è**: nessun dato inventato. Impostazioni › Metafield e metaoggetti › Prodotti.
+
+| Nome | Chiave | Tipo | Dove compare |
+|---|---|---|---|
+| Composizione | `custom.composizione` | Testo multiriga (fibre in %) | Riquadro "Composizione e cura" |
+| Grammatura | `custom.grammatura_gm2` | Numero intero | idem |
+| Tecnica di stampa | `custom.tecnica_stampa` | Testo a riga singola | idem |
+| Paese di produzione | `custom.paese_produzione` | Testo a riga singola | idem |
+| Lavaggio | `custom.cura_lavaggio` | Testo multiriga | idem |
+| Vestibilità | `custom.fit` | Testo a riga singola (oversize, boxy, baggy, regular) | Riquadro "Vestibilità" |
+| Consiglio taglia | `custom.consiglio_taglia` | Testo a riga singola | "Vestibilità" e Guida taglie |
+| Altezza modello | `custom.modello_altezza_cm` | Numero intero | "Il modello è alto … e indossa la taglia …" |
+| Taglia modello | `custom.modello_taglia` | Testo a riga singola | idem |
+| Tabella misure | `custom.tabella_misure` | Riferimento a metaoggetto `tabella_misure` | Tabella nella Guida taglie |
+| Fabbricante | `custom.fabbricante` | Riferimento a metaoggetto `fabbricante` | Riquadro "Sicurezza del prodotto" |
+| Data di uscita | `custom.data_uscita` | Data | Se futura: "In uscita il …" e "Avvisami" al posto del pulsante |
+| Prezzo più basso 30 giorni | `custom.prezzo_minimo_30gg` | Denaro | Obbligatorio per mostrare un prezzo barrato (art. 17-bis Codice del Consumo): senza, il prezzo barrato non compare |
+| Abbinamenti | `custom.abbinamenti` | Lista di riferimenti a prodotti | "Complete the look". Se vuoto: pantaloni per t-shirt e longsleeve, t-shirt per i pantaloni |
+
+### Metaoggetto `tabella_misure`
+
+| Campo | Chiave | Tipo |
+|---|---|---|
+| Nome | `nome` | Testo a riga singola (es. "T-shirt oversize") |
+| Misure | `misure` | JSON |
+
+Esempio di JSON (misure del capo in cm):
+
+```json
+{ "colonne": ["Taglia", "Petto", "Lunghezza", "Manica"],
+  "righe": [["S", 54, 70, 22], ["M", 56, 72, 23], ["L", 58, 74, 24], ["XL", 60, 76, 25], ["2XL", 62, 78, 26]] }
+```
+
+### Metaoggetto `fabbricante` (GPSR)
+
+| Campo | Chiave | Tipo |
+|---|---|---|
+| Nome | `nome` | Testo a riga singola |
+| Indirizzo | `indirizzo` | Testo multiriga |
+| Contatto | `contatto` | Testo a riga singola (email o sito) |

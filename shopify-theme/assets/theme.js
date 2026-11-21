@@ -518,10 +518,19 @@
         .then((data) => {
           Cart.render(data);
           form.closest('[data-quick-add]')?.removeAttribute('open');
-          if (btn && form.hasAttribute('data-main-form')) btn.textContent = window.theme.strings.added;
+          const errBox = form.querySelector('[data-form-error]');
+          if (errBox) errBox.classList.add('hidden');
+          if (btn && form.hasAttribute('data-main-form')) {
+            const size = $$('[data-option-index]:checked', form).map((i) => i.value).join(' / ');
+            btn.textContent = size ? window.theme.strings.addedSize.replace('%s', size) : window.theme.strings.added;
+          }
           Cart.open();
         })
-        .catch((err) => alert(err.message))
+        .catch((err) => {
+          const errBox = form.querySelector('[data-form-error]');
+          if (errBox) { errBox.textContent = err.message || window.theme.strings.error; errBox.classList.remove('hidden'); }
+          else alert(err.message || window.theme.strings.error);
+        })
         .finally(() => {
           if (!btn) return;
           setTimeout(() => { btn.innerHTML = label; btn.disabled = false; }, form.hasAttribute('data-main-form') ? 1600 : 0);
@@ -534,45 +543,101 @@
     $$('[data-product]').forEach((sec) => {
       const form = $('[data-main-form]', sec);
       if (!form) return;
-      const variants = JSON.parse($('[data-variants]', sec)?.textContent || '[]');
+      let variants = [];
+      try { variants = JSON.parse($('[data-variants]', sec)?.textContent || '[]'); } catch (e) { /* ignore */ }
       const idInput = $('[data-variant-id]', form);
       const btn = $('[data-add-button]', form);
       const avail = $('[data-availability]', form);
       const price = $('[data-price]', sec);
       const pending = sec.dataset.pending === 'true';
+      const sticky = $('[data-sticky-atc]');
+      const stickyBtn = $('[data-sticky-add]');
+      const S = window.theme.strings;
       const money = (cents) => new Intl.NumberFormat('it-IT', { style: 'currency', currency: (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'EUR' }).format(cents / 100);
 
       const update = () => {
-        const selected = $$('[data-option-index]:checked', form).map((i) => i.value);
-        $$('[data-option-index]:checked', form).forEach((i) => {
+        const checked = $$('[data-option-index]:checked', form);
+        const selected = checked.map((i) => i.value);
+        checked.forEach((i) => {
           const out = $(`[data-option-value="${i.dataset.optionIndex}"]`, form);
           if (out) out.textContent = i.value;
         });
         const v = variants.find((x) => x.options.every((o, i) => o === selected[i]));
         if (!v) {
-          btn.disabled = true;
-          btn.textContent = window.theme.strings.unavailable;
+          if (btn) { btn.disabled = true; btn.textContent = S.unavailable; }
+          if (stickyBtn) stickyBtn.disabled = true;
           return;
         }
         idInput.value = v.id;
-        if (!pending) {
+        if (!pending && btn) {
           btn.disabled = !v.available;
-          btn.textContent = v.available ? window.theme.strings.addToCart : window.theme.strings.soldOut;
-          if (avail) avail.textContent = v.available ? avail.dataset.inStock || avail.textContent : window.theme.strings.soldOut;
-          if (price) price.innerHTML = money(v.price) + (v.compare_at_price > v.price ? ` <s class="ml-2 text-concrete">${money(v.compare_at_price)}</s>` : '');
+          btn.textContent = v.available ? S.addToCart : S.soldOut;
+          if (stickyBtn) { stickyBtn.disabled = !v.available; stickyBtn.textContent = btn.textContent; }
+          if (avail) avail.textContent = !v.available ? S.soldOut : (v.low > 0 ? S.lowStock.replace('%n', v.low) : S.inStock);
+          if (price) price.textContent = money(v.price);
+          const sp = $('[data-sticky-price]'); if (sp) sp.textContent = money(v.price);
+          const ss = $('[data-sticky-size]'); if (ss) ss.textContent = selected.join(' / ');
         }
         const url = new URL(window.location.href);
         url.searchParams.set('variant', v.id);
         window.history.replaceState({}, '', url);
       };
-      if (avail && !avail.dataset.inStock) avail.dataset.inStock = avail.textContent.trim();
       form.addEventListener('change', (e) => { if (e.target.matches('[data-option-index]')) update(); });
+      if (window.location.search.includes('variant=') || variants.some((x) => x.low > 0)) update();
 
       const qty = $('[data-qty-input]', form);
       $$('[data-qty-step]', form).forEach((b) => b.addEventListener('click', () => {
         qty.value = String(Math.max(1, Number(qty.value || 1) + Number(b.dataset.qtyStep)));
       }));
+
+      // Sticky add-to-cart (mobile) when the main button is out of view.
+      const row = $('[data-atc-row]', form);
+      if (sticky && row && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([en]) => {
+          const show = !en.isIntersecting && en.boundingClientRect.top < 0;
+          sticky.style.translate = show ? '0 0' : '';
+          sticky.setAttribute('aria-hidden', String(!show));
+          if (stickyBtn) stickyBtn.tabIndex = show ? 0 : -1;
+        }).observe(row);
+      }
+
+      // Gallery dots (mobile swipe).
+      const gallery = $('[data-gallery]', sec);
+      const dots = $$('[data-gallery-dots] span', sec);
+      if (gallery && dots.length) {
+        const items = $$('[data-gallery-item]', gallery);
+        gallery.addEventListener('scroll', () => {
+          const mid = gallery.scrollLeft + gallery.clientWidth / 2;
+          let idx = 0;
+          items.forEach((it, i) => { if (it.offsetLeft <= mid) idx = i; });
+          dots.forEach((d, i) => d.classList.toggle('!bg-dirty', i === idx));
+        }, { passive: true });
+      }
     });
+
+    // Zoom (desktop click / tap) — native <dialog>.
+    const box = $('[data-lightbox]');
+    if (box) {
+      const img = $('[data-lightbox-img]', box);
+      $$('[data-zoom]').forEach((b) => b.addEventListener('click', () => {
+        img.src = b.dataset.zoom;
+        img.alt = b.dataset.zoomAlt || '';
+        box.showModal();
+        lockScroll(true);
+      }));
+      $('[data-lightbox-close]', box)?.addEventListener('click', () => box.close());
+      box.addEventListener('click', (e) => { if (e.target === box || e.target === img.parentElement) box.close(); });
+      box.addEventListener('close', () => lockScroll(false));
+    }
+
+    // Size guide — native <dialog> (Esc, focus trap and focus return built in).
+    const guide = $('[data-size-guide]');
+    if (guide) {
+      $$('[data-size-guide-open]').forEach((b) => b.addEventListener('click', () => { guide.showModal(); lockScroll(true); }));
+      $('[data-size-guide-close]', guide)?.addEventListener('click', () => guide.close());
+      guide.addEventListener('click', (e) => { if (e.target === guide) guide.close(); });
+      guide.addEventListener('close', () => lockScroll(false));
+    }
 
     $$('[data-recommendations]').forEach((el) => {
       if (el.children.length) return;

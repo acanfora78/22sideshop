@@ -2,14 +2,19 @@
   "sections": {
     "main": {
       "type": "main-product",
-      "blocks": {
-        "fit": { "type": "accordion", "settings": { "heading": "Taglie e vestibilità", "content": "<p>Tabella taglie in arrivo. Per un consiglio sulla taglia scrivici su Instagram.</p>" } },
-        "ship": { "type": "accordion", "settings": { "heading": "Spedizione e resi", "content": "<p>Tempi e costi di spedizione vengono mostrati al checkout.</p>" } }
-      },
-      "block_order": ["fit", "ship"],
-      "settings": {}
+      "settings": {
+        "look_title": "Complete the look."
+      }
     },
-    "recommendations": { "type": "product-recommendations", "settings": {} }
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "title": "Also on the block."
+      }
+    }
   },
-  "order": ["main", "recommendations"]
+  "order": [
+    "main",
+    "recommendations"
+  ]
 }

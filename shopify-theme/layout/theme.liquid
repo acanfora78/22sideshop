@@ -41,7 +41,7 @@
       try { if (sessionStorage.getItem('22side.intro.seen')) document.documentElement.setAttribute('data-intro', 'seen'); } catch (e) {}
       window.theme = {
         routes: { cart_add_url: '{{ routes.cart_add_url }}', cart_change_url: '{{ routes.cart_change_url }}', cart_url: '{{ routes.cart_url }}', root_url: '{{ routes.root_url }}' },
-        strings: { added: {{ 'products.product.added' | t | json }}, addToCart: {{ 'products.product.add_to_cart' | t | json }}, soldOut: {{ 'products.product.sold_out' | t | json }}, unavailable: {{ 'products.product.unavailable' | t | json }}, selectSize: {{ 'products.product.select_size' | t | json }} }
+        strings: { added: {{ 'products.product.added' | t | json }}, addToCart: {{ 'products.product.add_to_cart' | t | json }}, soldOut: {{ 'products.product.sold_out' | t | json }}, unavailable: {{ 'products.product.unavailable' | t | json }}, selectSize: {{ 'products.product.select_size' | t | json }}, inStock: {{ 'products.product.in_stock' | t | json }}, lowStock: {{ 'products.product.low_stock_count' | t: count: '%n' | json }}, addedSize: {{ 'products.product.added_size' | t: size: '%s' | json }}, error: {{ 'products.product.error' | t | json }} }
       };
     </script>
 

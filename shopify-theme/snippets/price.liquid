@@ -6,7 +6,7 @@
   {%- if product.tags contains 'prezzo-da-confermare' -%}<span class="text-concrete">{{ 'products.product.price_pending' | t }}</span>{%- else -%}
   {%- if product.price_varies -%}{{ 'products.product.price_from' | t }} {% endif -%}
   {{- target.price | money -}}
-  {%- if target.compare_at_price > target.price -%}
+  {%- if target.compare_at_price > target.price and product.metafields.custom.prezzo_minimo_30gg != blank -%}
     <s class="ml-2 text-concrete">{{ target.compare_at_price | money }}</s>
   {%- endif -%}
   {%- endif -%}
