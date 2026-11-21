@@ -93,7 +93,7 @@ Esempio di JSON (misure del capo in cm):
 
 ```json
 { "colonne": ["Taglia", "Petto", "Lunghezza", "Manica"],
-  "righe": [["S", 54, 70, 22], ["M", 56, 72, 23], ["L", 58, 74, 24], ["XL", 60, 76, 25], ["2XL", 62, 78, 26]] }
+  "righe": [["S", 54, 70, 22], ["M", 56, 72, 23], ["L", 58, 74, 24], ["XL", 60, 76, 25]] }
 ```
 
 ### Metaoggetto `fabbricante` (GPSR)
