@@ -19,3 +19,9 @@ Report in `docs/audit/fase-0/README.md`.
 Verifica dopo la fase (render locale): axe 0 violazioni su catalogo, schede, carrello e intro; in home restavano 13 nodi delle parole "light-up" (corretti portando l'opacità al 45%). Nessun overflow orizzontale a 375–1920 px. `theme check`: 0 errori, solo i 6 avvisi già noti sui Google Fonts.
 
 Ancora aperti (fasi successive): target touch < 44 px, intro (localStorage, "Salta" per primo, scroll libero), testi rimasti scritti nei file Liquid, numerazione del menu nel sito Next.
+
+## Testi legali e funzioni obbligatorie (novembre 2026)
+
+- `docs/legal/`: condizioni di vendita, recesso e resi (con modulo tipo e modello di conferma), spedizioni, privacy, cookie, informazioni venditore, garanzia legale, accessibilità, pagina recesso. Versioni HTML pronte da incollare in `docs/legal/html/` (`bash scripts/legal/build.sh`).
+- Tema: funzione di recesso digitale (art. 54-bis Codice del Consumo, dal 19/06/2026) con link fisso "Recedi dal contratto qui" nel footer; sezione per l'avviso armonizzato UE sulla garanzia legale (Reg. 2025/1960, dal 27/09/2026); modello `page.legal` con indice cliccabile e data di aggiornamento; stile delle policy native.
+- Footer: colonna "Legale" (policy + pagine legali), "Preferenze cookie", dati del venditore dai metafield `brand.*`, icone dei pagamenti; newsletter con consenso non preselezionato e link alla privacy.

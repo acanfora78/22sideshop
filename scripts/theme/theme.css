@@ -310,3 +310,24 @@ html[data-intro="seen"] [data-intro-overlay] {
 [data-intro-scene] svg { width: 100%; height: 100%; display: block; }
 .quick-add[open] > summary { background: var(--color-blood, #b31e1e); color: var(--color-dirty, #e8e5df); }
 @media (prefers-reduced-motion: reduce) { .lu-word { opacity: 1 !important; } }
+
+/* Legal pages and Shopify policy pages: ≥ 16px, generous line height */
+.prose-legal, .shopify-policy__body { font-size: 1.0625rem; line-height: 1.75; color: rgb(232 229 223 / .9); }
+.prose-legal h2, .shopify-policy__body h2 { font-family: var(--font-anton), Impact, sans-serif; text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.05; color: #e8e5df; margin: 2.4em 0 .6em; scroll-margin-top: 6rem; }
+.prose-legal h3, .shopify-policy__body h3 { font-weight: 700; font-size: 1.15rem; color: #e8e5df; margin: 1.8em 0 .5em; }
+.prose-legal p, .shopify-policy__body p { margin: .9em 0; }
+.prose-legal ul, .prose-legal ol, .shopify-policy__body ul, .shopify-policy__body ol { margin: .9em 0; padding-left: 1.4em; }
+.prose-legal ul, .shopify-policy__body ul { list-style: disc; }
+.prose-legal ol, .shopify-policy__body ol { list-style: decimal; }
+.prose-legal li + li, .shopify-policy__body li + li { margin-top: .35em; }
+.prose-legal a, .shopify-policy__body a { color: #e8e5df; text-decoration: underline; text-underline-offset: 3px; }
+.prose-legal a:hover, .shopify-policy__body a:hover { color: #e5484d; }
+.prose-legal strong, .shopify-policy__body strong { color: #e8e5df; }
+.prose-legal table, .shopify-policy__body table { width: 100%; border-collapse: collapse; margin: 1.2em 0; font-size: .95rem; }
+.prose-legal th, .prose-legal td, .shopify-policy__body th, .shopify-policy__body td { border: 1px solid rgb(232 229 223 / .2); padding: .6em .8em; text-align: left; vertical-align: top; }
+.shopify-policy__container { max-width: 52rem !important; margin: 0 auto; padding: 9rem var(--gutter) 5rem !important; }
+.shopify-policy__title h1 { font-family: var(--font-anton), Impact, sans-serif; text-transform: uppercase; font-size: clamp(2.6rem, 7vw, 5.5rem); line-height: .92; color: #e8e5df; margin-bottom: 2rem; }
+@media print {
+  header, footer, [data-header], [data-mobile-menu], .grain { display: none !important; }
+  body, .prose-legal, [data-withdrawal] * { background: #fff !important; color: #000 !important; }
+}

@@ -96,7 +96,23 @@ function sectionObj(type: string, data: any = {}) {
   return { id: type, settings: { ...defaults(schema.settings), ...(data.settings ?? {}) }, blocks };
 }
 const globals: any = {
-  shop: { name: "22SIDE", url: "/" }, request: { locale: { iso_code: "it" } }, settings: JSON.parse(read("config/settings_data.json")).current,
+  shop: {
+    name: "22SIDE", url: "/",
+    privacy_policy: { title: "Informativa sulla privacy", url: "/policies/privacy-policy" },
+    policies: [
+      { title: "Termini di servizio", url: "/policies/terms-of-service" },
+      { title: "Politica di rimborso", url: "/policies/refund-policy" },
+      { title: "Politica di spedizione", url: "/policies/shipping-policy" },
+      { title: "Informativa sulla privacy", url: "/policies/privacy-policy" },
+    ],
+    enabled_payment_types: [],
+    metafields: { brand: {} },
+  },
+  pages: {
+    cookie: { title: "Cookie policy", url: "/pages/cookie" },
+    garanzia: { title: "Garanzia legale", url: "/pages/garanzia" },
+    recesso: { title: "Recedi dal contratto qui", url: "/pages/recesso" },
+  }, request: { locale: { iso_code: "it" } }, settings: JSON.parse(read("config/settings_data.json")).current,
   routes: { root_url: "/", cart_url: "/cart", cart_add_url: "/cart/add", cart_change_url: "/cart/change", search_url: "/search", all_products_collection_url: "/collections/all", collections_url: "/collections", product_recommendations_url: "/recommendations/products" },
   cart: { item_count: 0, items: [], total_price: 0 }, collections, linklists: {}, content_for_header: "", canonical_url: "/", page_title: "22SIDE", current_page: 1,
   template: { name: "index" },
@@ -127,6 +143,9 @@ await page("collections/all/index.html", "collection", { collection: collections
 await page("products/heaven-tee/index.html", "product", { product: products[2] });
 await page("products/baggy-jeans-vintage-blue/index.html", "product", { product: products[9] });
 await page("cart/index.html", "cart");
+const legalHtml = (f: string) => fs.readFileSync(`docs/legal/html/${f}.html`, "utf8");
+await page("pages/privacy/index.html", "page.legal", { page: { title: "Informativa sulla privacy", content: legalHtml("04-privacy"), metafields: {} } });
+await page("pages/recesso/index.html", "page.recesso", { page: { title: "Recedi dal contratto qui", content: legalHtml("09-pagina-recesso"), metafields: {} } });
 fs.rmSync(path.join(outDir, "assets"), { force: true, recursive: true });
 fs.symlinkSync(path.join(T, "assets"), path.join(outDir, "assets"));
 fs.rmSync(path.join(outDir, "products-img"), { force: true });

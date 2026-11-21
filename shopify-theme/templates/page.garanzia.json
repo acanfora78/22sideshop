@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-legal",
+      "settings": {}
+    },
+    "notice": {
+      "type": "guarantee-notice",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "notice"
+  ]
+}

@@ -29,3 +29,20 @@ diventano automaticamente la tendina.
 1. Impostazioni → Dati personalizzati → Prodotti: crea `custom.codice` (testo a riga singola) **prima** dell'import.
 2. Prodotti → Importa → `exports/22side-prodotti-shopify.csv` (spunta "Sovrascrivi i prodotti con lo stesso handle").
 3. Quando inserisci le taglie: togli il tag `taglie-da-confermare`.
+
+## 4. Testi legali (vedi `docs/legal/README.md`)
+
+1. Impostazioni › **Policy**: incolla Termini di servizio, Politica di rimborso, Politica di spedizione, Informativa sulla privacy, Informazioni di contatto. Elimina il testo generato da Shopify e qualsiasi riferimento alla piattaforma ODR.
+2. Negozio online › **Pagine** › Aggiungi pagina, e per ciascuna scegli il **modello** a destra:
+   - "Cookie policy" — handle `cookie` — modello `legal`
+   - "Garanzia legale" — handle `garanzia` — modello `garanzia`
+   - "Accessibilità" — handle `accessibilita` — modello `legal`
+   - "Recedi dal contratto qui" — handle `recesso` — modello `recesso`
+   L'handle si controlla in fondo alla pagina, in "Anteprima dei risultati dei motori di ricerca" → Modifica.
+3. Pagina **Garanzia legale** › Personalizza › sezione "Avviso garanzia UE": carica l'immagine ufficiale italiana dell'avviso armonizzato (Reg. di esecuzione (UE) 2025/1960, allegato), senza modificarla.
+4. Metafield del negozio `brand.*` con i dati del venditore (vedi `docs/metafields.md`).
+5. Impostazioni › **Privacy dei clienti** › Banner sui cookie: attivo per UE/SEE, con "Accetta" e "Rifiuta". Poi prova il link "Preferenze cookie" nel footer.
+6. Impostazioni › **Notifiche** › Marketing: attiva la **doppia conferma (double opt-in)** per le iscrizioni alla newsletter.
+7. **Recessi**: le richieste dalla funzione di recesso arrivano all'email del negozio come messaggi del modulo contatti (campo "Tipo di richiesta: RECESSO"). Rispondi subito con la conferma di ricezione (modello in `docs/legal/02-recesso-e-resi.md`). Imposta un filtro nella casella email per non perderle.
+8. Impostazioni › **Checkout**: se disponibile, attiva la casella di accettazione dei termini; controlla che il pulsante finale sia "Paga ora" o equivalente (obbligo di pagare, art. 51 Codice del Consumo).
+9. Impostazioni › **Notifiche** › Conferma dell'ordine: aggiungi dati del venditore, link a Condizioni di vendita, Politica di recesso e alla pagina "Recedi dal contratto qui".

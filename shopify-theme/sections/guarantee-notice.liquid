@@ -1,0 +1,31 @@
+{%- comment -%}
+  Harmonised notice on the legal guarantee of conformity (Directive (EU) 2024/825, art. 22a Dir. 2011/83/EU;
+  design fixed by Commission Implementing Regulation (EU) 2025/1960, in force from 27 September 2026).
+  Its elements may not be edited: upload the official Italian file from the Regulation's annex as an image
+  in the theme editor. Until then the shop owner sees a reminder; customers see nothing invented.
+{%- endcomment -%}
+<section class="px-gutter pb-16" aria-labelledby="guarantee-notice-{{ section.id }}">
+  <h2 id="guarantee-notice-{{ section.id }}" class="label mb-4 text-concrete">{{ 'sections.legal.guarantee_notice' | t }}</h2>
+  {%- if section.settings.notice != blank -%}
+    <div class="max-w-3xl bg-white p-4">
+      {{ section.settings.notice | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 768px) 768px, 100vw', loading: 'lazy', class: 'h-auto w-full', alt: section.settings.notice_alt }}
+    </div>
+    {%- if section.settings.notice_pdf != blank -%}
+      <p class="mt-3 text-sm"><a href="{{ section.settings.notice_pdf }}" class="underline underline-offset-2">{{ 'sections.legal.guarantee_notice_pdf' | t }}</a></p>
+    {%- endif -%}
+  {%- elsif request.design_mode -%}
+    <p class="max-w-3xl border border-dashed border-signal p-4 text-sm text-signal">{{ 'sections.legal.guarantee_notice_missing' | t }}</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Avviso garanzia UE",
+  "settings": [
+    { "type": "image_picker", "id": "notice", "label": "Avviso armonizzato ufficiale (immagine)", "info": "Reg. di esecuzione (UE) 2025/1960, versione italiana. Non modificarne gli elementi." },
+    { "type": "text", "id": "notice_alt", "label": "Testo alternativo", "default": "Avviso armonizzato UE sulla garanzia legale di conformità di almeno 2 anni" },
+    { "type": "url", "id": "notice_pdf", "label": "Link alla versione testuale/PDF ufficiale (facoltativo)" }
+  ],
+  "presets": [{ "name": "Avviso garanzia UE" }]
+}
+{% endschema %}

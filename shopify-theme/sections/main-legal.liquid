@@ -1,0 +1,37 @@
+{%- comment -%}
+  Legal page (template page.legal / page.recesso / page.garanzia): readable body (≥ 16px),
+  clickable index built from the H2 headings, last-update date.
+  Date: page metafield custom.aggiornato_il (date) if set, otherwise the section setting.
+{%- endcomment -%}
+{%- liquid
+  assign updated = page.metafields.custom.aggiornato_il.value
+-%}
+<section class="px-gutter pb-20 pt-32 md:pt-44" data-legal>
+  <p class="label text-concrete"><span class="text-signal">{{ 'sections.legal.kicker' | t }}</span> / {{ shop.name }}</p>
+  <h1 class="font-display mt-6 text-[clamp(2.8rem,8vw,7rem)] leading-[0.9]">{{ page.title }}</h1>
+  <p class="label mt-6 text-concrete">
+    {{ 'sections.legal.updated' | t }}:
+    {% if updated != blank %}{{ updated | date: '%d/%m/%Y' }}{% else %}{{ section.settings.updated }}{% endif %}
+  </p>
+
+  <div class="mt-12 grid gap-12 lg:grid-cols-12">
+    <nav class="lg:col-span-3" aria-label="{{ 'sections.legal.index' | t }}" data-legal-toc hidden>
+      <div class="border-l-2 border-signal pl-4 lg:sticky lg:top-28">
+        <p class="label mb-3 text-concrete">{{ 'sections.legal.index' | t }}</p>
+        <ol class="space-y-1 text-sm" data-legal-toc-list></ol>
+      </div>
+    </nav>
+    <div class="prose-legal max-w-3xl lg:col-span-8 lg:col-start-5" data-legal-body>
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testo legale",
+  "settings": [
+    { "type": "text", "id": "updated", "label": "Ultimo aggiornamento", "default": "21/11/2026", "info": "Usato se la pagina non ha il metafield custom.aggiornato_il (data)." }
+  ]
+}
+{% endschema %}

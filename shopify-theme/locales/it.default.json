@@ -35,8 +35,10 @@
     "label": "Newsletter",
     "placeholder": "La tua email",
     "button": "Iscriviti",
-    "note": "Solo drop e novità. Niente spam, ti cancelli quando vuoi.",
-    "success": "Ci sei. Ti scriviamo al prossimo drop."
+    "note": "Iscrizione con doppia conferma: ti scriviamo per confermare l’indirizzo.",
+    "success": "Ci sei. Ti scriviamo al prossimo drop.",
+    "consent": "Voglio ricevere la newsletter di 22SIDE (nuovi drop e offerte). Puoi disiscriverti in ogni momento dal link in fondo a ogni email. Dettagli nell’",
+    "privacy_link": "informativa privacy"
   },
   "products": {
     "product": {
@@ -74,7 +76,12 @@
     },
     "footer": {
       "map": "Mappa della Line 22",
-      "replay_intro": "Rivedi l’intro"
+      "replay_intro": "Rivedi l’intro",
+      "legal": "Legale",
+      "cookie_preferences": "Preferenze cookie",
+      "withdraw": "Recedi dal contratto qui",
+      "payments": "Metodi di pagamento accettati",
+      "seller_missing": "Mancano i dati del venditore (ragione sociale, sede, P.IVA…): compila i metafield del negozio brand.* (vedi docs/metafields.md). Questo avviso lo vedi solo nell’editor."
     },
     "intro": {
       "skip": "Salta intro"
@@ -114,6 +121,14 @@
       "increase": "Aumenta quantità",
       "decrease": "Diminuisci quantità",
       "quantity_for": "Quantità per {{ title }}"
+    },
+    "legal": {
+      "kicker": "Legale",
+      "updated": "Ultimo aggiornamento",
+      "index": "Indice",
+      "guarantee_notice": "Avviso armonizzato UE sulla garanzia legale",
+      "guarantee_notice_pdf": "Versione testuale dell’avviso",
+      "guarantee_notice_missing": "Carica qui l’avviso armonizzato ufficiale in italiano (Reg. di esecuzione (UE) 2025/1960), obbligatorio dal 27 settembre 2026. Questo promemoria lo vedi solo nell’editor."
     }
   },
   "gift_card": {
@@ -122,5 +137,21 @@
     "expired": "Scaduta o disattivata",
     "expires_on": "Scade il {{ date }}",
     "shop": "Vai allo shop"
+  },
+  "withdrawal": {
+    "title": "Recedi dal contratto qui",
+    "intro": "Puoi recedere dall’acquisto entro 14 giorni dalla consegna, senza dare spiegazioni. Compila i campi e premi “Conferma recesso”: ti mandiamo per email la conferma di ricezione con il contenuto della richiesta, la data e l’ora.",
+    "name": "Nome e cognome",
+    "email": "Email",
+    "email_help": "Qui ricevi la conferma di ricezione del recesso.",
+    "order": "Numero d’ordine",
+    "date": "Data dell’ordine o della consegna",
+    "items": "Articoli da restituire",
+    "items_help": "Lascia vuoto se recedi da tutto l’ordine.",
+    "declaration": "Con l’invio di questo modulo comunico il mio recesso dal contratto di vendita dei beni indicati (artt. 52 e 54-bis del Codice del Consumo).",
+    "confirm": "Conferma recesso",
+    "done_title": "Recesso ricevuto.",
+    "done_text": "Abbiamo ricevuto la tua dichiarazione di recesso. Riceverai a breve una email di conferma con il contenuto e la data e l’ora di invio. Ti consigliamo di salvare questo riepilogo.",
+    "print": "Salva o stampa il riepilogo"
   }
 }

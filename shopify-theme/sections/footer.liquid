@@ -20,6 +20,13 @@
           <input id="newsletter-email" type="email" name="contact[email]" required autocomplete="email" placeholder="{{ 'newsletter.placeholder' | t }}" class="w-full bg-transparent py-3 font-mono text-sm text-dirty placeholder:text-concrete focus:outline-none">
           <button type="submit" class="label flex items-center gap-2 px-2 text-dirty hover:text-signal">{{ 'newsletter.button' | t }} {% render 'icon', name: 'arrow-right' %}</button>
         </div>
+        <div class="mt-4 flex items-start gap-3">
+          <input id="newsletter-consent" type="checkbox" name="contact[accepts_marketing]" value="true" required class="mt-0.5 size-5 shrink-0 accent-[#e5484d]">
+          <label for="newsletter-consent" class="text-xs leading-relaxed text-dirty/80">
+            {{- 'newsletter.consent' | t -}}
+            {%- if shop.privacy_policy -%} <a href="{{ shop.privacy_policy.url }}" class="underline underline-offset-2 hover:text-dirty">{{ 'newsletter.privacy_link' | t }}</a>.{%- endif -%}
+          </label>
+        </div>
         <p class="label mt-3 min-h-4 text-[0.6rem] text-concrete" role="status">
           {%- if form.posted_successfully? -%}<span class="text-dirty">{{ 'newsletter.success' | t }}</span>
           {%- elsif form.errors -%}<span class="text-signal">{{ form.errors | default_errors }}</span>
@@ -28,7 +35,7 @@
       {%- endform -%}
     </div>
 
-    <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-6 md:col-start-7">
+    <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7 md:col-start-6">
       {%- for i in (1..3) -%}
         {%- liquid
           assign key = 'menu_' | append: i
@@ -43,6 +50,24 @@
           </div>
         {%- endif -%}
       {%- endfor -%}
+      <div>
+        <p class="label mb-4 text-concrete">{{ 'sections.footer.legal' | t }}</p>
+        <ul class="space-y-2.5 text-sm">
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank -%}<li><a href="{{ policy.url }}" class="link-underline text-dirty/80 hover:text-dirty">{{ policy.title }}</a></li>{%- endif -%}
+          {%- endfor -%}
+          {%- assign legal_handles = section.settings.legal_pages | remove: ' ' | split: ',' -%}
+          {%- for handle in legal_handles -%}
+            {%- assign pg = pages[handle] -%}
+            {%- if pg != blank -%}<li><a href="{{ pg.url }}" class="link-underline text-dirty/80 hover:text-dirty">{{ pg.title }}</a></li>{%- endif -%}
+          {%- endfor -%}
+          <li><button type="button" class="link-underline text-left text-dirty/80 hover:text-dirty" data-cookie-preferences>{{ 'sections.footer.cookie_preferences' | t }}</button></li>
+          {%- assign withdrawal = pages[section.settings.withdrawal_page] -%}
+          {%- if withdrawal != blank -%}
+            <li><a href="{{ withdrawal.url }}" class="link-underline font-semibold text-dirty hover:text-signal">{{ 'sections.footer.withdraw' | t }}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
       <div>
         <p class="label mb-4 text-concrete">22SIDE</p>
         <ul class="space-y-2.5 text-sm">
@@ -68,6 +93,52 @@
     {%- if section.settings.support_text != blank -%}<p class="mt-8 text-sm text-dirty/70">{{ section.settings.support_text }}</p>{%- endif -%}
   </div>
 
+  {%- liquid
+    assign b = shop.metafields.brand
+    capture seller
+      if b.ragione_sociale != blank
+        echo b.ragione_sociale.value
+        if b.forma_giuridica != blank
+          echo ' ' | append: b.forma_giuridica.value
+        endif
+      endif
+      if b.sede_legale != blank
+        echo ' — ' | append: b.sede_legale.value
+      endif
+      if b.partita_iva != blank
+        echo ' — P.IVA ' | append: b.partita_iva.value
+      endif
+      if b.codice_fiscale != blank
+        echo ' — C.F. ' | append: b.codice_fiscale.value
+      endif
+      if b.rea != blank
+        echo ' — ' | append: b.rea.value
+      endif
+      if b.capitale_sociale != blank
+        echo ' — Capitale sociale ' | append: b.capitale_sociale.value
+      endif
+      if b.pec != blank
+        echo ' — PEC ' | append: b.pec.value
+      endif
+      if b.email_assistenza != blank
+        echo ' — ' | append: b.email_assistenza.value
+      endif
+    endcapture
+    assign seller = seller | strip
+  -%}
+  <div class="px-gutter border-t border-dirty/10 py-6">
+    {%- if seller != blank -%}
+      <p class="text-xs leading-relaxed text-dirty/70">{{ seller }}</p>
+    {%- elsif request.design_mode -%}
+      <p class="border border-dashed border-signal p-3 text-xs text-signal">{{ 'sections.footer.seller_missing' | t }}</p>
+    {%- endif -%}
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <ul class="mt-4 flex flex-wrap items-center gap-2" aria-label="{{ 'sections.footer.payments' | t }}">
+        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'h-6 w-auto' }}</li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+
   <div class="px-gutter label flex flex-col gap-3 border-t border-dirty/10 pb-10 pt-6 text-concrete md:flex-row md:items-center md:justify-between">
     <div class="flex flex-wrap items-center gap-4">
       {%- render 'logo', class: 'text-xl text-dirty' -%}
@@ -87,7 +158,10 @@
     { "type": "link_list", "id": "menu_1", "label": "Menu colonna 1", "default": "footer" },
     { "type": "link_list", "id": "menu_2", "label": "Menu colonna 2" },
     { "type": "link_list", "id": "menu_3", "label": "Menu colonna 3" },
-    { "type": "text", "id": "support_text", "label": "Testo assistenza", "default": "Hai bisogno di aiuto? Scrivici su Instagram @22sideshop." }
+    { "type": "text", "id": "support_text", "label": "Testo assistenza", "default": "Hai bisogno di aiuto? Scrivici su Instagram @22sideshop." },
+    { "type": "header", "content": "Legale" },
+    { "type": "text", "id": "legal_pages", "label": "Pagine legali (handle, separati da virgola)", "default": "cookie, garanzia, accessibilita", "info": "Le policy di Impostazioni › Policy compaiono da sole. Qui le pagine extra." },
+    { "type": "text", "id": "withdrawal_page", "label": "Pagina della funzione di recesso (handle)", "default": "recesso", "info": "Art. 54-bis Codice del Consumo: link sempre visibile \"Recedi dal contratto qui\"." }
   ]
 }
 {% endschema %}

@@ -36,3 +36,27 @@ dell'editor o, in mancanza, tutte le collezioni con prodotti.
 | Collezione | `collezione` | Riferimento a collezione |
 
 Accesso storefront: attiva "Accesso Storefront" sulla definizione, altrimenti Liquid non la legge.
+
+## Negozio (`brand`) — dati del venditore nel footer
+
+Impostazioni › Metafield e metaoggetti › **Negozio** (o "Shop"). Tutti testo a riga singola. Il footer li mostra
+in fondo a ogni pagina (D.Lgs. 70/2003 art. 7, DPR 633/1972 art. 35, c.c. art. 2250). Se mancano, i clienti non vedono
+nulla e tu vedi un avviso solo nell'editor del tema.
+
+| Nome | Chiave | Esempio |
+|---|---|---|
+| Ragione sociale | `brand.ragione_sociale` | 22SIDE di Mario Rossi |
+| Forma giuridica | `brand.forma_giuridica` | ditta individuale / S.r.l. |
+| Sede legale | `brand.sede_legale` | Via …, 84018 Scafati (SA) |
+| Partita IVA | `brand.partita_iva` | 01234567890 |
+| Codice fiscale | `brand.codice_fiscale` | |
+| REA | `brand.rea` | REA SA-123456 |
+| Capitale sociale (solo società di capitali) | `brand.capitale_sociale` | € 10.000 i.v. |
+| PEC | `brand.pec` | |
+| Email assistenza | `brand.email_assistenza` | |
+
+## Pagina (`custom`)
+
+| Nome | Chiave | Tipo | Uso |
+|---|---|---|---|
+| Aggiornato il | `custom.aggiornato_il` | Data | "Ultimo aggiornamento" nelle pagine legali. Se manca, il tema usa la data impostata nella sezione (21/11/2026) |

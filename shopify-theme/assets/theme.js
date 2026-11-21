@@ -86,6 +86,68 @@
     }
   }
 
+  /* ───────────── Legal pages: index, withdrawal function, cookie preferences ───────────── */
+  function initLegal() {
+    $$('[data-legal]').forEach((sec) => {
+      const body = $('[data-legal-body]', sec);
+      const toc = $('[data-legal-toc]', sec);
+      const list = $('[data-legal-toc-list]', sec);
+      if (!body || !toc || !list) return;
+      const heads = $$('h2', body);
+      if (heads.length < 3) return;
+      heads.forEach((h, i) => {
+        if (!h.id) h.id = 'sez-' + (i + 1) + '-' + h.textContent.trim().toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent.trim();
+        a.className = 'block py-1 text-dirty/80 hover:text-dirty';
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      toc.hidden = false;
+    });
+
+    // Withdrawal function (art. 54-bis Codice del Consumo): timestamp + saved summary.
+    const KEY = '22side.withdrawal';
+    $$('[data-withdrawal-form]').forEach((form) => {
+      form.addEventListener('submit', () => {
+        const now = new Date();
+        const stamp = now.toLocaleString('it-IT', { dateStyle: 'long', timeStyle: 'medium' });
+        const time = $('[data-withdrawal-time]', form);
+        if (time) time.value = stamp + ' (' + now.toISOString() + ')';
+        const summary = $$('input:not([type=hidden]), textarea', form).map((f) => [form.querySelector('label[for="' + f.id + '"]')?.textContent.replace('*', '').trim() || f.name, f.value]);
+        summary.push(['Inviato il', stamp]);
+        try { sessionStorage.setItem(KEY, JSON.stringify(summary)); } catch (e) { /* ignore */ }
+      });
+    });
+    const done = $('[data-withdrawal-done]');
+    if (done) {
+      const dl = $('[data-withdrawal-summary]', done);
+      let rows = [];
+      try { rows = JSON.parse(sessionStorage.getItem(KEY) || '[]'); } catch (e) { /* ignore */ }
+      rows.filter((r) => r[1]).forEach(([k, v]) => {
+        const dt = document.createElement('dt'); dt.className = 'label mt-2 text-concrete'; dt.textContent = k;
+        const dd = document.createElement('dd'); dd.textContent = v;
+        dl.append(dt, dd);
+      });
+      done.focus();
+      $('[data-withdrawal-print]', done)?.addEventListener('click', () => window.print());
+    }
+
+    // Cookie preferences: reopen Shopify's consent banner (privacyBanner is loaded by Shopify when
+    // the banner is enabled in Settings › Customer privacy). Fallback: the privacy policy.
+    $$('[data-cookie-preferences]').forEach((b) => b.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.privacyBanner && typeof window.privacyBanner.showPreferences === 'function') {
+        window.privacyBanner.showPreferences();
+      } else {
+        const cookiePage = document.querySelector('a[href$="/pages/cookie"]');
+        window.location.href = cookiePage ? cookiePage.href : '/policies/privacy-policy';
+      }
+    }));
+  }
+
   /* ───────────── Dropdowns (Catalogo) ───────────── */
   function initDropdowns() {
     $$('[data-dropdown]').forEach((wrap) => {
@@ -555,6 +617,7 @@
     initIntro();
     initHeader();
     initDropdowns();
+    initLegal();
     initReveals();
     initLightUp();
     initScenes();
