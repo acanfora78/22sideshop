@@ -26,12 +26,14 @@ const defaults = (settings: any[] = []) => Object.fromEntries(settings.filter((s
 const img = (file: string, alt: string) => ({ src: `/products/${file}.webp`, alt, width: 1200, height: 1500, media_type: "image" });
 const products = raw.map((p: any, i: number) => {
   const media = p.images.map((im: any) => img(im.file, im.alt));
-  const variant = { id: 1000 + i, title: "Da confermare", available: true, price: (p.price ?? 0) * 100, compare_at_price: null, options: ["Da confermare"] };
+  const sizes: string[] = p.sizes ?? ["Da confermare"];
+  const variants = sizes.map((sz, j) => ({ id: 1000 + i * 10 + j, title: sz, available: true, price: (p.price ?? 0) * 100, compare_at_price: null, options: [sz] }));
+  const variant = variants[0];
   return {
     id: i + 1, handle: p.slug, title: p.title, url: `/products/${p.slug}`, type: p.productType, vendor: "22SIDE",
     available: true, tags: [...p.tags, ...(p.price === null ? ["prezzo-da-confermare"] : []), ...(p.sizes === null ? ["taglie-da-confermare"] : [])], media, featured_media: media[0], featured_image: media[0],
-    variants: [variant], selected_or_first_available_variant: variant, has_only_default_variant: false, price_varies: false,
-    options: ["Taglia"], options_with_values: [{ name: "Taglia", values: ["Da confermare"], selected_value: "Da confermare" }],
+    variants, selected_or_first_available_variant: variant, has_only_default_variant: false, price_varies: false,
+    options: ["Taglia"], options_with_values: [{ name: "Taglia", values: sizes, selected_value: sizes[0] }],
     description: `<p>${p.description ?? ""}</p>`,
     metafields: { custom: { codice: p.code, immagini_didascalie: { value: p.images.map((im: any) => im.caption) } } },
   };

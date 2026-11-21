@@ -12,7 +12,7 @@ import { collections } from "../src/data/collections.ts";
 const base = (process.argv[2] ?? "https://22sideshop.vercel.app").replace(/\/$/, "");
 const cols = [
   "Handle", "Title", "Body (HTML)", "Vendor", "Type", "Tags", "Published",
-  "Option1 Name", "Option1 Value", "Variant SKU", "Variant Price", "Variant Inventory Qty",
+  "Option1 Name", "Option1 Value", "Variant SKU", "Variant Price", "Variant Inventory Tracker", "Variant Inventory Qty",
   "Variant Inventory Policy", "Variant Fulfillment Service", "Variant Requires Shipping", "Variant Taxable",
   "Image Src", "Image Position", "Image Alt Text", "Status", "Collections (22SIDE)", "Codice (product.metafields.custom.codice)", "Note",
 ];
@@ -48,6 +48,8 @@ for (const p of rawProducts) {
       size ?? "",
       size ? `${p.code}-${size.replace(/\s+/g, "")}` : "",
       size && p.price !== null ? p.price.toFixed(2) : "",
+      // Stock not communicated yet: inventory not tracked, so every size stays purchasable.
+      size && p.stock ? "shopify" : "",
       size ? String(p.stock?.[sizes.indexOf(size)] ?? (p.sizes ? "" : "0")) : "",
       size ? "deny" : "",
       size ? "manual" : "",
