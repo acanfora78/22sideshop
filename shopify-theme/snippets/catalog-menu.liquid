@@ -32,7 +32,7 @@
     <a href="{{ all_url }}" class="flex items-baseline justify-between py-3">
       <span class="font-display text-[17vw] leading-[0.95]">{{ label }}</span><span aria-hidden="true" class="label text-signal">↗</span>
     </a>
-    <ul class="-mt-1 grid grid-cols-2 gap-2 pb-4">{{ items | replace: 'CLS', 'label flex min-h-11 items-center justify-between border border-dirty/20 px-3 text-dirty' }}</ul>
+    <ul class="-mt-1 border-l-2 border-signal pb-5 pl-4">{{ items | replace: 'CLS', 'font-display flex min-h-11 items-center justify-between text-[9vw] leading-none text-dirty/85 active:text-signal' }}</ul>
   </div>
 {%- else -%}
   <div class="relative" data-dropdown>

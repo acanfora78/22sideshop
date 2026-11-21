@@ -87,11 +87,12 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                   <span aria-hidden className="label text-blood-bright">↗</span>
                 </Link>
                 {item.children && (
-                  <ul className="-mt-1 grid grid-cols-2 gap-2 pb-4">
+                  <ul className="-mt-1 border-l-2 border-blood-bright pb-5 pl-4">
                     {item.children.map((c) => (
                       <li key={c.href}>
-                        <Link href={c.href} onClick={onClose} className="label flex min-h-11 items-center border border-dirty/20 px-3 text-dirty">
+                        <Link href={c.href} onClick={onClose} className="font-display flex min-h-11 items-center justify-between text-[9vw] leading-none text-dirty/85">
                           {c.label}
+                          <span aria-hidden className="label text-xs">↗</span>
                         </Link>
                       </li>
                     ))}
