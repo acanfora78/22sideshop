@@ -31,7 +31,7 @@ export const movement = {
     imageAlt: "Un ragazzo con giacca di pelle nera in piedi al centro del negozio 22SIDE, davanti a un enorme 22 dipinto sul muro.",
     kicker: "22SIDE — The Movement",
     title: "The movement.",
-    sub: "22SIDE non è solo streetwear. È un modo di stare al mondo: indipendente, nato a Scafati e cresciuto con la cultura underground di New York, tenuto insieme da un numero.",
+    sub: "22SIDE non è solo streetwear. È un modo di stare al mondo: indipendente, nato all’ombra del Vesuvio e cresciuto con la cultura underground americana, tenuto insieme da un numero.",
     primaryCta: { label: "Acquista ora", href: "/shop" },
     secondaryCta: { label: "Entra nel negozio", href: "#store" },
   },

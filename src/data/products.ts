@@ -50,7 +50,7 @@ export const rawProducts: RawProduct[] = [
     details: ["Corpo nero, maniche lunghe effetto layered in camouflage", "Grande stampa frontale con cornice di strass", TBC],
     collections: [...ALL, "t-shirt"],
     tags: ["tee", "t-shirt", "maglietta", "manica lunga", "camo", "nero", "stampa", "strass"],
-    price: 15,
+    price: 20,
     sizes: null,
     sizeGuide: "top",
     createdAt: "2026-11-19T01",

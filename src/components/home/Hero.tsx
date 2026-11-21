@@ -94,7 +94,7 @@ export function Hero() {
           <p className="hidden text-dirty/75 sm:block">
             Reel 22 / <Timecode />
           </p>
-          <p className="hidden text-concrete sm:block">Scafati — 40.7536° N, 14.5286° E</p>
+          <p className="hidden text-concrete sm:block">40.7536° N — 14.5286° E</p>
         </motion.div>
       </div>
 

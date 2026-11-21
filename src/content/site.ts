@@ -179,7 +179,7 @@ export const pages = {
 export const about = {
   title: "The other side of the street",
   intro:
-    "22SIDE è un brand di streetwear indipendente. Nessun investitore che detta le regole, nessuna previsione di tendenza: solo un punto di vista nato a Scafati e cresciuto con la cultura di strada americana, l’underground di New York e la golden age dell’hip-hop.",
+    "22SIDE è un brand di streetwear indipendente. Nessun investitore che detta le regole, nessuna previsione di tendenza: solo un punto di vista nato all’ombra del Vesuvio e cresciuto con la cultura underground americana e la golden age dell’hip-hop.",
   chapters: [
     {
       n: "01",
@@ -189,7 +189,7 @@ export const about = {
     {
       n: "02",
       title: "Raised on the culture",
-      body: "I gradini di Brooklyn, i treni a tarda notte, i mixtape passati di mano in mano, East e West Coast sempre in dialogo: li abbiamo conosciuti da lontano, da Scafati, guardando gli anni ’90 senza mai distogliere lo sguardo.",
+      body: "I gradini di Brooklyn, i treni a tarda notte, i mixtape passati di mano in mano, East e West Coast sempre in dialogo: li abbiamo conosciuti da lontano, all’ombra del Vesuvio, guardando gli anni ’90 senza mai distogliere lo sguardo.",
     },
     {
       n: "03",
