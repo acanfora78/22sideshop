@@ -80,8 +80,7 @@
       "legal": "Legale",
       "cookie_preferences": "Preferenze cookie",
       "withdraw": "Recedi dal contratto qui",
-      "payments": "Metodi di pagamento accettati",
-      "seller_missing": "Mancano i dati del venditore (ragione sociale, sede, P.IVA…): compila i metafield del negozio brand.* (vedi docs/metafields.md). Questo avviso lo vedi solo nell’editor."
+      "payments": "Metodi di pagamento accettati"
     },
     "intro": {
       "skip": "Salta intro"
@@ -153,5 +152,15 @@
     "done_title": "Recesso ricevuto.",
     "done_text": "Abbiamo ricevuto la tua dichiarazione di recesso. Riceverai a breve una email di conferma con il contenuto e la data e l’ora di invio. Ti consigliamo di salvare questo riepilogo.",
     "print": "Salva o stampa il riepilogo"
+  },
+  "contact": {
+    "name": "Nome",
+    "email": "Email",
+    "order": "Numero d’ordine (se ce l’hai)",
+    "message": "Messaggio",
+    "privacy": "Usiamo i tuoi dati solo per risponderti. Dettagli nell’",
+    "send": "Invia",
+    "done_title": "Messaggio inviato.",
+    "done_text": "Ti rispondiamo il prima possibile all’email che hai indicato."
   }
 }

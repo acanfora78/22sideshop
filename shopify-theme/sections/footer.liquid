@@ -129,8 +129,6 @@
   <div class="px-gutter border-t border-dirty/10 py-6">
     {%- if seller != blank -%}
       <p class="text-xs leading-relaxed text-dirty/70">{{ seller }}</p>
-    {%- elsif request.design_mode -%}
-      <p class="border border-dashed border-signal p-3 text-xs text-signal">{{ 'sections.footer.seller_missing' | t }}</p>
     {%- endif -%}
     {%- if shop.enabled_payment_types.size > 0 -%}
       <ul class="mt-4 flex flex-wrap items-center gap-2" aria-label="{{ 'sections.footer.payments' | t }}">

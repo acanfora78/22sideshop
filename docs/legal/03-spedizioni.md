@@ -1,44 +1,23 @@
-> **BOZZA — da validare prima della pubblicazione.**
-> Dove va: Shopify › Impostazioni › Policy › **Politica di spedizione**. Le tariffe vere si impostano in Impostazioni › Spedizione e consegna: i numeri qui devono coincidere.
-> Norme applicate: Codice del Consumo artt. 49 c.1 lett. e) e g), 61 (consegna entro 30 giorni), 63 (passaggio del rischio); D.Lgs. 70/2003 art. 7 (spese di consegna chiare).
-
 <!-- TESTO -->
 
 # Spedizioni
 
 Ultimo aggiornamento: 21 novembre 2026
 
-## Dove spediamo
+## Dove e quanto costa
 
-[[Italia (incluse isole) / Unione europea / altri Paesi]].
-
-## Costi
-
-| Destinazione | Costo | Gratuita sopra |
-|---|---|---|
-| Italia | [[€ …]] | [[€ …]] |
-| [[UE]] | [[€ …]] | [[—]] |
-
-Il costo esatto è sempre mostrato al checkout prima della conferma dell'ordine. I prezzi dei prodotti includono l'IVA.
+I Paesi in cui spediamo, le opzioni di spedizione e il loro costo sono indicati al **checkout**, prima che tu confermi l'ordine. Il prezzo che vedi al momento della conferma è quello finale.
 
 ## Tempi
 
-- Preparazione dell'ordine: [[1–2 giorni lavorativi]].
-- Consegna in Italia: [[2–4 giorni lavorativi]] dalla spedizione; isole e zone remote: [[+1–2 giorni]].
-- In ogni caso consegniamo entro 30 giorni dall'ordine (art. 61 Codice del Consumo).
+Prepariamo e spediamo gli ordini il prima possibile. In ogni caso la consegna avviene **entro 30 giorni** dall'ordine: se non riusciamo a rispettare questo termine, puoi annullare l'ordine e ottenere il rimborso completo.
 
-Gli ordini del sabato, della domenica e dei festivi partono dal primo giorno lavorativo successivo.
+## Tracciamento
 
-## Corriere e tracciamento
-
-Spediamo con [[corriere]]. Quando il pacco parte ricevi una email con il numero di tracciamento.
+Quando il pacco parte ricevi una email di spedizione con le informazioni per seguirlo.
 
 ## Problemi con la consegna
 
-- **Pacco danneggiato:** se puoi, accettalo con riserva scritta ("con riserva di controllo") e scrivici entro pochi giorni con una foto. I tuoi diritti di garanzia restano comunque validi.
-- **Pacco non consegnato o smarrito:** scrivici a [[email assistenza]]: apriamo noi la pratica con il corriere. Il rischio di perdita resta a nostro carico finché non ricevi il pacco.
-- **Indirizzo errato o pacco in giacenza non ritirato:** se il pacco torna indietro ti contattiamo per una nuova spedizione [[a tue spese]] oppure per il rimborso.
-
-## Spedizioni fuori dall'UE
-
-[[Se previste: eventuali dazi e tasse di importazione sono a carico del destinatario e non sono inclusi nel prezzo.]]
+- **Pacco danneggiato:** scrivici dalla pagina [Contatti](/pages/contact) con una foto. I tuoi diritti di garanzia restano validi.
+- **Pacco non arrivato o smarrito:** scrivici e ci occupiamo noi del corriere. Fino a quando non ricevi il pacco, il rischio di perdita è a nostro carico.
+- **Pacco tornato indietro** (indirizzo errato o mancato ritiro): ti contattiamo per organizzare una nuova spedizione oppure per il rimborso.

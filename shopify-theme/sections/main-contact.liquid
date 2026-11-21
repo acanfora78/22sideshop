@@ -1,0 +1,64 @@
+{%- comment -%}
+  Contact page (template page.contact — Shopify's default "Contatti" page uses it automatically).
+  Messages go to the store's email (Settings › Store details).
+{%- endcomment -%}
+<section class="px-gutter pb-24 pt-32 md:pt-44">
+  <p class="label text-concrete"><span class="text-signal">22SIDE</span> / {{ page.title }}</p>
+  <h1 class="font-display mt-6 text-[clamp(2.8rem,8vw,7rem)] leading-[0.9]">{{ section.settings.title | default: page.title }}</h1>
+
+  <div class="mt-12 grid gap-12 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      {%- if page.content != blank -%}<div class="prose-legal">{{ page.content }}</div>{%- endif -%}
+      <ul class="mt-6 space-y-3 text-base">
+        {%- if settings.social_instagram_link != blank -%}
+          <li><a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="link-underline text-dirty">Instagram @22sideshop ↗</a></li>
+        {%- endif -%}
+        {%- assign withdrawal = pages['recesso'] -%}
+        {%- if withdrawal != blank -%}<li><a href="{{ withdrawal.url }}" class="link-underline text-dirty">{{ 'sections.footer.withdraw' | t }}</a></li>{%- endif -%}
+      </ul>
+    </div>
+
+    <div class="lg:col-span-6 lg:col-start-7">
+      {%- form 'contact', id: 'contact-form', class: 'space-y-6' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="border-l-4 border-signal bg-asphalt p-5" role="status">
+            <p class="font-display text-3xl">{{ 'contact.done_title' | t }}</p>
+            <p class="mt-2 text-base text-dirty/85">{{ 'contact.done_text' | t }}</p>
+          </div>
+        {%- else -%}
+          {%- if form.errors -%}<div class="border-l-4 border-signal p-4 text-sm" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <div>
+            <label for="ct-name" class="label mb-2 block">{{ 'contact.name' | t }}</label>
+            <input id="ct-name" type="text" name="contact[Nome]" autocomplete="name" class="min-h-12 w-full border border-dirty/30 bg-obsidian px-4 text-base text-dirty focus:border-dirty focus:outline-none">
+          </div>
+          <div>
+            <label for="ct-email" class="label mb-2 block">{{ 'contact.email' | t }} *</label>
+            <input id="ct-email" type="email" name="contact[email]" required autocomplete="email" class="min-h-12 w-full border border-dirty/30 bg-obsidian px-4 text-base text-dirty focus:border-dirty focus:outline-none">
+          </div>
+          <div>
+            <label for="ct-order" class="label mb-2 block">{{ 'contact.order' | t }}</label>
+            <input id="ct-order" type="text" name="contact[Numero ordine]" placeholder="#1001" class="min-h-12 w-full border border-dirty/30 bg-obsidian px-4 text-base text-dirty placeholder:text-concrete focus:border-dirty focus:outline-none">
+          </div>
+          <div>
+            <label for="ct-body" class="label mb-2 block">{{ 'contact.message' | t }} *</label>
+            <textarea id="ct-body" name="contact[body]" rows="6" required class="w-full border border-dirty/30 bg-obsidian px-4 py-3 text-base text-dirty focus:border-dirty focus:outline-none"></textarea>
+          </div>
+          <p class="text-sm text-dirty/70">
+            {{- 'contact.privacy' | t -}}
+            {%- if shop.privacy_policy -%} <a href="{{ shop.privacy_policy.url }}" class="underline underline-offset-2">{{ 'newsletter.privacy_link' | t }}</a>.{%- endif -%}
+          </p>
+          <button type="submit" class="label inline-flex min-h-12 items-center bg-blood px-8 text-dirty hover:bg-dirty hover:text-obsidian">{{ 'contact.send' | t }}</button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contatti",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titolo (vuoto = titolo della pagina)", "default": "Talk to us." }
+  ]
+}
+{% endschema %}
